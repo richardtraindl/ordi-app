@@ -1,0 +1,212 @@
+<%= form_for @karteikarte do |owner_form| %>
+  <% if @karteikarte.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@karteikarte.errors.count, "error") %> prohibited this owner from being saved:</h2>
+
+      <ul>
+      <% @karteikarte.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+	<h1>Patientenkartei</h1>
+	<fieldset style="background: lavender">
+		<table>
+			<!--colgroup-->
+				<!--col width="30%"-->
+				<!--col width="70%"-->
+			<!--/colgroup-->
+			<tr>
+				<td>
+					<table>
+						<!--colgroup-->
+							<!--col width="30%"-->
+							<!--col width="70%"-->
+						<!--/colgroup-->
+					
+						<%= owner_form.fields_for @person do |person_form| %>
+							<tr>
+								<td>Anrede</td><td><%= person_form.select :anredewert_id, Lookup.anredewerte %></td>
+							</tr>
+							<tr>
+								<td>Titel</td><td><%= person_form.text_field :titel %></td>
+							</tr>
+							<tr>
+								<td>Familienname</td><td><%= person_form.text_field :familienname %></td>
+							</tr>
+							<tr>
+								<td>Vorname</td><td><%= person_form.text_field :vorname %></td>
+							</tr>
+							<tr>
+								<td>Notiz</td><td><%= person_form.text_field :notiz %></td>
+							</tr>
+							<tr>
+								<td>Kunde</td><td><%= person_form.check_box :kunden_kz %></td>
+							</tr>
+						
+							<%= person_form.fields_for :postadressen do |location_form| %>
+								<tr>
+									<td>PLZ</td><td><%= location_form.text_field :plz %></td>
+								</tr>
+								<tr>
+									<td>Ort</td><td><%= location_form.text_field :ort %></td>
+								</tr>
+								<tr>
+									<td>Stra&szlig;e</td><td><%= location_form.text_field :strasse %></td>
+								</tr>
+							<% end %>
+
+							<%= person_form.fields_for :kontakte do |contacts_people_form| %>
+								<tr>
+									<td>Telefonnr.</td><td><%= contacts_people_form.text_field :kontakt %></td>
+								</tr>
+							<% end %>
+						<% end %>
+					</table>
+				</td>
+				<td>					
+					<table>
+						<colgroup>
+							<!--col width="30%"-->
+							<!--col width="70%"-->
+						</colgroup>
+						
+						<%= owner_form.fields_for @tier do |animal_form| %>
+							<tr>
+								<td>Tiername</td><td><%= animal_form.text_field :tiername %></td>
+							</tr>
+							<tr>
+								<td>Tierart</td><td><%= animal_form.text_field :tierart %></td>
+							</tr>
+							<tr>
+								<td>Rasse</td><td><%= animal_form.text_field :rasse %></td>
+							</tr>
+							<tr>
+								<td>Farbe</td><td><%= animal_form.text_field :farbe %></td>
+							</tr>
+							<tr>
+								<td>Geburtsdatum</td><td><%= animal_form.text_field :geburtsdatum_str %></td>
+							</tr>
+							<tr>
+								<td>Geschlecht</td><td><%= animal_form.select :geschlechtswert_id, Lookup.geschlechtswerte %></td>
+							</tr>
+							<tr>
+								<td>Chipnr.:</td><td><%= animal_form.text_field :chipnr %></td>
+							</tr>
+							<tr>
+								<td>EU-Passnr.</td><td><%= animal_form.text_field :eu_passnr %></td>
+							</tr>
+							<tr>
+								<td>Patient</td><td><%= animal_form.check_box :patienten_kz %></td>
+							</tr>
+							<tr>
+								<td>Viren</td><td><%= animal_form.text_field :viren %></td>
+							</tr>
+							<tr>
+								<td>Merkmal</td><td><%= animal_form.text_field :merkmal %></td>
+							</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		
+		<p>Behandlungen:</p>
+		<table border="1">
+			<tr>
+				<th>Datum</th>
+				<th>Diagnose</th>
+				<th>Laborwerte</th>
+				<th>Laborwerte *</th>
+				<th>Arzneien</th>
+				<th>AM</th>
+				<th>Impfungen</th>
+				<th>Kg</th>
+				<th></th>
+			</tr>
+			<%= animal_form.fields_for :behandlungen do |therapy_form| %>
+				<tr>
+					<td><%= therapy_form.text_area :behandlungsdatum_str, :rows => 3, :cols => 10, :class => "behandlung" %></td> 
+					
+					<td><%= therapy_form.text_area :diagnose, :rows => 3, :cols => 30, :class => "behandlung" %></td>
+					
+					<td><%= therapy_form.text_area :laborwerte1, :rows => 3, :cols => 10, :class => "labor behandlung" %></td>
+
+					<td><%= therapy_form.text_area :laborwerte2, :rows => 3, :cols => 10, :class => "labor behandlung" %></td>
+
+					<td><%= therapy_form.text_area :arzneien, :rows => 3, :cols => 10, :class => "behandlung" %></td>
+
+					<td><%= therapy_form.text_area :arzneimittel, :rows => 3, :cols => 10, :class => "behandlung" %></td>
+					
+					<td>
+						<%= therapy_form.select "impfungswert_ids", options_for_select(Lookup.impfungswerte, BehandlungImpfungswert.impfungswerte_for_behandlung(therapy_form.object.id)  ), {},  {:multiple => true, :size => 12, :class => "impf_select behandlung" } %>
+					</td>
+
+					<td><%= therapy_form.text_area :gewicht_kg, :rows => 3, :cols => 10, :class => "behandlung" %></td>
+
+					<td>löschen: <%= therapy_form.check_box :_destroy %></td>
+				</tr>
+			<% end %>
+		</table>
+	<% end %>
+</fieldset>
+
+  <div class="actions">
+    <%= owner_form.submit %>
+  </div>
+<% end %>
+
+
+
+<p style="display: none">
+	<%= select_tag "laborwerte", options_from_collection_for_select(Lookup.laborwerte, "id", "wert", selected_value="id"), :id => 'lab', :multiple => true %>
+</p>
+
+<script>
+	var labor_text_feld;
+	
+	function get_lab_list_text(){
+	    var buf = "";
+		$( '#lab option:selected').each(function () {
+			buf += $(this).text() + "\n ";
+		});
+		
+		return buf;
+	}
+	
+	$(document).ready(function() {
+		$(".impf_select").chosen();	
+	
+		var $dialog_labor = $('<div></div>');
+		
+		$dialog_labor.html( $("#lab") );
+		
+		$dialog_labor.dialog({
+				autoOpen: false,
+				title: 'Laborwerte',
+				modal: true,
+				buttons: [ { text: "OK", click: function() { 
+								labor_text_feld.value = labor_text_feld.value + get_lab_list_text() + '**';
+			                    $('#lab option').attr('selected', false );
+								labor_text_feld.focus(); 
+								$(this).dialog("close"); } },
+						   { text: "Abbruch", click: function() { 
+								labor_text_feld.focus();
+								$(this).dialog("close"); } } ] 
+			});
+
+	
+			
+		$('.labor').click(  function() {
+			labor_text_feld = this;
+			$dialog_labor.dialog('open');
+			// prevent the default action, e.g., following a link
+			return false;
+		});
+	
+		
+	});
+
+
+</script>
