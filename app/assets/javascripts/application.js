@@ -14,3 +14,4 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require jquery-chosen
+//= require jquery.ui.datepicker-de

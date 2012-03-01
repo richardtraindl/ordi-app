@@ -1,4 +1,16 @@
-<h1>Patientenübersicht</h1>
+<table style="width: 90%">
+	<colgroup>
+		<col width="34%">
+		<col width="33%">
+		<col width="33%">
+	<colgroup>
+			
+	<tr>
+		<td><h1><%= link_to "Patientenübersicht", karteikarten_path() %></h1></td>
+		<td style="text-align: center"><h1 style="text-decoration: underline"><%= link_to "zu den Abfragen", abfragen_karteikarten_path() %></h1></td>
+		<td style="text-align: right"><h1 style="text-decoration: underline"><%= link_to "abmelden", karteikarten_path() %></h1></td>
+	</tr>
+</table>
 
 <%= form_tag karteikarten_path, :method => :get do %>
 <p>
@@ -8,103 +20,15 @@
 </p>
 <% end %>
 
-	<table class="liste" style="width:90%">
-		<colgroup>
-			<col width="6%">
-			<col width="6%">
-			<col width="8%">
-			<col width="14%">
-			<col width="14%">
-			<col width="14%">
-			<col width="14%">
-			<col width="8%">
-			<col width="8%">
-			<col width="8%">
-			<col width="6%">
-		<colgroup>
+<%= render :partial => "index_form", :locals => { :karteikarten => @karteikarten } %>
 
-		<tr>
-			<th></th>
-			<th>Anrede</th>
-			<th>Titel</th>
-			<th>Familienname</th>
-			<th>Vorname</th>
-			<th>Tiername</th>
-			<th>Tierart</th>
-			<th>Rasse</th>
-			<th>Geb.Datum</th>
-			<th></th>
-			<th></th>
-		</tr>
-	
-	<% @karteikarten.each do |karteikarte| %>
-		<tr>
-			<!-- td><input type="checkbox" name="" value="<%= karteikarte.id %>"></td -->
-			<%#= radio_button_tag "karteikarte", value="#{karteikarte.id}" %>
-			<td><%= link_to "bearb.", edit_karteikarte_path(karteikarte) %></td>
-				<% if karteikarte.person %>
-					<td><%= karteikarte.person.anredewert ? link_to(karteikarte.person.anredewert.wert, edit_karteikarte_path(karteikarte)) : "" %></td>
-					<td><%= karteikarte.person.titel ? link_to(karteikarte.person.titel, edit_karteikarte_path(karteikarte)) : "" %></td>
-					<td><%= karteikarte.person.familienname ? link_to(karteikarte.person.familienname, edit_karteikarte_path(karteikarte)) : "" %></td>
-					<td><%= karteikarte.person.vorname ? link_to(karteikarte.person.vorname, edit_karteikarte_path(karteikarte)) : "" %></td>
-				<% else %>
-					<td><%= "" %></td>
-					<td><%= "" %></td>
-					<td><%= "" %></td>
-					<td><%= "" %></td>
-				<% end %>
-				
-				<% if karteikarte.tier %>
-					<td><%= karteikarte.tier.tiername ? link_to(karteikarte.tier.tiername, edit_karteikarte_path(karteikarte)) : "" %></td>
-					<td><%= karteikarte.tier.tierart ? link_to(karteikarte.tier.tierart, edit_karteikarte_path(karteikarte)) : "" %>
-					<td><%= karteikarte.tier.rasse ? link_to(karteikarte.tier.rasse, edit_karteikarte_path(karteikarte)) : "" %></td>
-					<td><%= karteikarte.tier.geburtsdatum ? link_to(karteikarte.tier.geburtsdatum, edit_karteikarte_path(karteikarte)) : "" %></td>
-				<% else %>
-					<td><%= "" %></td>
-					<td><%= "" %></td>
-					<td><%= "" %></td>
-					<td><%= "" %></td>
-				<% end %>
-				
-				<td><%= link_to "neues Tier", neues_tier_karteikarte_path(karteikarte) %></td>
-				<td><%= button_to "löschen", { :action => "destroy", :id => karteikarte.id }, :confirm => "Löschen?", :method => :delete %></td>
-			</tr>
-		<% end %>
-	</table>
+
 <p>
-	<%#= link_to 'Neue Karteikarte', new_karteikarte_path 	'#{v.appid}' %>
-	
-	<%#= button_to "xxx",  :action => "edit", :id => "10" %>
-	
-	<%#= link_to("edit", edit_karteikarte_path( $("input:checked").attr("value") )) %>
-	
-	<%#=button_to_function "Show", "show_resource()" %>
-	<%#= button_to_function  "edit", "gib_karteikarte()" %>	
-	<%# { :action => "edit", :id => gibKarteikarte() }, :method => :update %>	
-	<!-- zur Karteikarte   neue Karteikarte neues Tier   Karteikarte löschen -->
-		<%# // + ${("input:checked").attr("value")}; %>
+	<table>
+		<tr>
+			<td><%= link_to "Neue Karteikarte", new_karteikarte_path(), :class => "text_button" %></td>
+			<td><%= link_to "Drucken", karteikarten_path(), :class => 'text_button' %></td> <%#={ :action => 'print'} %>
+			<td><%= link_to "Excel", karteikarten_path(), :class => 'text_button' %></td> <%#={ :action => 'excel'} %>
+		</tr>
+	</table>
 </p>
-
-<script>
-  	function gib_karteikarte2(){
-		var txt = "***"; 
-		this.alert('test');
-		return txt;
-	}
-
-  
-	function gib_karteikarte(){
-		var value = $("input:checked").attr("value");
-		value = value + "**";
-		alert(value + 'Hello World!');
-		return false;
-	}
-	
-	
-	$(document).ready(function(){
-		$("input:checked").click(function(){
-			alert('jquery works');	
-		});
-	});
-
-</script>

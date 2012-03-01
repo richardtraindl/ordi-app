@@ -1,9 +1,11 @@
 Ordi::Application.routes.draw do
-  resources :karteikarten
-  
+    
   resources :karteikarten do
 	member do
 		get 'neues_tier'
+	end
+	collection do
+		get 'abfragen'
 	end
   end
   

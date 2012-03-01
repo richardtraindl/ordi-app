@@ -1,5 +1,14 @@
 require 'lookups.rb'
 
+  def build_datetime_from_param( params, field_name )
+    DateTime.new(      
+      params["#{field_name.to_s}(1i)"].to_i,
+      params["#{field_name.to_s}(2i)"].to_i,
+      params["#{field_name.to_s}(3i)"].to_i
+      )      
+  end
+
+
 class KarteikartenController < ApplicationController
   # GET /owners
   # GET /owners.json
@@ -12,6 +21,53 @@ class KarteikartenController < ApplicationController
   end
 
 
+	def abfragen
+		if params[:abfrage].nil?
+			@karteikarten = Karteikarte.find(:all, :include => [:person, :tier], :conditions => ['personen.familienname LIKE "" AND tiere.tiername LIKE ""'])
+			@abfrage = Abfrage.find(1)		
+		else
+			@abfrage = Abfrage.find(params[:abfrage].to_i)
+
+			if @abfrage.id == 4 || @abfrage.id == 9 || @abfrage.id == 10
+				params[:param1].nil? ? @param1 = "" : @param1 = params[:param1]
+				params[:param2].nil? ? @param2 = "" : @param2 = params[:param2]				
+			else
+				params[:param1].nil? ? @param1 = "" : @param1 = params[:param1]
+				@param2 = ""
+			end
+		
+			@persopt = params[:persopt]
+		
+			@tieropt = params[:tieropt]
+				
+			puts ( "###############" + @param1 + @param2 + "###########" )
+			
+			if @abfrage.id == 1 || @abfrage.id == 13 # postadresse
+				@karteikarten = Karteikarte.find(:all, :conditions => [@abfrage.bedingung, @param1 + "%"], :joins => [:tier, :person, :person => :postadressen])			
+			
+			elsif @abfrage.id == 15 # kontakt
+				@karteikarten = Karteikarte.find(:all, :conditions => [@abfrage.bedingung, @param1 + "%"], :joins => [:tier, :person, :person => :kontakte])
+			
+			elsif @abfrage.id == 5 || @abfrage.id == 7 || @abfrage.id == 12	|| @abfrage.id == 14 ||
+						@abfrage.id == 16 || @abfrage.id == 17 || @abfrage.id == 8 #tier, person
+				@karteikarten = Karteikarte.find(:all, :conditions => [@abfrage.bedingung, @param1 + "%"], :joins => [:tier, :person])
+			
+			elsif @abfrage.id == 2 || @abfrage.id == 3 || @abfrage.id == 6 #behandlung
+				@karteikarten = Karteikarte.find(:all, :select => "DISTINCT karteikarten.*", :conditions => [@abfrage.bedingung, @param1 + "%"], :joins => [:tier, :person, :tier => :behandlungen])
+
+			elsif @abfrage.id == 4  || @abfrage.id == 9 #behandlung -> datum
+				@karteikarten = Karteikarte.find(:all, :select => "DISTINCT karteikarten.*", :conditions => [@abfrage.bedingung, @param1, @param2], :joins => [:tier, :person, :tier => :behandlungen])
+
+			elsif @abfrage.id == 10 #impfung -> datum
+				@karteikarten = Karteikarte.find(:all, :select => "DISTINCT karteikarten.*", :conditions => [@abfrage.bedingung, @param1, @param2], :joins => [:tier, :person, :tier => {:behandlungen => :impfungswerte}])
+
+			elsif @abfrage.id == 11 #impfung
+				@karteikarten = Karteikarte.find(:all, :conditions => [@abfrage.bedingung, @param1 + "%"], :joins => [:tier, :person, :tier => {:behandlungen => :impfungswerte}])
+			end
+			
+		end	
+  end  
+  
   # GET /owners/new
   # GET /owners/new.json
   def new
@@ -68,28 +124,21 @@ class KarteikartenController < ApplicationController
 
 	@tier.behandlungen.sort! { |a,b| a.behandlungsdatum <=> b.behandlungsdatum }
 	@behandlung = @tier.behandlungen.last
+	
 	if @behandlung.nil?
 		@tier.behandlungen << Behandlung.new
 	else
 		unless(@behandlung.gewicht_kg.empty? && @behandlung.diagnose.empty? && 
 			   @behandlung.laborwerte1.empty?  && @behandlung.laborwerte2.empty? && 
-			   @behandlung.arzneien.empty? && @behandlung.arzneimittel.empty?)
+			   @behandlung.arzneien.empty? && @behandlung.arzneimittel.empty? && @behandlung.impfungswerte.empty?)
 			@tier.behandlungen << Behandlung.new
 		end
 	end
 	
-	#@behandlung.impfungswerte = Impfungswert.find(@params[:impfungswert_ids]) if @params[:impfungswert_ids]
-
 	@tier.save
 
 	@karteikarte 			= Karteikarte.new(:person_id => @person.id, :tier_id => @tier.id)
 	@karteikarte.save
-
-	# @inoculation_therapies = Array.new[][]
-	# @behandlung_inoculation = Behandlung.new(params[:karteikarte][:therapies_inoculations])
-	# @inoculations = Inoculation.new(:therapy_id => @behandlung_inoculation.id, id=> params[:karteikarte][:therapies_inoculations][:inoculations])
-
-	# puts @inoculation_therapies[0]
 
 	render :action => :edit
   end
@@ -113,7 +162,7 @@ class KarteikartenController < ApplicationController
 	else
 		unless(@behandlung.gewicht_kg.empty? && @behandlung.diagnose.empty? && 
 			   @behandlung.laborwerte1.empty?  && @behandlung.laborwerte2.empty? && 
-			   @behandlung.arzneien.empty? && @behandlung.arzneimittel.empty?)
+			   @behandlung.arzneien.empty? && @behandlung.arzneimittel.empty? && @behandlung.impfungswerte.empty?)
 			@tier.behandlungen << Behandlung.new
 		end
 	end

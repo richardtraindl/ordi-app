@@ -14,7 +14,14 @@
  
 body {
 	font-family: "Arial";
+	font-size:  10pt;
 	color:black;
+  background-color: #FBFBB1;
+}
+
+
+h1 {
+	font-size:  14pt;
 }
 
 .width100 {
@@ -25,9 +32,47 @@ body {
 	height:100%;
 }
 
+div.karteikarte {
+		 max-height:100px;
+		 height:100px;		 
+		 overflow-y: scroll;
+}
+
+textarea {
+  width: 100px;
+  height: 100px;
+	resize: none;
+}
+
+table.karteikarte { 
+		 border-collapse:collapse;
+		 border-style:solid; 
+		 border-width:thin; 
+		 empty-cells:show;
+		 white-space:nowrap;
+}
+
+table.karteikarte th { 
+		 padding:2px;
+		 border-style:solid; 
+		 border-width:1px 1px 1px 1px; 
+		 border-color:grey;
+		 background-color: #FFFFFF; 
+		 /* overflow:hidden; */
+}
+
+table.karteikarte td { 
+		 border-style:solid; 
+		 border-width:1px 1px 1px 1px; 
+		 border-color:grey;
+  	 /* overflow:hidden; */
+		 empty-cells:show;
+		 white-space:nowrap;
+}
+
 
 table.liste { 
-	table-layout:fixed; 
+	/*table-layout:fixed;  */
 	border-collapse:collapse;
 	border-spacing:0pt;
 	border-style:solid; 
@@ -69,4 +114,34 @@ a, a:hover, a:active, a:visited {
   font-style:normal;
   font-weight:normal;
   text-decoration:none;
+}
+
+.text_button {
+	margin-left: auto;
+	margin-right: auto; 
+
+	display: block;
+	
+  /* margin: 10px; */
+	
+	text-align: center;
+	/* width: 190px; */
+	/* font-weight: bold; */
+	padding: 4px;
+	
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	
+	
+	
+	/* background: #9E9E9E; */
+    background-image: -moz-linear-gradient(-90deg, silver, white);
+    background-image: -webkit-linear-gradient(-90deg, rgb(238, 238, 238), rgb(204, 204, 204) ); /* , lightgrey, darkgrey);		/* silver, gray */
+	
+ /*	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	*/
+	border: 1px solid rgb(153, 153, 153);
+	
 }

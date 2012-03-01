@@ -1,0 +1,88 @@
+<table style="width: 90%">
+	<colgroup>
+		<col width="34%">
+		<col width="33%">
+		<col width="33%">
+	<colgroup>
+			
+	<tr>
+		<td><h1><%= link_to "Abfragen", abfragen_karteikarten_path()%></h1></td>
+		<td style="text-align: center"><h1 style="text-decoration: underline"><%= link_to "zur Patientenübersicht", karteikarten_path() %></h1></td>
+		<td style="text-align: right"><h1 style="text-decoration: underline"><%= link_to "abmelden", abfragen_karteikarten_path()%></h1></td>
+	</tr>
+</table>
+
+<%= form_tag abfragen_karteikarten_path, :method => :get do %>
+  <p>
+  	<table style="height: 100%">
+      <tr style="height: 30px">		
+        <td>Abfrage:</td>
+        <td><%= select_tag "abfrage", options_for_select( Lookup.abfragen.map {|u| [u.bezeichnung, u.id]}, @abfrage.id ) %></td>
+        <td><%= text_field_tag "param1", @param1 %></td>
+        <td><%= "Personen" %><%= select_tag "persopt", options_for_select( Lookup.abfrage_personen ) %></td>
+        <td><%= "Tiere" %><%= select_tag "tieropt", options_for_select( Lookup.abfrage_tiere ) %></td>
+        <td><%= submit_tag "suchen" %></td>
+      </tr>
+      <tr style="height: 30px">		
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <% if @abfrage.id == 4 || @abfrage.id == 9 || @abfrage.id == 10 %>
+          <td><%= text_field_tag "param2", @param2, :disabled => false %></td>
+        <%else %>
+          <td><%= text_field_tag "param2", @param2, :disabled => true %></td>
+        <% end %>  
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+	</table>
+  </p>
+<% end %>
+
+<%= render :partial => "index_form", :locals => { :karteikarten => @karteikarten } %>
+
+<p>
+	<table>
+		<tr>
+			<td><%= link_to "Neue Karteikarte", new_karteikarte_path(), :class => "text_button" %></td>
+			<td><%= link_to "Drucken", karteikarten_path(), :class => 'text_button' %></td> <%#={ :action => 'print'} %>
+			<td><%= link_to "Excel", karteikarten_path(), :class => 'text_button' %></td> <%#={ :action => 'excel'} %>
+		</tr>
+	</table>
+</p>
+
+
+<script>
+  $.datepicker.setDefaults($.datepicker.regional['']);  
+  
+  
+	$(document).ready(function() {
+	  
+    $(function() {
+      var wert = $('#param2').attr('disabled');
+      if( wert != "disabled" ){
+        $( "#param1" ).datepicker({ changeYear: true, dateFormat: 'yy-mm-dd' });
+        $("#param1").datepicker($.datepicker.regional['de']);
+        $( "#param2" ).datepicker({ changeYear: true, dateFormat: 'yy-mm-dd' });
+        $("#param2").datepicker($.datepicker.regional['de']);
+      }
+    });
+    
+    $('#abfrage').change( function() {
+		  var wert = $("#abfrage option:selected").get(0).value;
+			if(wert == '4' || wert == '9' || wert == '10'){
+        $('#param2').attr('disabled', false);
+        $( "#param1" ).datepicker({ changeYear: true, dateFormat: 'yy-mm-dd' });
+        $("#param1").datepicker($.datepicker.regional['de']);        
+        $( "#param2" ).datepicker({ changeYear: true, dateFormat: 'yy-mm-dd' });
+        $("#param2").datepicker($.datepicker.regional['de']);
+			}
+			else{
+        $( "#param1" ).datepicker("destroy");
+        $( "#param2" ).datepicker("destroy");
+        $('#param2').attr('disabled', true);
+			}			
+		} );    
+	});
+
+</script>

@@ -1,0 +1,26 @@
+<div id="smarticonbar">					
+  <table cellspacing="0" cellpadding="0" width="100%">
+    <colgroup>
+      <col width="4%" />
+      <col width="4%" />
+      <col width="4%" />
+      <col width="4%" />
+      <col width="80%" />
+      <col width="4%" />
+    </colgroup>
+    <tr> 
+      <td><%= link_to( content_tag( 'div', image_tag('home.png'), :title => 'Patientenübersicht' ), { :action => 'index'}, :class => 'text_button'  ) %></td>
+	  
+	  <td><%= link_to( content_tag( 'div', image_tag('dog.png'), :title => 'Neue Karteikarte' ), { :action => 'new'}, :class => 'text_button'  ) %></td>
+	  
+	  <td><%= link_to( content_tag( 'div', image_tag('print.png'), :title => 'Drucken' ), { :action => 'print'}, :class => 'text_button'  ) %></td>
+
+      <td><%= link_to( content_tag( 'div', image_tag('search.png'), :title => 'Abfragen' ), abfragen_karteikarten_path(), {:class => 'text_button'}  ) %></td>
+
+      <td></td>
+	  
+	  <td></td>
+    </tr>
+  </table>  
+</div>
+

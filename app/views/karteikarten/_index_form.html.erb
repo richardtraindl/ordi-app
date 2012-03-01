@@ -1,0 +1,68 @@
+
+	<table class="liste" style="width:90%">
+		<colgroup>
+			<col width="6%">
+			<col width="6%">
+			<col width="6%">
+			<col width="14%">
+			<col width="10%">
+			<col width="12%">
+			<col width="12%">
+			<col width="8%">
+			<col width="4%">
+			<col width="8%">
+			<col width="8%">
+			<col width="6%">
+		<colgroup>
+
+		<tr>
+			<th></th>
+			<th>Anrede</th>
+			<th>Titel</th>
+			<th>Familienname</th>
+			<th>Vorname</th>
+			<th>Tiername</th>
+			<th>Tierart</th>
+			<th>Rasse</th>
+			<th>Geschl.</th>
+			<th>Geb.Datum</th>
+			<th></th>
+			<th></th>
+		</tr>
+	
+	<% @karteikarten.each do |karteikarte| %>
+		<tr>
+			<!-- td><input type="checkbox" name="" value="<%= karteikarte.id %>"></td -->
+			<%#= radio_button_tag "karteikarte", value="#{karteikarte.id}" %>
+			<td><%= link_to "bearb.", edit_karteikarte_path(karteikarte), :class => "text_button" %></td>
+				<% if karteikarte.person %>
+					<td><%= karteikarte.person.anredewert ? link_to(karteikarte.person.anredewert.wert, edit_karteikarte_path(karteikarte)) : "" %></td>
+					<td><%= karteikarte.person.titel ? link_to(karteikarte.person.titel, edit_karteikarte_path(karteikarte)) : "" %></td>
+					<td><%= karteikarte.person.familienname ? link_to(karteikarte.person.familienname, edit_karteikarte_path(karteikarte)) : "" %></td>
+					<td><%= karteikarte.person.vorname ? link_to(karteikarte.person.vorname, edit_karteikarte_path(karteikarte)) : "" %></td>
+				<% else %>
+					<td><%= "" %></td>
+					<td><%= "" %></td>
+					<td><%= "" %></td>
+					<td><%= "" %></td>
+				<% end %>
+				
+				<% if karteikarte.tier %>
+					<td><%= karteikarte.tier.tiername ? link_to(karteikarte.tier.tiername, edit_karteikarte_path(karteikarte)) : "" %></td>
+					<td><%= karteikarte.tier.tierart ? link_to(karteikarte.tier.tierart, edit_karteikarte_path(karteikarte)) : "" %>
+					<td><%= karteikarte.tier.rasse ? link_to(karteikarte.tier.rasse, edit_karteikarte_path(karteikarte)) : "" %></td>
+					<td><%= karteikarte.tier.geschlechtswert ? link_to(karteikarte.tier.geschlechtswert.wert, edit_karteikarte_path(karteikarte)) : "" %></td>
+					<td><%= karteikarte.tier.geburtsdatum ? link_to(karteikarte.tier.geburtsdatum, edit_karteikarte_path(karteikarte)) : "" %></td>
+				<% else %>
+					<td><%= "" %></td>
+					<td><%= "" %></td>
+					<td><%= "" %></td>
+					<td><%= "" %></td>
+					<td><%= "" %></td>
+				<% end %>
+				
+				<td><%= link_to "neues Tier", neues_tier_karteikarte_path(karteikarte), :class => "text_button" %></td>
+				<td><%= link_to "lösch.", { :action => "destroy", :id => karteikarte.id }, :confirm => "Löschen?", :method => :delete, :class => "text_button" %></td>
+			</tr>
+		<% end %>
+	</table>
