@@ -120,7 +120,7 @@
 		</table>
    </div>
 	
-   <div style="border: 1px solid black; margin-top: 5px; height: 600px; overflow-x: inherit; no-display; overflow-y: scroll;">
+   <div style="border: 1px solid black; margin-top: 5px; max-height: 600px; overflow-x: inherit; no-display; overflow-y: scroll;">
 		<table class="karteikarte">
 			<tr>
 				<th>Datum</th>
@@ -207,6 +207,7 @@
     $(".impf_select").attr("data-placeholder", "bitte auswählen");
 		$(".impf_select").chosen();
     
+                $( ".karteikarte textarea" ).removeAttr( "cols" ).removeAttr( "rows");
 	
 		var $dialog_labor = $('<div></div>');
 		

@@ -32,17 +32,39 @@ h1 {
 	height:100%;
 }
 
+/*
 div.karteikarte {
 		 max-height:100px;
 		 height:100px;		 
 		 overflow-y: scroll;
 }
+*/
 
+/*
 textarea {
   width: 100px;
   height: 100px;
 	resize: none;
 }
+*/
+
+
+.karteikarte textarea {
+  
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;  
+  width: 100%;
+  height: 100%;
+  resize: none;
+  border: 0;
+}
+
+.karteikarte td {
+  background-color: white;
+  vertical-align: top;
+}
+
 
 table.karteikarte { 
 		 border-collapse:collapse;
@@ -53,7 +75,7 @@ table.karteikarte {
 }
 
 table.karteikarte th { 
-		 padding:2px;
+		 /* padding:2px; */
 		 border-style:solid; 
 		 border-width:1px 1px 1px 1px; 
 		 border-color:grey;
@@ -96,7 +118,7 @@ table.liste th {
 	border-style:solid; 
 	border-width:1px 1px 1px 1px; 
 	border-color:grey;
-	overflow:hidden;
+	/* overflow:hidden; */
 }
 
 table.liste td { 
@@ -104,7 +126,7 @@ table.liste td {
 	border-style:solid; 
 	border-width:1px 1px 1px 1px; 
 	border-color:grey;
-  	overflow:hidden;
+  	/* overflow:hidden; */
 	empty-cells:show;
 	white-space:nowrap;
 }
