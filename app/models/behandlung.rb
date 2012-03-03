@@ -2,7 +2,7 @@ class Behandlung < ActiveRecord::Base
 	self.table_name = "behandlungen"
 	
 	belongs_to 						:tier
-	has_and_belongs_to_many 		:impfungswerte # , :dependent => :destroy	
+	has_and_belongs_to_many 		:impfungswerte, :join_table => "impfungen"
 
 	#accepts_nested_attributes_for :impfungswerte
 	

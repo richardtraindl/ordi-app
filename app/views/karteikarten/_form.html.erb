@@ -120,8 +120,20 @@
 		</table>
    </div>
 	
-   <div style="border: 1px solid black; margin-top: 5px; max-height: 600px; overflow-x: inherit; no-display; overflow-y: scroll;">
+	<!-- max-height: 600px; overflow-x: inherit; no-display; overflow-y: scroll; -->
+   <div style="border: 1px solid black; margin-top: 5px;">
 		<table class="karteikarte">
+			<colgroup>
+				<col width="10%">
+				<col width="30%">
+				<col width="10%">
+				<col width="10%">
+				<col width="10%">
+				<col width="10%">
+				<col width="10%">
+				<col width="5%">
+				<col width="5%">
+			<colgroup>
 			<tr>
 				<th>Datum</th>
 				<th>Diagnose</th>
@@ -135,25 +147,25 @@
 			</tr>
 			<%= animal_form.fields_for :behandlungen do |therapy_form| %>
 				<tr>
-					<td><%= therapy_form.text_area :behandlungsdatum_str, :class => "karteikarte" %></td>
+					<td><%= therapy_form.text_field :behandlungsdatum_str, :style => "width:90%", :class => "karteikarte" %></td>
 					
-					<td><%= therapy_form.text_area :diagnose, :class => "karteikarte" %></td>
+					<td><%= therapy_form.text_area :diagnose, :size => "10x5", :style => "resize: vertical", :class => "karteikarte" %></td>
 					
-					<td><%= therapy_form.text_area :laborwerte1, :class => "labor karteikarte" %></td>
+					<td><%= therapy_form.text_area :laborwerte1, :size => "10x5", :class => "labor karteikarte" %></td>
 
-					<td><%= therapy_form.text_area :laborwerte2, :class => "labor karteikarte" %></td>
+					<td><%= therapy_form.text_area :laborwerte2, :size => "10x5", :class => "labor karteikarte" %></td>
 
-					<td><%= therapy_form.text_area :arzneien, :class => "karteikarte" %></td>
+					<td><%= therapy_form.text_area :arzneien, :size => "10x5", :class => "karteikarte" %></td>
 
-					<td><%= therapy_form.text_area :arzneimittel, :class => "karteikarte" %></td>
+					<td><%= therapy_form.text_area :arzneimittel, :size => "10x5", :class => "karteikarte" %></td>
 					
 					<td>
-            <div class="karteikarte" style="width:200px">
-              <%= therapy_form.select "impfungswert_ids", options_for_select(Lookup.impfungswerte, BehandlungImpfungswert.impfungswerte_for_behandlung(therapy_form.object.id)  ), { },  { :multiple => "true", :style => "width:180px", :class => "impf_select karteikarte" } %>
+            <div class="karteikarte">
+              <%= therapy_form.select "impfungswert_ids", options_for_select(Lookup.impfungswerte, Impfung.impfungswerte_for_behandlung(therapy_form.object.id)  ), { },  { :multiple => "true", :style => "width:100%", :class => "impf_select karteikarte" } %>
             </div>
 					</td>
 
-					<td><%= therapy_form.text_area :gewicht_kg, :class => "karteikarte" %></td>
+					<td><%= therapy_form.text_field :gewicht_kg, :style => "width:90%", :class => "karteikarte" %></td>
 
 					<td>löschen: <%= therapy_form.check_box :_destroy %></td>
 				</tr>
@@ -207,7 +219,7 @@
     $(".impf_select").attr("data-placeholder", "bitte auswählen");
 		$(".impf_select").chosen();
     
-                $( ".karteikarte textarea" ).removeAttr( "cols" ).removeAttr( "rows");
+        /* $( ".karteikarte textarea" ).removeAttr( "cols" ).removeAttr( "rows"); */
 	
 		var $dialog_labor = $('<div></div>');
 		

@@ -13,7 +13,7 @@ ActiveSupport::Inflector.inflections do |inflect|
     inflect.irregular   'geschlechtswert', 'geschlechtswerte'
     inflect.irregular   'behandlung', 'behandlungen'
 	inflect.irregular   'impfungswert', 'impfungswerte'
-	inflect.irregular   'behandlung_impfungswert', 'behandlungen_impfungswerte'
+	inflect.irregular   'impfung', 'impfungen'
 	inflect.irregular   'laborwert', 'laborwerte'
 #   inflect.plural /^(ox)$/i, '\1en'
 #   inflect.singular /^(ox)en/i, '\1'

@@ -107,7 +107,7 @@
 
 
   Abfrage.create! :id => 1, :bezeichnung => "Adresse", :bedingung => "postadressen.strasse LIKE ?"
-	Abfrage.create! :id => 2, :bezeichnung => "Arznei", :bedingung => "behandlungen.arzneien LIKE ?"
+  Abfrage.create! :id => 2, :bezeichnung => "Arznei", :bedingung => "behandlungen.arzneien LIKE ?"
   Abfrage.create! :id => 3, :bezeichnung => "Arzneimittel", :bedingung => "behandlungen.arzneimittel LIKE ?"
   Abfrage.create! :id => 4, :bezeichnung => "Behandlungen (von-bis)", :bedingung => "behandlungen.behandlungsdatum BETWEEN ? AND ?"
   Abfrage.create! :id => 5, :bezeichnung => "Chipnr.", :bedingung => "tiere.chipnr LIKE ?"
