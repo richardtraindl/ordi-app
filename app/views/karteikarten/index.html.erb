@@ -14,8 +14,8 @@
 
 <%= form_tag karteikarten_path, :method => :get do %>
 <p>
-	<%= "Familienname" %><%= text_field_tag "familienname", @familienname %>
-	<%= "Tiername" %><%= text_field_tag "tiername", @tiername %>
+	<%= "Familienname" %> <%= text_field_tag "familienname", @familienname %>
+	<%= "Tiername" %> <%= text_field_tag "tiername", @tiername %>
 	<%= submit_tag "suchen" %>
 </p>
 <% end %>

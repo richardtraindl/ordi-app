@@ -61,9 +61,9 @@
     $(function() {
       var wert = $('#param2').attr('disabled');
       if( wert != "disabled" ){
-        $( "#param1" ).datepicker({ changeYear: true, dateFormat: 'yy-mm-dd' });
+        $( "#param1" ).datepicker({ changeYear: true, dateFormat: 'dd.mm.yy' });
         $("#param1").datepicker($.datepicker.regional['de']);
-        $( "#param2" ).datepicker({ changeYear: true, dateFormat: 'yy-mm-dd' });
+        $( "#param2" ).datepicker({ changeYear: true, dateFormat: 'dd.mm.yy' });
         $("#param2").datepicker($.datepicker.regional['de']);
       }
     });
@@ -72,9 +72,9 @@
 		  var wert = $("#abfrage option:selected").get(0).value;
 			if(wert == '4' || wert == '9' || wert == '10'){
         $('#param2').attr('disabled', false);
-        $( "#param1" ).datepicker({ changeYear: true, dateFormat: 'yy-mm-dd' });
+        $( "#param1" ).datepicker({ changeYear: true, dateFormat: 'dd.mm.yy' });
         $("#param1").datepicker($.datepicker.regional['de']);        
-        $( "#param2" ).datepicker({ changeYear: true, dateFormat: 'yy-mm-dd' });
+        $( "#param2" ).datepicker({ changeYear: true, dateFormat: 'dd.mm.yy' });
         $("#param2").datepicker($.datepicker.regional['de']);
 			}
 			else{

@@ -13,44 +13,32 @@
 */
  
 body {
-	font-family: "Arial";
-	font-size:  10pt;
-	color:black;
+  font-family: "Arial";
+  font-size:  10pt;
+  color:black;
   background-color: #FBFBB1;
 }
 
 
 h1 {
-	font-size:  14pt;
+  font-size:  14pt;
 }
 
 .width100 {
-	width: 100%;
+  width: 100%;
 }
 
 .height100 {
-	height:100%;
+  height:100%;
 }
 
-/*
 div.karteikarte {
-		 max-height:100px;
-		 height:100px;		 
-		 overflow-y: scroll;
+  /* max-height:100px; */
+  height:110px; 
+  /* overflow-y: scroll; */
 }
-*/
 
-/*
-textarea {
-  width: 100px;
-  height: 100px;
-	resize: none;
-}
-*/
-
-
-.karteikarte textarea {
-  
+.karteikarte textarea {  
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;  
@@ -60,75 +48,70 @@ textarea {
   border: 0;
 }
 
-.karteikarte td {
-  background-color: white;
-  vertical-align: top;
-}
-
-
 table.karteikarte { 
-		 border-collapse:collapse;
-		 border-style:solid; 
-		 border-width:thin; 
-		 empty-cells:show;
-		 white-space:nowrap;
+  border-collapse:collapse;
+  border-style:solid; 
+  border-width:thin; 
+  empty-cells:show;
+  white-space:nowrap;
 }
 
 table.karteikarte th { 
-		 /* padding:2px; */
-		 border-style:solid; 
-		 border-width:1px 1px 1px 1px; 
-		 border-color:grey;
-		 background-color: #FFFFFF; 
-		 /* overflow:hidden; */
+  border-style:solid; 
+  border-width:1px 1px 1px 1px; 
+  border-color:grey;
+  background-color: #FFFFFF; 
+  /* overflow:hidden; */
 }
 
 table.karteikarte td { 
-		 border-style:solid; 
-		 border-width:1px 1px 1px 1px; 
-		 border-color:grey;
-  	 /* overflow:hidden; */
-		 empty-cells:show;
-		 white-space:nowrap;
+  border-style:solid; 
+  border-width:1px 1px 1px 1px; 
+  border-color:grey;
+  background-color: white;
+  vertical-align: top;
+  empty-cells:show;
+  white-space:nowrap;
+  /* overflow:hidden; */
 }
 
 
 table.liste { 
-	/*table-layout:fixed;  */
-	border-collapse:collapse;
-	border-spacing:0pt;
-	border-style:solid; 
-	border-width:thin; 
-	border-color:grey;	
-	text-align:left;
-	empty-cells:show;
-	white-space:nowrap;
+  /*table-layout:fixed;  */
+  border-collapse:collapse;
+  border-spacing:0pt;
+  border-style:solid; 
+  border-width:thin; 
+  border-color:grey;
+  text-align:left;
+  empty-cells:show;
+  white-space:nowrap;
 }
 
 table.liste tr:nth-child(even) { 
-	background-color: #EEEEEE;
+  background-color: #EEEEEE;
 }
 			
 table.liste tr:nth-child(odd) { 
-	background-color: #FFFFFF; 
+  background-color: #FFFFFF; 
 }
 
 table.liste th { 
-	padding:2px;
-	border-style:solid; 
-	border-width:1px 1px 1px 1px; 
-	border-color:grey;
-	/* overflow:hidden; */
+  padding:2px;
+  border-style:solid; 
+  border-width:1px 1px 1px 1px; 
+  border-color:grey;
+  /* overflow:hidden; */
 }
 
 table.liste td { 
-	padding:2px; 
-	border-style:solid; 
-	border-width:1px 1px 1px 1px; 
-	border-color:grey;
-  	/* overflow:hidden; */
-	empty-cells:show;
-	white-space:nowrap;
+  padding:2px; 
+  border-style:solid; 
+  border-width:1px 1px 1px 1px; 
+  border-color:grey;
+  empty-cells:show;
+  white-space:nowrap;
+  /* overflow:hidden; */
 }
 
 a, a:hover, a:active, a:visited {
@@ -139,31 +122,15 @@ a, a:hover, a:active, a:visited {
 }
 
 .text_button {
-	margin-left: auto;
-	margin-right: auto; 
-
-	display: block;
-	
-  /* margin: 10px; */
-	
-	text-align: center;
-	/* width: 190px; */
-	/* font-weight: bold; */
-	padding: 4px;
-	
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	border-radius: 5px;
-	
-	
-	
-	/* background: #9E9E9E; */
-    background-image: -moz-linear-gradient(-90deg, silver, white);
-    background-image: -webkit-linear-gradient(-90deg, rgb(238, 238, 238), rgb(204, 204, 204) ); /* , lightgrey, darkgrey);		/* silver, gray */
-	
- /*	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
-	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
-	*/
-	border: 1px solid rgb(153, 153, 153);
-	
+  margin-left: auto;
+  margin-right: auto; 
+  display: block;
+  text-align: center;
+  padding: 4px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  background-image: -moz-linear-gradient(-90deg, silver, white);
+  background-image: -webkit-linear-gradient(-90deg, rgb(238, 238, 238), rgb(204, 204, 204) ); /* , lightgrey, darkgrey);		/* silver, gray */
+  border: 1px solid rgb(153, 153, 153);
 }
