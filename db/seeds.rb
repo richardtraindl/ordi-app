@@ -123,3 +123,8 @@
   Abfrage.create! :id => 15, :bezeichnung => "Telefonnr.", :bedingung => "kontakte.kontakt LIKE ?"
   Abfrage.create! :id => 16, :bezeichnung => "Tierart", :bedingung => "tiere.tierart LIKE ?"
   Abfrage.create! :id => 17, :bezeichnung => "Tiername", :bedingung => "tiere.tiername LIKE ?"
+
+  User.create! :username => "Elfi", :password => "liebe"
+  User.create! :username => "Gerold", :password => "liebe"
+  User.create! :username => "Gast", :password => "liebe"
+  User.create! :username => "Administrator", :password => "dasisteingeheimnis"

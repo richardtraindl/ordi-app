@@ -1,12 +1,17 @@
 Ordi::Application.routes.draw do
     
+  resources :sessions, :only => [:new, :create, :destroy]
+  
+  match '/signin', :to => 'sessions#new'
+  match '/signout', :to => 'sessions#destroy'
+
   resources :karteikarten do
-	member do
-		get 'neues_tier'
-	end
-	collection do
-		get 'abfragen'
-	end
+    member do
+      get 'neues_tier'
+    end
+    collection do
+      get 'abfragen'
+    end
   end
   
   # The priority is based upon order of creation:

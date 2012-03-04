@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(:version => 20120210144514) do
 
   create_table "behandlungen", :force => true do |t|
     t.integer  "tier_id",                                                            :null => false
-    t.datetime "behandlungsdatum",                :default => '2012-03-03 13:00:51', :null => false
+    t.datetime "behandlungsdatum",                :default => '2012-03-04 17:55:47', :null => false
     t.string   "gewicht_kg",       :limit => 20
     t.text     "diagnose"
     t.string   "laborwerte1",      :limit => 200
@@ -41,8 +41,10 @@ ActiveRecord::Schema.define(:version => 20120210144514) do
   end
 
   create_table "impfungen", :id => false, :force => true do |t|
-    t.integer "behandlung_id",   :null => false
-    t.integer "impfungswert_id", :null => false
+    t.integer  "behandlung_id",   :null => false
+    t.integer  "impfungswert_id", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "impfungswerte", :force => true do |t|
@@ -109,6 +111,14 @@ ActiveRecord::Schema.define(:version => 20120210144514) do
     t.boolean  "patienten_kz",                     :default => true
     t.datetime "created_at",                                         :null => false
     t.datetime "updated_at",                                         :null => false
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "username",           :null => false
+    t.string   "encrypted_password"
+    t.string   "salt"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
 end

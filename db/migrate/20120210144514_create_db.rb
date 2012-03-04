@@ -41,7 +41,7 @@ class CreateDb < ActiveRecord::Migration
 			t.string		:kontakt, :limit => 50
 			t.string		:kontakt_intern, :limit => 50
 		
-			t.timestamps		
+			t.timestamps
     end
 
     create_table :tiere do |t|
@@ -86,6 +86,8 @@ class CreateDb < ActiveRecord::Migration
 		create_table :impfungen, :id => false do |t|
 		  t.references	:behandlung, :null => false
 		  t.references	:impfungswert, :null => false
+      
+      t.timestamps
 		end
 
 		create_table :laborwerte do |t|
@@ -98,6 +100,15 @@ class CreateDb < ActiveRecord::Migration
 			t.string	:bezeichnung, :null => false
 			t.string	:bedingung, :null => false
     end
+
+	  create_table :users do |t|
+			t.string	:username, :null => false, :uniqueness => true
+      t.string	:encrypted_password
+      t.string  :salt
+      
+      t.timestamps
+    end
+
   end
 
   def down
