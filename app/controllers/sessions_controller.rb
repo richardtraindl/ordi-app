@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+    
   def new
     @users = User.find(:all).map {|u| [u.username, u.id] }
     render 'new'
