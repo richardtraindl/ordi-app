@@ -12,12 +12,17 @@ class SessionsController < ApplicationController
       @users = User.find(:all).map {|u| [u.username, u.id] }
       render 'new'
     else
-      redirect_to(karteikarten_path)
+      @user.save
+      sign_in @user
+      flash.now[:succes] = "Willkommen!"
+      redirect_to karteikarten_path
     end
     
   end
   
   def destroy
+    sign_out
+    redirect_to root_path
   end
 
 end
