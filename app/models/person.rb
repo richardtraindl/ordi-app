@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: personen
+#
+#  id            :integer         not null, primary key
+#  anredewert_id :integer         default(0), not null
+#  titel         :string(255)
+#  familienname  :string(40)
+#  vorname       :string(40)
+#  notiz         :string(200)
+#  kunden_kz     :boolean         default(TRUE)
+#  created_at    :datetime        not null
+#  updated_at    :datetime        not null
+#
+
 class Person < ActiveRecord::Base
 	self.table_name = "personen"
 

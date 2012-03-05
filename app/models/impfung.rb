@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: impfungen
+#
+#  behandlung_id   :integer         not null
+#  impfungswert_id :integer         not null
+#  created_at      :datetime        not null
+#  updated_at      :datetime        not null
+#
+
 class Impfung < ActiveRecord::Base
 	self.table_name = "impfungen"
 	

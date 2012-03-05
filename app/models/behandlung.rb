@@ -1,3 +1,21 @@
+# == Schema Information
+#
+# Table name: behandlungen
+#
+#  id               :integer         not null, primary key
+#  tier_id          :integer         not null
+#  behandlungsdatum :datetime        default(2012-03-05 11:00:42 UTC), not null
+#  gewicht_kg       :string(20)
+#  diagnose         :text
+#  laborwerte1      :string(200)
+#  laborwerte2      :string(200)
+#  arzneien         :string(200)
+#  arzneimittel     :string(100)
+#  impfungen_extern :string(100)
+#  created_at       :datetime        not null
+#  updated_at       :datetime        not null
+#
+
 class Behandlung < ActiveRecord::Base
 	self.table_name = "behandlungen"
 	

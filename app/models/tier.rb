@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: tiere
+#
+#  id                 :integer         not null, primary key
+#  tiername           :string(30)
+#  tierart            :string(30)
+#  rasse              :string(30)
+#  farbe              :string(50)
+#  viren              :string(50)
+#  merkmal            :string(50)
+#  geburtsdatum       :date
+#  geschlechtswert_id :integer         default(0), not null
+#  chipnr             :string(30)
+#  eu_passnr          :string(30)
+#  patienten_kz       :boolean         default(TRUE)
+#  created_at         :datetime        not null
+#  updated_at         :datetime        not null
+#
+
 class Tier < ActiveRecord::Base
 	self.table_name = "tiere"
 
