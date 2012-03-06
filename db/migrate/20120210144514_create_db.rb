@@ -9,7 +9,7 @@ class CreateDb < ActiveRecord::Migration
 
   	create_table :personen do |t|
     	t.references		:anredewert, :null => false, :default => 0
-    	t.string			:titel
+    	t.string			:titel, :limit => 30
     	t.string			:familienname, :limit => 40
     	t.string			:vorname, :limit => 40
 			t.string			:notiz, :limit => 200
@@ -86,8 +86,6 @@ class CreateDb < ActiveRecord::Migration
 		create_table :impfungen, :id => false do |t|
 		  t.references	:behandlung, :null => false
 		  t.references	:impfungswert, :null => false
-      
-      t.timestamps
 		end
 
 		create_table :laborwerte do |t|

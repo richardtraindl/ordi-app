@@ -25,39 +25,49 @@
 					<table>
 						<%= karteikarte_form.fields_for @person do |person_form| %>
 							<tr>
-								<td>Anrede</td><td><%= person_form.select :anredewert_id, Lookup.anredewerte %></td>
+								<td>Anrede</td>
+                <td><%= person_form.select :anredewert_id, Lookup.anredewerte %></td>
 							</tr>
 							<tr>
-								<td>Titel</td><td><%= person_form.text_field :titel %></td>
+								<td>Titel</td>
+                <td><%= person_form.text_field :titel, :size => 30, :maxlength => 30 %></td>
 							</tr>
 							<tr>
-								<td>Familienname</td><td><%= person_form.text_field :familienname %></td>
+								<td>Familienname</td>
+                <td><%= person_form.text_field :familienname, :size => 30, :maxlength => 40 %></td>
 							</tr>
 							<tr>
-								<td>Vorname</td><td><%= person_form.text_field :vorname %></td>
+								<td>Vorname</td>
+                <td><%= person_form.text_field :vorname, :size => 30, :maxlength => 40 %></td>
 							</tr>
 							<tr>
-								<td>Notiz</td><td><%= person_form.text_field :notiz %></td>
+								<td>Notiz</td>
+                <td><%= person_form.text_area :notiz, :size => "28x2", :maxlength => 200, :style => "resize: none" %></td>
 							</tr>
 							<tr>
-								<td>Kunde</td><td><%= person_form.check_box :kunden_kz %></td>
+								<td>Kunde</td>
+                <td><%= person_form.check_box :kunden_kz %></td>
 							</tr>
 						
-							<%= person_form.fields_for :postadressen do |location_form| %>
+							<%= person_form.fields_for :postadressen do |postadresse_form| %>
 								<tr>
-									<td>PLZ</td><td><%= location_form.text_field :plz %></td>
+									<td>PLZ</td>
+                  <td><%= postadresse_form.text_field :plz, :size => 30, :maxlength => 10 %></td>
 								</tr>
 								<tr>
-									<td>Ort</td><td><%= location_form.text_field :ort %></td>
+									<td>Ort</td>
+                  <td><%= postadresse_form.text_field :ort, :size => 30, :maxlength => 40 %></td>
 								</tr>
 								<tr>
-									<td>Stra&szlig;e</td><td><%= location_form.text_field :strasse %></td>
+									<td>Straße</td>
+                  <td><%= postadresse_form.text_field :strasse, :size => 30, :maxlength => 40 %></td>
 								</tr>
 							<% end %>
 
-							<%= person_form.fields_for :kontakte do |contacts_people_form| %>
+							<%= person_form.fields_for :kontakte do |kontakte_form| %>
 								<tr>
-									<td>Telefonnr.</td><td><%= contacts_people_form.text_field :kontakt %></td>
+									<td>Telefonnr.</td>
+                  <td><%= kontakte_form.text_field :kontakt, :size => 30, :maxlength => 50 %></td>
 								</tr>
 							<% end %>
 						<% end %>
@@ -67,37 +77,48 @@
 					<table>
 						<%= karteikarte_form.fields_for @tier do |tier_form| %>
 							<tr>
-								<td>Tiername</td><td><%= tier_form.text_field :tiername %></td>
+								<td>Tiername</td>
+                <td><%= tier_form.text_field :tiername, :size => 30, :maxlength => 30 %></td>
 							</tr>
 							<tr>
-								<td>Tierart</td><td><%= tier_form.text_field :tierart %></td>
+								<td>Tierart</td>
+                <td><%= tier_form.text_field :tierart, :size => 30, :maxlength => 30 %></td>
 							</tr>
 							<tr>
-								<td>Rasse</td><td><%= tier_form.text_field :rasse %></td>
+								<td>Rasse</td>
+                <td><%= tier_form.text_field :rasse, :size => 30, :maxlength => 30 %></td>
 							</tr>
 							<tr>
-								<td>Farbe</td><td><%= tier_form.text_field :farbe %></td>
+								<td>Farbe</td>
+                <td><%= tier_form.text_field :farbe, :size => 30, :maxlength => 50 %></td>
 							</tr>
 							<tr>
-								<td>Geburtsdatum</td><td><%= tier_form.text_field :geburtsdatum_str %></td>
+								<td>Geburtsdatum</td>
+                <td><%= tier_form.text_field :geburtsdatum_str, :size => 30, :maxlength => 10, :class => "datum" %></td>
 							</tr>
 							<tr>
-								<td>Geschlecht</td><td><%= tier_form.select :geschlechtswert_id, Lookup.geschlechtswerte %></td>
+								<td>Geschlecht</td>
+                <td><%= tier_form.select :geschlechtswert_id, Lookup.geschlechtswerte %></td>
 							</tr>
 							<tr>
-								<td>Chipnr.:</td><td><%= tier_form.text_field :chipnr %></td>
+								<td>Chipnr.</td>
+                <td><%= tier_form.text_field :chipnr, :size => 30, :maxlength => 30 %></td>
 							</tr>
 							<tr>
-								<td>EU-Passnr.</td><td><%= tier_form.text_field :eu_passnr %></td>
+								<td>EU-Passnr.</td>
+                <td><%= tier_form.text_field :eu_passnr, :size => 30, :maxlength => 30 %></td>
 							</tr>
 							<tr>
-								<td>Patient</td><td><%= tier_form.check_box :patienten_kz %></td>
+								<td>Patient</td>
+                <td><%= tier_form.check_box :patienten_kz %></td>
 							</tr>
 							<tr>
-								<td>Viren</td><td><%= tier_form.text_field :viren %></td>
+								<td>Viren</td>
+                <td><%= tier_form.text_field :viren, :size => 30, :maxlength => 50 %></td>
 							</tr>
 							<tr>
-								<td>Merkmal</td><td><%= tier_form.text_field :merkmal %></td>
+								<td>Merkmal</td>
+                <td><%= tier_form.text_field :merkmal, :size => 30, :maxlength => 50 %></td>
 							</tr>
 					</table>
 				</td>
@@ -105,7 +126,7 @@
 		</table>
    </div>
 	
-	<div style="border: 1px solid black; margin-top: 5px; max-height: 400px; overflow-x: inherit; no-display; overflow-y: scroll;">
+	<div style="border: 1px solid black; margin-top: 5px; max-height: 40%; overflow-x: inherit; no-display; overflow-y: scroll;">
 		<table class="karteikarte">
 			<colgroup>
 				<col width="8%">
@@ -131,31 +152,27 @@
 			</tr>
 			<%= tier_form.fields_for :behandlungen do |behandlung_form| %>
 				<tr>
-					<td><div class="karteikarte"><%= behandlung_form.text_field :behandlungsdatum_str, :style => "width:90%", :class => "karteikarte behandlungsdatum" %></div></td>
+					<td><%= behandlung_form.text_field :behandlungsdatum_str, :size => 8, :maxlength => 10, :class => "datum" %></td>
 					
-					<td><div class="karteikarte"><%= behandlung_form.text_area :diagnose, :class => "karteikarte" %></div></td>
+					<td><%= behandlung_form.text_area :diagnose, :size => "20x3", :style => "resize: vertical;", :class => "karteikarte" %></td>
 					
-					<td><div class="karteikarte"><%= behandlung_form.text_area :laborwerte1, :class => "labor karteikarte" %></div></td>
+					<td><%= behandlung_form.text_area :laborwerte1, :size => "10x3", :maxlength => 200, :class => "labor karteikarte" %></td>
 
-					<td><div class="karteikarte"><%= behandlung_form.text_area :laborwerte2, :class => "labor karteikarte" %></div></td>
+					<td><%= behandlung_form.text_area :laborwerte2, :size => "10x3", :maxlength => 200, :class => "labor karteikarte" %></td>
 
-					<td><div class="karteikarte"><%= behandlung_form.text_area :arzneien, :class => "karteikarte" %></div></td>
+					<td><%= behandlung_form.text_area :arzneien, :size => "10x3", :maxlength => 200, :class => "karteikarte" %></td>
 
-					<td><div class="karteikarte"><%= behandlung_form.text_area :arzneimittel, :class => "karteikarte" %></div></td>
-					
-					<td>
-						<div class="karteikarte">
-							<%= behandlung_form.select "impfungswert_ids", options_for_select(Lookup.impfungswerte, Impfung.impfungswerte_for_behandlung(behandlung_form.object.id)  ), { },  { :multiple => "true", :style => "width:100%", :class => "impf_select karteikarte" } %>
-						</div>
-					</td>
+					<td><%= behandlung_form.text_area :arzneimittel, :size => "10x3", :maxlength => 200, :class => "karteikarte" %></td>
 
-					<td><div class="karteikarte"><%= behandlung_form.text_field :gewicht_kg, :style => "width:90%", :class => "karteikarte" %></div></td>
+					<td><%= behandlung_form.select "impfungswert_ids", options_for_select(Lookup.impfungswerte, Impfung.impfungswerte_for_behandlung(behandlung_form.object.id)  ), { },  { :multiple => "true", :style => "width:100%", :class => "impf_select" } %></td>
 
-					<td><div class="karteikarte">löschen: <%= behandlung_form.check_box :_destroy %></div></td>
+					<td><%= behandlung_form.text_field :gewicht_kg, :size => 4, :maxlength => 20 %></td>
+
+					<td>löschen: <%= behandlung_form.check_box :_destroy %></td>
 				</tr>
 			<% end %>
 		</table>
-	</div>
+
   <% end %>
 
 <p>
@@ -170,7 +187,7 @@
 		</tr>
 	</table>
 </p>
-  
+	</div>  
   
 <% end %>
 
@@ -232,8 +249,8 @@
 	
 	
 		$(function() {
-			$( ".behandlungsdatum" ).datepicker({ changeYear: true, dateFormat: 'dd.mm.yy' });
-			$(".behandlungsdatum").datepicker($.datepicker.regional['de']);
+			$( ".datum" ).datepicker({ changeYear: true, dateFormat: 'dd.mm.yy' });
+			$(".datum").datepicker($.datepicker.regional['de']);
 		});	
 		
 	});
