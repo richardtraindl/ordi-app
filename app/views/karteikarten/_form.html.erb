@@ -62,20 +62,21 @@
 									<td>Straße</td>
                   <td><%= postadresse_form.text_field :strasse, :size => 30, :maxlength => 40 %></td>
 								</tr>
-							<% end %>
+							<% end %><!-- fields postadressen -->
 
 							<%= person_form.fields_for :kontakte do |kontakte_form| %>
 								<tr>
 									<td>Telefonnr.</td>
                   <td><%= kontakte_form.text_field :kontakt, :size => 30, :maxlength => 50 %></td>
 								</tr>
-							<% end %>
-						<% end %>
+							<% end %> <!-- fields kontakte -->
+						<% end %> <!-- fields person -->
 					</table>
 				</td>
 				<td>
+
+		<%= karteikarte_form.fields_for @tier do |tier_form| %>
 					<table>
-						<%= karteikarte_form.fields_for @tier do |tier_form| %>
 							<tr>
 								<td>Tiername</td>
                 <td><%= tier_form.text_field :tiername, :size => 30, :maxlength => 30 %></td>
@@ -121,10 +122,18 @@
                 <td><%= tier_form.text_field :merkmal, :size => 30, :maxlength => 50 %></td>
 							</tr>
 					</table>
+    <% end %> <!-- fields tier -->
+	
 				</td>
 			</tr>
 		</table>
    </div>
+	
+	<div id='behandlung_form'>
+	  <%= render :partial => "behandlung_form", :locals => { :edit_behandlung => @edit_behandlung  }, :action => 'edit_behandlung_karteikarte'  %>
+	</div>
+
+ 
 	
 	<div style="border: 1px solid black; margin-top: 5px; max-height: 40%; overflow-x: inherit; no-display; overflow-y: scroll;">
 		<table class="karteikarte">
@@ -150,30 +159,40 @@
 				<th>Kg</th>
 				<th></th>
 			</tr>
-			<%= tier_form.fields_for :behandlungen do |behandlung_form| %>
-				<tr>
-					<td><%= behandlung_form.text_field :behandlungsdatum_str, :size => 8, :maxlength => 10, :class => "datum" %></td>
+			<%#= tier_form.fields_for :behandlungen do |behandlung_form| %>
+			
+			<% @tier.behandlungen.order( 'behandlungsdatum desc' ).each do |behandlung| %>
+			
+				<tr data-id='<%= behandlung.id %>'>
+					<td><%= behandlung.behandlungsdatum %><%#= behandlung_form.text_field :behandlungsdatum_str, :size => 8, :maxlength => 10, :class => "datum" %></td>
 					
-					<td><%= behandlung_form.text_area :diagnose, :size => "20x3", :style => "resize: vertical;", :class => "karteikarte" %></td>
+					<td><%= behandlung.diagnose %><%#= behandlung_form.text_area :diagnose, :size => "20x3", :style => "resize: vertical;", :class => "karteikarte" %></td>
 					
-					<td><%= behandlung_form.text_area :laborwerte1, :size => "10x3", :maxlength => 200, :class => "labor karteikarte" %></td>
+					<td><%= behandlung.laborwerte1 %><%#= behandlung_form.text_area :laborwerte1, :size => "10x3", :maxlength => 200, :class => "labor karteikarte" %></td>
 
-					<td><%= behandlung_form.text_area :laborwerte2, :size => "10x3", :maxlength => 200, :class => "labor karteikarte" %></td>
+					<td><%= behandlung.laborwerte2 %><%#= behandlung_form.text_area :laborwerte2, :size => "10x3", :maxlength => 200, :class => "labor karteikarte" %></td>
 
-					<td><%= behandlung_form.text_area :arzneien, :size => "10x3", :maxlength => 200, :class => "karteikarte" %></td>
+					<td><%= behandlung.arzneien %><%#= behandlung_form.text_area :arzneien, :size => "10x3", :maxlength => 200, :class => "karteikarte" %></td>
+					
+					<td><%= behandlung.arzneimittel %><%#= behandlung_form.text_area :arzneimittel, :size => "10x3", :maxlength => 200, :class => "karteikarte" %></td>
 
-					<td><%= behandlung_form.text_area :arzneimittel, :size => "10x3", :maxlength => 200, :class => "karteikarte" %></td>
+					<td>
+						<% behandlung.impfungswerte.each do |impfungswert| %>
+								<%= impfungswert.wert %>
+						<% end %>
+							
+							
+							
+							
+							<%#= Impfung.impfungswerte_for_behandlung(behandlung_form.object.id) %>
+							<%#= behandlung_form.select "impfungswert_ids", options_for_select(Lookup.impfungswerte, Impfung.impfungswerte_for_behandlung(behandlung_form.object.id)  ), { },  { :multiple => "true", :style => "width:100%", :class => "impf_select" } %></td>
 
-					<td><%= behandlung_form.select "impfungswert_ids", options_for_select(Lookup.impfungswerte, Impfung.impfungswerte_for_behandlung(behandlung_form.object.id)  ), { },  { :multiple => "true", :style => "width:100%", :class => "impf_select" } %></td>
+					<td><%= behandlung.gewicht_kg %><%#= behandlung_form.text_field :gewicht_kg, :size => 4, :maxlength => 20 %></td>
 
-					<td><%= behandlung_form.text_field :gewicht_kg, :size => 4, :maxlength => 20 %></td>
-
-					<td>löschen: <%= behandlung_form.check_box :_destroy %></td>
+					<!-- td>löschen: <%#= behandlung_form.check_box :_destroy %></td -->
 				</tr>
-			<% end %>
+			<% end %><!-- each behandlungen -->
 		</table>
-
-  <% end %>
 
 <p>
 	<table>
@@ -212,13 +231,19 @@
 		return buf;
 	}
 	
+	
 	$.datepicker.setDefaults($.datepicker.regional['']);  
   	
 	$(document).ready(function() {
 		$(".impf_select").attr("data-placeholder", "bitte auswählen");
 		$(".impf_select").chosen();
+
+    $( ".karteikarte tr" ).click( function() {
+			  // alert( 'hallo ' + $(this).attr( 'data-id' ));
+				   $.get( '/karteikarten/'+ $(this).attr( 'data-id' ) + '/edit_behandlung', null, 'script');  				
+			} );
     
-        /* $( ".karteikarte textarea" ).removeAttr( "cols" ).removeAttr( "rows"); */
+      // $( ".behandlung1 textarea" ).removeAttr( "cols" ).removeAttr( "rows");
 	
 		var $dialog_labor = $('<div></div>');
 		

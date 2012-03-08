@@ -1,0 +1,46 @@
+<%= fields_for :edit_behandlung, @edit_behandlung do |behandlung_form| %>
+
+   <%= hidden_field_tag 'behandlung_id', behandlung_form.object.id %>			
+   <!-- behandlung_form.object.id: (<%= behandlung_form.object.id %>)	-->		
+	
+	<table class="behandlung1" border="1">
+		<tr>
+			<td>Behandlungsdatum:</td>
+			
+			<td>Laborwerte:</td>
+	
+			<td>Laborwerte*:</td>
+			
+			<td>Arzneien:</td>
+			
+			<td>Arzneimittel:</td>
+			
+			<td>Impfungen:</td>
+			
+			<td>Gewicht(Kg):</td>
+		</tr>
+		<tr>
+			<td style="vertical-align: top;  background-color: white;"><%= behandlung_form.text_field :behandlungsdatum_str, { :size => 8, :maxlength => 10, :class => "datum"  } %></td>
+			
+			<td style="vertical-align: top;  background-color: white;"><%= behandlung_form.text_area :laborwerte1, { :size => "10x3", :maxlength => 200, :class => "labor karteikarte"  }%></td>
+	
+			<td style="vertical-align: top;  background-color: white;"><%= behandlung_form.text_area :laborwerte2, { :size => "10x3", :maxlength => 200, :class => "labor karteikarte"  } %></td>
+	
+			<td style="vertical-align: top;  background-color: white;"><%= behandlung_form.text_area :arzneien, { :size => "10x3", :maxlength => 200 } %></td>
+			
+			<td style="vertical-align: top;  background-color: white;"><%= behandlung_form.text_area :arzneimittel, { :size => "10x3", :maxlength => 200 } %></td>
+	
+			<td style="vertical-align: top;  background-color: white;"><%= behandlung_form.select "impfungswert_ids", options_for_select(Lookup.impfungswerte, Impfung.impfungswerte_for_behandlung(behandlung_form.object.id)), { } , :multiple => "true", :style => "width: 100%", :class => "impf_select" %></td>
+			
+			<td style="vertical-align: top; background-color: white;"><%= behandlung_form.text_field :gewicht_kg, { :size => 4, :maxlength => 20 } %></td>
+		</tr>
+		<tr>
+			<td colspan='7'>Diagnose:</td>			
+		</tr>
+		<tr>
+			<td colspan="7">
+				<%= behandlung_form.text_area :diagnose, { :size => "160x10"  } %>
+			</td>
+		</tr>
+	</table>
+<% end %>

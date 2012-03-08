@@ -1,0 +1,8 @@
+
+
+$('#behandlung_form').html( '<%= escape_javascript( render :partial => "behandlung_form", :locals => { :behandlung => @behandlung } ) %>' );
+
+// alert( '<%= escape_javascript( render :partial => "behandlung_form", :locals => { :behandlung => @behandlung } ) %>' );
+
+$(".impf_select").attr("data-placeholder", "bitte auswählen");
+$(".impf_select").chosen();

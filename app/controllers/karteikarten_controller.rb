@@ -68,33 +68,44 @@ class KarteikartenController < ApplicationController
 		end	
   end  
   
+
+
   # GET /owners/new
   # GET /owners/new.json
   def new
-	@karteikarte		    = Karteikarte.new
+	@karteikarte					= Karteikarte.new
 
-	@person				    = Person.new
+	@person				  			= Person.new
 	@person.postadressen	<< Postadresse.new
-	@person.kontakte		<< Kontakt.new
-	@person.kontakte		<< Kontakt.new
+	@person.kontakte			<< Kontakt.new
+	@person.kontakte			<< Kontakt.new
 
-	@tier					= Tier.new
+	@tier									= Tier.new
 	@tier.behandlungen		<< Behandlung.new
-	@behandlungen			= @tier.behandlungen
-	@tier.behandlungen[0].impfungswerte << Impfungswert.new
+	#@tier.behandlungen[0].impfungswerte << Impfungswert.new
+	
+	@edit_behandlung 			= Behandlung.new
   end
 
 
+  
   # GET /owners/1/edit
   def edit
-    @karteikarte 	= Karteikarte.find(params[:id])
+  @karteikarte 	= Karteikarte.find(params[:id])
 
 	@person     	= Person.find(@karteikarte.person_id)
 
-    @tier     	= Tier.find(@karteikarte.tier_id)
-	@tier.behandlungen.sort! { |a,b| a.behandlungsdatum <=> b.behandlungsdatum }
-
+  @tier     	= Tier.find(@karteikarte.tier_id)
+	
+	@edit_behandlung 			= Behandlung.new
   end
+
+  
+  
+  def edit_behandlung
+    @edit_behandlung 	= Behandlung.find(params[:id])
+	end
+
 
 
   def neues_tier
@@ -105,13 +116,17 @@ class KarteikartenController < ApplicationController
 
 	@tier 			= Tier.new(:geschlechtswert_id => 0)
 	@tier.behandlungen	<< Behandlung.new
+	@edit_behandlung 			= Behandlung.new
 	@tier.save
 
 	@karteikarte 			= Karteikarte.new(:person_id => @person.id, :tier_id => @tier.id)
 	@karteikarte.save
 
+	@edit_behandlung 			= Behandlung.new
+	
 	render :action => :edit
   end
+
 
 
   # POST /owners
@@ -122,9 +137,9 @@ class KarteikartenController < ApplicationController
 
 	@tier 			= Tier.new(params[:karteikarte][:tier])
 
-	@tier.behandlungen.sort! { |a,b| a.behandlungsdatum <=> b.behandlungsdatum }
-	@behandlung = @tier.behandlungen.last
+	@edit_behandlung = Behandlung.new(params[:edit_behandlung])
 	
+=begin	
 	if @behandlung.nil?
 		@tier.behandlungen << Behandlung.new
 	else
@@ -134,14 +149,18 @@ class KarteikartenController < ApplicationController
 			@tier.behandlungen << Behandlung.new
 		end
 	end
-	
+=end
+
 	@tier.save
+
+	@edit_behandlung.save
 
 	@karteikarte 			= Karteikarte.new(:person_id => @person.id, :tier_id => @tier.id)
 	@karteikarte.save
 
 	render :action => :edit
   end
+
 
 
   # PUT /owners/1
@@ -155,8 +174,19 @@ class KarteikartenController < ApplicationController
 
     @tier     		= Tier.find(@karteikarte.tier_id)
     @tier.update_attributes(params[:karteikarte][:tier])
-	@tier.behandlungen.sort! { |a,b| a.behandlungsdatum <=> b.behandlungsdatum }
-	@behandlung = @tier.behandlungen.last
+	
+    if params[:behandlung_id].blank?
+			@edit_behandlung = Behandlung.new( params[:edit_behandlung] )
+			@edit_behandlung.save			
+	  else
+	    @edit_behandlung = Behandlung.find( params[:behandlung_id])
+	    @edit_behandlung.update_attributes( params[:edit_behandlung] )
+	  end
+		
+		
+
+	
+=begin
 	if @behandlung.nil?
 		@tier.behandlungen << Behandlung.new
 	else
@@ -166,9 +196,10 @@ class KarteikartenController < ApplicationController
 			@tier.behandlungen << Behandlung.new
 		end
 	end
+=end
 	@tier.save
 
-	@karteikarte.save
+	@karteikarte.save	
 
 	render(:action => :edit)
   end
@@ -197,4 +228,11 @@ class KarteikartenController < ApplicationController
     redirect_to(karteikarten_path)
   end
   
+
+
+
+
 end
+
+
+
