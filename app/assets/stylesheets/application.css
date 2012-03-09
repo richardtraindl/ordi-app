@@ -38,6 +38,13 @@ div.karteikarte {
   /* overflow-y: scroll; */
 }
 
+.karteikarte tr.highlight td
+{
+	font-weight: bold;
+	background-color: red;
+}
+
+
 .karteikarte textarea,
 .behandlung1 textarea {  
   -moz-box-sizing: border-box;

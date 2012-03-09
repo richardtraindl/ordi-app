@@ -6,3 +6,6 @@ $('#behandlung_form').html( '<%= escape_javascript( render :partial => "behandlu
 
 $(".impf_select").attr("data-placeholder", "bitte auswählen");
 $(".impf_select").chosen();
+
+$( ".datum" ).datepicker({ changeYear: true, dateFormat: 'dd.mm.yy' });
+$(".datum").datepicker($.datepicker.regional['de']);
