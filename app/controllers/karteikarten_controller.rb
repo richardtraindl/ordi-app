@@ -137,23 +137,13 @@ class KarteikartenController < ApplicationController
 
 	@tier 			= Tier.new(params[:karteikarte][:tier])
 
-	@edit_behandlung = Behandlung.new(params[:edit_behandlung])
-	
-=begin	
-	if @behandlung.nil?
-		@tier.behandlungen << Behandlung.new
-	else
-		unless(@behandlung.gewicht_kg.empty? && @behandlung.diagnose.empty? && 
-			   @behandlung.laborwerte1.empty?  && @behandlung.laborwerte2.empty? && 
-			   @behandlung.arzneien.empty? && @behandlung.arzneimittel.empty? && @behandlung.impfungswerte.empty?)
-			@tier.behandlungen << Behandlung.new
-		end
-	end
-=end
-
 	@tier.save
-
-	@edit_behandlung.save
+	
+	@edit_behandlung = Behandlung.new(params[:edit_behandlung])
+	unless params[:behandlung_id].blank?
+		@edit_behandlung.tier_id = @tier.id
+		@edit_behandlung.save
+	end
 
 	@karteikarte 			= Karteikarte.new(:person_id => @person.id, :tier_id => @tier.id)
 	@karteikarte.save
@@ -177,26 +167,13 @@ class KarteikartenController < ApplicationController
 	
     if params[:behandlung_id].blank?
 			@edit_behandlung = Behandlung.new( params[:edit_behandlung] )
+			@edit_behandlung.tier_id = @tier.id
 			@edit_behandlung.save			
 	  else
 	    @edit_behandlung = Behandlung.find( params[:behandlung_id])
 	    @edit_behandlung.update_attributes( params[:edit_behandlung] )
 	  end
 		
-		
-
-	
-=begin
-	if @behandlung.nil?
-		@tier.behandlungen << Behandlung.new
-	else
-		unless(@behandlung.gewicht_kg.empty? && @behandlung.diagnose.empty? && 
-			   @behandlung.laborwerte1.empty?  && @behandlung.laborwerte2.empty? && 
-			   @behandlung.arzneien.empty? && @behandlung.arzneimittel.empty? && @behandlung.impfungswerte.empty?)
-			@tier.behandlungen << Behandlung.new
-		end
-	end
-=end
 	@tier.save
 
 	@karteikarte.save	

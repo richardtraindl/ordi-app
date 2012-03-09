@@ -1,6 +1,6 @@
 <%= fields_for :edit_behandlung, @edit_behandlung do |behandlung_form| %>
 
-   <%= hidden_field_tag 'behandlung_id', behandlung_form.object.id %>			
+	 <%= hidden_field_tag :behandlung_id, behandlung_form.object.id %>
    <!-- behandlung_form.object.id: (<%= behandlung_form.object.id %>)	-->		
 	
 	<table class="behandlung1" border="1">
