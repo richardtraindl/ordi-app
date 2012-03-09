@@ -17,3 +17,5 @@
 # Ignore komodo project files
 *.kpf
 
+
+annotate/*.*
