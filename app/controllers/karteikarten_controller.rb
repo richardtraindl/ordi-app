@@ -56,10 +56,10 @@ class KarteikartenController < ApplicationController
 				@karteikarten = Karteikarte.find(:all, :select => "DISTINCT karteikarten.*", :conditions => [@abfrage.bedingung, @param1 + "%"], :joins => [:tier, :person, :tier => :behandlungen])
 
 			elsif @abfrage.id == 4  || @abfrage.id == 9 #behandlung -> datum
-				@karteikarten = Karteikarte.find(:all, :select => "DISTINCT karteikarten.*", :conditions => [@abfrage.bedingung, @param1, @param2], :joins => [:tier, :person, :tier => :behandlungen])
+				@karteikarten = Karteikarte.find(:all, :select => "DISTINCT karteikarten.*", :conditions => [@abfrage.bedingung, DateTime.parse( @param1 ), DateTime.parse( @param2 )], :joins => [:tier, :person, :tier => :behandlungen])
 
 			elsif @abfrage.id == 10 #impfung -> datum
-				@karteikarten = Karteikarte.find(:all, :select => "DISTINCT karteikarten.*", :conditions => [@abfrage.bedingung, @param1, @param2], :joins => [:tier, :person, :tier => {:behandlungen => :impfungswerte}])
+				@karteikarten = Karteikarte.find(:all, :select => "DISTINCT karteikarten.*", :conditions => [@abfrage.bedingung, DateTime.parse( @param1 ), DateTime.parse( @param2) ], :joins => [:tier, :person, :tier => {:behandlungen => :impfungswerte}])
 
 			elsif @abfrage.id == 11 #impfung
 				@karteikarten = Karteikarte.find(:all, :conditions => [@abfrage.bedingung, @param1 + "%"], :joins => [:tier, :person, :tier => {:behandlungen => :impfungswerte}])
@@ -205,8 +205,13 @@ class KarteikartenController < ApplicationController
     redirect_to(karteikarten_path)
   end
   
+	
+  def destroy_behandlung
+		@behandlung = Behandlung.find(params[:behandlung_id])
+		@behandlung.destroy
 
-
+    redirect_to edit_karteikarte_path(params[:id])
+  end
 
 
 end

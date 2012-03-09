@@ -9,6 +9,7 @@ Ordi::Application.routes.draw do
     member do
       get 'neues_tier'
       get 'edit_behandlung'
+      delete 'destroy_behandlung'
     end
     collection do
       get 'abfragen'

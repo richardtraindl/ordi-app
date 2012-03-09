@@ -139,13 +139,14 @@
 		<table class="karteikarte">
 			<colgroup>
 				<col width="8%">
-				<col width="30%">
+				<col width="28%">
 				<col width="10%">
 				<col width="10%">
 				<col width="10%">
 				<col width="10%">
 				<col width="16%">
-				<col width="6%">
+				<col width="4%">
+				<col width="4%">
 			<colgroup>
 			<tr>
 				<th>Datum</th>
@@ -156,6 +157,7 @@
 				<th>AM</th>
 				<th>Impfungen</th>
 				<th>Gewicht (Kg)</th>
+				<th></th>
 			</tr>
 			<%#= tier_form.fields_for :behandlungen do |behandlung_form| %>
 			
@@ -187,7 +189,7 @@
 
 					<td><%= behandlung.gewicht_kg %><%#= behandlung_form.text_field :gewicht_kg, :size => 4, :maxlength => 20 %></td>
 
-					<!-- td>löschen: <%#= behandlung_form.check_box :_destroy %></td -->
+					<td><%= link_to "löschen", { :action => "destroy_behandlung", :behandlung_id => behandlung.id, :id => @karteikarte.id }, :confirm => "Behandlung löschen?", :method => :delete, :class => "text_button" %></td>
 				</tr>
 			<% end %><!-- each behandlungen -->
 		</table>
@@ -238,7 +240,10 @@
 
     $( ".karteikarte tr" ).click( function() {
 			  // alert( 'hallo ' + $(this).attr( 'data-id' ));
-				   $.get( '/karteikarten/'+ $(this).attr( 'data-id' ) + '/edit_behandlung', null, 'script');  				
+				  $( '.karteikarte tr' ).removeClass( 'highlight' );
+					$(this).addClass('highlight');
+				   $.get( '/karteikarten/'+ $(this).attr( 'data-id' ) + '/edit_behandlung', null, 'script');
+					 
 			} );
     
       // $( ".behandlung1 textarea" ).removeAttr( "cols" ).removeAttr( "rows");
