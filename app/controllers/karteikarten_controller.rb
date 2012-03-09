@@ -23,7 +23,7 @@ class KarteikartenController < ApplicationController
 
 	def abfragen
 		if params[:abfrage].nil?
-			@karteikarten = Karteikarte.find(:all, :include => [:person, :tier], :conditions => ['personen.familienname LIKE "" AND tiere.tiername LIKE ""'])
+			@karteikarten = Karteikarte.find(:all, :include => [:person, :tier], :conditions => ['personen.familienname LIKE "*" AND tiere.tiername LIKE "*"'])
 			@abfrage = Abfrage.find(1)		
 		else
 			@abfrage = Abfrage.find(params[:abfrage].to_i)
