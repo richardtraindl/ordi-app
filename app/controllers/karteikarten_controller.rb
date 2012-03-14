@@ -106,8 +106,6 @@ class KarteikartenController < ApplicationController
     @edit_behandlung 	= Behandlung.find(params[:id])
 	end
 
-
-
   def neues_tier
 	@karteikarte	= Karteikarte.find(params[:id])
   
@@ -174,38 +172,55 @@ class KarteikartenController < ApplicationController
 	    @edit_behandlung.update_attributes( params[:edit_behandlung] )
 	  end
 		
-		@tier.save
-	
-		@karteikarte.save	
+  	@tier.save
 
-		render(:action => :edit)
+	  @karteikarte.save	
+
+	  render(:action => :edit)
   end
 
-  def update_behandlung
-    @behandlung 									= Behandlung.find(params[:id])
-    @behandlung.behandlungsdatum	= DateTime.parse(params[:behandlungsdatum_str])
-		@behandlung.diagnose					= params[:diagnose]
-		@behandlung.laborwerte1				= params[:laborwerte1]
-		@behandlung.laborwerte2				= params[:laborwerte2]
-		@behandlung.arzneien					= params[:arzneien]
-		@behandlung.arzneimittel			= params[:arzneimittel]
-		@behandlung.gewicht_kg				= params[:gewicht_kg]
-		@behandlung.save
-				
-		
-		@impfungen = Impfung.find(:all, :conditions => { :behandlung_id => params[:id] })
-		@impfungen.each do |impfung|
-			Impfung.delete(impfung.id)
-		end
-		
-		@impfungswerte								= (params[:impfungswert_ids]).split(/,/)
 
-		@impfungswerte.each { |wert|
-			@impfung = Impfung.new(:behandlung_id => params[:id], :impfungswert_id => wert)
-			@impfung.save		
-		}
-		
-		redirect_to edit_karteikarte_path(@karteikarte)  
+  def update_behandlung_attr
+    @behandlung = Behandlung.find(params[:id])
+    
+    @attr = params[:attr].to_i
+    case @attr
+      when 1
+        @behandlung.behandlungsdatum = DateTime.parse(params[:behandlungsdatum_str])
+        @behandlung.save    
+      when 2
+        @behandlung.diagnose = params[:diagnose]
+        @behandlung.save    
+      when 3
+        @behandlung.laborwerte1 = params[:laborwerte1]
+        @behandlung.save    
+      when 4
+        @behandlung.laborwerte2 = params[:laborwerte2]
+        @behandlung.save    
+      when 5
+        @behandlung.arzneien = params[:arzneien]      
+        @behandlung.save    
+      when 6
+        @behandlung.arzneimittel = params[:arzneimittel]      
+        @behandlung.save    
+      when 7
+        #Impfung.destroy_all(:behandlung_id => params[:id]) 
+        Impfung.delete_all("behandlung_id =" + params[:id]) 
+         # Post.delete_all("person_id = 5 AND (category = 'Something' OR category = 'Else')")
+
+        @impfungswerte = (params[:impfungswert_ids]) # .split(/,/)
+        puts @impfungswerte[0] + "..................................."
+        @impfungswerte.each { |wert|
+          @impfung = Impfung.new(:behandlung_id => params[:id], :impfungswert_id => wert)
+          @impfung.save
+        }
+        
+      when 8
+        @behandlung.gewicht_kg = params[:gewicht_kg]
+        @behandlung.save
+    end
+    
+    redirect_to edit_karteikarte_path(@karteikarte)
   end
 
   

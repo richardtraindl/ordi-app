@@ -83,7 +83,7 @@ class CreateDb < ActiveRecord::Migration
 			t.string	:wert, :limit => 20, :null => false		
 		end	
 
-		create_table :impfungen do |t|
+		create_table :impfungen, :id => false do |t|
 		  t.references	:behandlung, :null => false
 		  t.references	:impfungswert, :null => false
 		end
