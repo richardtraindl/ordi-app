@@ -1,22 +1,4 @@
-<table style="width: 90%">
-	<colgroup>
-		<col width="34%">
-		<col width="33%">
-		<col width="33%">
-	<colgroup>
-			
-	<tr>
-		<td><h1><%= link_to "Patientenübersicht", karteikarten_path() %></h1></td>
-		<td style="text-align: center"><h1 style="text-decoration: underline"><%= link_to "zu den Abfragen", abfragen_karteikarten_path() %></h1></td>
-		<td style="text-align: right"><h1 style="text-decoration: underline">
-      <% if signed_in? %>
-        <%= link_to "abmelden", signout_path(), :method => :delete %></h1>
-      <% else %>
-        <%= link_to "anmelden", signin_path() %></h1>
-      <% end %>
-    </td>
-	</tr>
-</table>
+
 
 <%= form_tag karteikarten_path, :method => :get do %>
 <p>
@@ -26,7 +8,7 @@
 </p>
 <% end %>
 
-<%= render :partial => "index_form", :locals => { :karteikarten => @karteikarten } %>
+<%= render :partial => "karteikarten", :locals => { :karteikarten => @karteikarten } %>
 
 
 <p>

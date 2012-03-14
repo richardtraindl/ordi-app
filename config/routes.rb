@@ -12,10 +12,9 @@ Ordi::Application.routes.draw do
       delete 'destroy_behandlung'
       post 'update_behandlung_attr'
     end
-    collection do
-      get 'abfragen'
-    end
   end
+  
+  resources :abfragen  
   
   root :to => 'karteikarten#index'
 end

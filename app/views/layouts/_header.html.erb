@@ -1,0 +1,21 @@
+<table style="width: 100%">
+	<colgroup>
+		<col width="66%">
+		<col width="33%">
+	<colgroup>
+			
+	<tr style='background-color: RoyalBlue;'>
+		<td style='font-size: 200%;'>
+       <%= link_to "Patientenübersicht", karteikarten_path() %> &nbsp;&nbsp;  
+		   <%= link_to "Abfragen", abfragen_path() %>      
+    </td>
+    
+		<td style="text-align: right"><h1 style="text-decoration: underline">
+      <% if signed_in? %>
+        <%= link_to "abmelden", signout_path(), :method => :delete %></h1>
+      <% else %>
+        <%= link_to "anmelden", signin_path() %></h1>
+      <% end %>
+    </td>
+	</tr>
+</table>

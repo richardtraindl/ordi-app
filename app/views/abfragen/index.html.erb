@@ -6,13 +6,13 @@
 	<colgroup>
 			
 	<tr>
-		<td><h1><%= link_to "Abfragen", abfragen_karteikarten_path()%></h1></td>
+		<td><h1><%= link_to "Abfragen", abfragen_path()%></h1></td>
 		<td style="text-align: center"><h1 style="text-decoration: underline"><%= link_to "zur Patientenübersicht", karteikarten_path() %></h1></td>
-		<td style="text-align: right"><h1 style="text-decoration: underline"><%= link_to "abmelden", abfragen_karteikarten_path()%></h1></td>
+		<td style="text-align: right"><h1 style="text-decoration: underline"><%= link_to "abmelden", signout_path()%></h1></td>
 	</tr>
 </table>
 
-<%= form_tag abfragen_karteikarten_path, :method => :get do %>
+<%= form_tag abfragen_path, :method => :get do %>
   <p>
   	<table style="height: 100%">
       <tr style="height: 30px">		
@@ -39,7 +39,7 @@
   </p>
 <% end %>
 
-<%= render :partial => "index_form", :locals => { :karteikarten => @karteikarten } %>
+<%= render :partial => "karteikarten/karteikarten", :locals => { :karteikarten => @karteikarten } %>
 
 <p>
 	<table>

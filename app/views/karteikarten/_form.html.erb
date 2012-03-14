@@ -1,22 +1,4 @@
 
-<table style="width: 90%">
-	<colgroup>
-		<col width="25%">
-		<col width="25%">
-		<col width="25%">
-    <col width="25%">
-	<colgroup>
-			
-	<tr>
-    <td><h1>Patientenkartei</h1></td>
-		<td style="text-align: center"><h1 style="text-decoration: underline"><%= link_to "zur Patientenübersicht", karteikarten_path() %></h1></td>
-		<td style="text-align: center"><h1 style="text-decoration: underline"><%= link_to "zu den Abfragen", abfragen_karteikarten_path()%></h1></td>
-		<td style="text-align: right"><h1 style="text-decoration: underline">abmelden</h1></td>
-	</tr>
-</table>
-
-
-
 <%= form_for @karteikarte do |karteikarte_form| %>
    <div style="border: 1px solid black">
 		<table>
