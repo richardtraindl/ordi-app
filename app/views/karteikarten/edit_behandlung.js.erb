@@ -9,3 +9,110 @@ $(".impf_select").chosen();
 
 $( ".datum" ).datepicker({ changeYear: true, dateFormat: 'dd.mm.yy' });
 $(".datum").datepicker($.datepicker.regional['de']);
+
+
+var $dialog_labor = $('<div></div>');
+$dialog_labor.html( $("#lab") );
+$dialog_labor.dialog({
+    autoOpen: false,
+    title: 'Laborwerte',
+    modal: true,
+    buttons: [ { text: "OK", click: function() { 
+           labor_text_feld.value = labor_text_feld.value + get_lab_list_text() + '**';
+                   $('#lab option').attr('selected', false );
+           labor_text_feld.focus(); 
+           $(this).dialog("close"); } },
+           { text: "Abbruch", click: function() { 
+            labor_text_feld.focus();
+            $(this).dialog("close"); } } ] 
+  });
+
+
+$('.labor').click(  function() {
+  labor_text_feld = this;
+  $dialog_labor.dialog('open');
+  // prevent the default action, e.g., following a link
+  return false;
+});
+
+
+
+    $("#edit_behandlung_behandlungsdatum_str").change(function(){      
+      var behandlung_id = $('input#behandlung_id').attr('value');
+      $.post( '/karteikarten/' + behandlung_id + '/update_behandlung_attr',
+        { attr: 1,
+          behandlungsdatum_str: $(this).val() 
+        });
+      var suche = $("tr[data-id=" + behandlung_id + "]");
+      $("td#behandlungsdatum_str", suche).text($(this).val());
+    });
+
+    $("#edit_behandlung_diagnose").change(function(){      
+      var behandlung_id = $('input#behandlung_id').attr('value');
+      $.post( '/karteikarten/' + behandlung_id + '/update_behandlung_attr',
+        { attr: 2,
+          diagnose: $(this).val() 
+        });
+      var suche = $("tr[data-id=" + behandlung_id + "]");
+      $("td#diagnose", suche).text($(this).val());
+    });
+
+    $("#edit_behandlung_laborwerte1").change(function(){      
+      var behandlung_id = $('input#behandlung_id').attr('value');
+      $.post( '/karteikarten/' + behandlung_id + '/update_behandlung_attr',
+        { attr: 3,
+          laborwerte1: $(this).val()
+        });
+      var suche = $("tr[data-id=" + behandlung_id + "]");
+      $("td#laborwerte1", suche).text($(this).val());
+    });
+
+    $("#edit_behandlung_laborwerte2").change(function(){      
+      var behandlung_id = $('input#behandlung_id').attr('value');
+      $.post( '/karteikarten/' + behandlung_id + '/update_behandlung_attr',
+        { attr: 4,
+          laborwerte2: $(this).val() 
+        });
+      var suche = $("tr[data-id=" + behandlung_id + "]");
+      $("td#laborwerte2", suche).text($(this).val());
+    });
+
+    $("#edit_behandlung_arzneien").change(function(){      
+      var behandlung_id = $('input#behandlung_id').attr('value');
+      $.post( '/karteikarten/' + behandlung_id + '/update_behandlung_attr',
+        { attr: 5,
+          arzneien: $(this).val() 
+        });
+      var suche = $("tr[data-id=" + behandlung_id + "]");
+      $("td#arzneien", suche).text($(this).val());
+    });
+
+    $("#edit_behandlung_arzneimittel").change(function(){      
+      var behandlung_id = $('input#behandlung_id').attr('value');
+      $.post( '/karteikarten/' + behandlung_id + '/update_behandlung_attr',
+        { attr: 6,
+          arzneimittel: $(this).val()
+        });
+      var suche = $("tr[data-id=" + behandlung_id + "]");
+      $("td#arzneimittel", suche).text($(this).val());
+    });
+
+    $("#edit_behandlung_impfungswert_ids").change(function(){      
+      var behandlung_id = $('input#behandlung_id').attr('value');
+      $.post( '/karteikarten/' + behandlung_id + '/update_behandlung_attr',
+        { attr: 7,
+          impfungswert_ids: $(this).val() 
+        });
+      var suche = $("tr[data-id=" + behandlung_id + "]");
+      $("td#impfungswert_ids", suche).text($(this).val());
+    });
+    
+    $("#edit_behandlung_gewicht_kg").change(function(){      
+      var behandlung_id = $('input#behandlung_id').attr('value');
+      $.post( '/karteikarten/' + behandlung_id + '/update_behandlung_attr',
+        { attr: 8,
+          gewicht_kg: $(this).val() 
+        });
+      var suche = $("tr[data-id=" + behandlung_id + "]");
+      $("td#gewicht_kg", suche).text($(this).val());
+    });

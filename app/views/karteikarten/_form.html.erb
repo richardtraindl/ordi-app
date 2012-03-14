@@ -133,6 +133,9 @@
 	  <%= render :partial => "behandlung_form", :locals => { :edit_behandlung => @edit_behandlung }, :action => 'edit_behandlung_karteikarte'  %>
 	</div>
 
+  <%= link_to "neue Behandlung", :onclick => "clearEdit()" %>
+  <%# button_to "lösch.", { :action => "destroy", :id => karteikarte.id }, :confirm => "Löschen?", :method => :delete, :class => "text_button" %>
+
  
 	<!-- max-height: 40%; overflow-x: inherit; no-display; overflow-y: scroll; --> 
 	<div style="border: 1px solid black; margin-top: 5px;">
@@ -164,19 +167,19 @@
 			<% @tier.behandlungen.order( 'behandlungsdatum desc' ).each do |behandlung| %>
 			
 				<tr data-id='<%= behandlung.id %>'>
-					<td><%= fmt_date( behandlung.behandlungsdatum ) %><%#= behandlung_form.text_field :behandlungsdatum_str, :size => 8, :maxlength => 10, :class => "datum" %></td>
+					<td id="behandlungsdatum_str"><%= fmt_date( behandlung.behandlungsdatum ) %><%#= behandlung_form.text_field :behandlungsdatum_str, :size => 8, :maxlength => 10, :class => "datum" %></td>
 					
-					<td><%= behandlung.diagnose %><%#= behandlung_form.text_area :diagnose, :size => "20x3", :style => "resize: vertical;", :class => "karteikarte" %></td>
+					<td id="diagnose"><%= behandlung.diagnose %><%#= behandlung_form.text_area :diagnose, :size => "20x3", :style => "resize: vertical;", :class => "karteikarte" %></td>
 					
-					<td><%= behandlung.laborwerte1 %><%#= behandlung_form.text_area :laborwerte1, :size => "10x3", :maxlength => 200, :class => "labor karteikarte" %></td>
+					<td id="laborwerte1"><%= behandlung.laborwerte1 %><%#= behandlung_form.text_area :laborwerte1, :size => "10x3", :maxlength => 200, :class => "labor karteikarte" %></td>
 
-					<td><%= behandlung.laborwerte2 %><%#= behandlung_form.text_area :laborwerte2, :size => "10x3", :maxlength => 200, :class => "labor karteikarte" %></td>
+					<td id="laborwerte2"><%= behandlung.laborwerte2 %><%#= behandlung_form.text_area :laborwerte2, :size => "10x3", :maxlength => 200, :class => "labor karteikarte" %></td>
 
-					<td><%= behandlung.arzneien %><%#= behandlung_form.text_area :arzneien, :size => "10x3", :maxlength => 200, :class => "karteikarte" %></td>
+					<td id="arzneien"><%= behandlung.arzneien %><%#= behandlung_form.text_area :arzneien, :size => "10x3", :maxlength => 200, :class => "karteikarte" %></td>
 					
-					<td><%= behandlung.arzneimittel %><%#= behandlung_form.text_area :arzneimittel, :size => "10x3", :maxlength => 200, :class => "karteikarte" %></td>
+					<td id="arzneimittel"><%= behandlung.arzneimittel %><%#= behandlung_form.text_area :arzneimittel, :size => "10x3", :maxlength => 200, :class => "karteikarte" %></td>
 
-					<td>
+					<td id="impfungswert_ids">
 						<% behandlung.impfungswerte.each do |impfungswert| %>
 								<%= impfungswert.wert %>
 						<% end %>
@@ -242,16 +245,15 @@
 			  // alert( 'hallo ' + $(this).attr( 'data-id' ));
 				  $( '.karteikarte tr' ).removeClass( 'highlight' );
 					$(this).addClass('highlight');
-				   $.get( '/karteikarten/'+ $(this).attr( 'data-id' ) + '/edit_behandlung', null, 'script');
+				  $.get( '/karteikarten/'+ $(this).attr( 'data-id' ) + '/edit_behandlung', null, 'script');
 					 
-			} );
+		} );
     
-      // $( ".behandlung1 textarea" ).removeAttr( "cols" ).removeAttr( "rows");
+    // $( ".behandlung1 textarea" ).removeAttr( "cols" ).removeAttr( "rows");
 	
-		var $dialog_labor = $('<div></div>');
 		
+    var $dialog_labor = $('<div></div>');
 		$dialog_labor.html( $("#lab") );
-		
 		$dialog_labor.dialog({
 				autoOpen: false,
 				title: 'Laborwerte',
@@ -266,21 +268,31 @@
 							  $(this).dialog("close"); } } ] 
 			});
 
-	
-			
+
 		$('.labor').click(  function() {
 			labor_text_feld = this;
 			$dialog_labor.dialog('open');
 			// prevent the default action, e.g., following a link
 			return false;
 		});
-	
-	
+
+
 		$(function() {
 			$( ".datum" ).datepicker({ changeYear: true, dateFormat: 'dd.mm.yy' });
 			$(".datum").datepicker($.datepicker.regional['de']);
-		});	
+		});
 		
+    
+    function clearEdit(){
+	    var buf = "";
+		  $( '#lab option:selected').each(function () {
+			buf += $(this).text() + "\n ";
+		});
+		
+		return buf;
+	}
+    
+    
 	});
 
 

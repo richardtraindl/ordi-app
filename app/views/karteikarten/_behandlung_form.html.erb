@@ -1,7 +1,7 @@
 <%= fields_for :edit_behandlung, @edit_behandlung do |behandlung_form| %>
 
-	 <%= hidden_field_tag :behandlung_id, behandlung_form.object.id %>
-   <!-- behandlung_form.object.id: (<%= behandlung_form.object.id %>)	-->		
+	 <%= hidden_field_tag 'behandlung_id', behandlung_form.object.id %>
+   <!-- behandlung_form.object.id: (<%= behandlung_form.object.id %>)	-->
 	
 	<table class="behandlung1" border="1">
 		<tr>
@@ -35,7 +35,7 @@
 			<td style="vertical-align: top; background-color: white;"><%= behandlung_form.text_field :gewicht_kg, { :size => 4, :maxlength => 20 } %></td>
 		</tr>
 		<tr>
-			<td colspan='7'>Diagnose:</td>			
+			<td colspan='7'>Diagnose:</td>
 		</tr>
 		<tr>
 			<td colspan="7">
@@ -44,3 +44,4 @@
 		</tr>
 	</table>
 <% end %>
+
