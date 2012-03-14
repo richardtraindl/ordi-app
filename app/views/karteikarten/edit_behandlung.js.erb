@@ -12,7 +12,13 @@ $(".datum").datepicker($.datepicker.regional['de']);
 
 
 var $dialog_labor = $('<div></div>');
+<<<<<<< HEAD
 $dialog_labor.html( $("#lab") );
+=======
+
+$dialog_labor.html( $("#lab") );
+
+>>>>>>> ea47cf6c81d58c89f24f7e3f3c166f8b1af2e266
 $dialog_labor.dialog({
     autoOpen: false,
     title: 'Laborwerte',
@@ -28,11 +34,16 @@ $dialog_labor.dialog({
   });
 
 
+<<<<<<< HEAD
+=======
+  
+>>>>>>> ea47cf6c81d58c89f24f7e3f3c166f8b1af2e266
 $('.labor').click(  function() {
   labor_text_feld = this;
   $dialog_labor.dialog('open');
   // prevent the default action, e.g., following a link
   return false;
+<<<<<<< HEAD
 });
 
 
@@ -116,3 +127,6 @@ $('.labor').click(  function() {
       var suche = $("tr[data-id=" + behandlung_id + "]");
       $("td#gewicht_kg", suche).text($(this).val());
     });
+=======
+});
+>>>>>>> ea47cf6c81d58c89f24f7e3f3c166f8b1af2e266

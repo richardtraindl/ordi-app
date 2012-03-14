@@ -129,10 +129,13 @@
 		</table>
    </div>
 	
+	<%= link_to "neue Behandlung", '#', :onclick => "clearEditfields()" %>
+	
 	<div id='behandlung_form'>
 	  <%= render :partial => "behandlung_form", :locals => { :edit_behandlung => @edit_behandlung }, :action => 'edit_behandlung_karteikarte'  %>
 	</div>
 
+<<<<<<< HEAD
   <%= link_to "neue Behandlung", :onclick => "clearEdit()" %>
   <%# button_to "lösch.", { :action => "destroy", :id => karteikarte.id }, :confirm => "Löschen?", :method => :delete, :class => "text_button" %>
 
@@ -197,6 +200,12 @@
 			<% end %><!-- each behandlungen -->
 		</table>
 	</div>
+=======
+	
+	<div id='behandlungen_index'>
+	  <%= render :partial => "behandlungen_index", :locals => { :behandlungen => @tier.behandlungen.order( 'behandlungsdatum desc' ) }, :action => 'karteikarten'  %>
+	</div>	
+>>>>>>> ea47cf6c81d58c89f24f7e3f3c166f8b1af2e266
 	
 	<p>
 	<table>
@@ -232,22 +241,50 @@
 		});
 		
 		return buf;
-	}
-	
-	
+	};
+
+
 	$.datepicker.setDefaults($.datepicker.regional['']);  
   	
 	$(document).ready(function() {
 		$(".impf_select").attr("data-placeholder", "bitte auswählen");
 		$(".impf_select").chosen();
-
+		
     $( ".karteikarte tr" ).click( function() {
 			  // alert( 'hallo ' + $(this).attr( 'data-id' ));
 				  $( '.karteikarte tr' ).removeClass( 'highlight' );
 					$(this).addClass('highlight');
+<<<<<<< HEAD
 				  $.get( '/karteikarten/'+ $(this).attr( 'data-id' ) + '/edit_behandlung', null, 'script');
 					 
 		} );
+=======
+					
+				// var inputobj = $('input#behandlung_id');
+				var behandlung_id_alt = $('input#behandlung_id').attr("value");
+				// if(inputobj.attr("value") != ""){
+				if(behandlung_id_alt != ""){
+					$.post( '/karteikarten/' + behandlung_id_alt + '/update_behandlung',
+										{ behandlungsdatum_str: $('#edit_behandlung_behandlungsdatum_str').val(),
+										  diagnose: 						$('#edit_behandlung_diagnose').text(),
+											laborwerte1:					$('#edit_behandlung_laborwerte1').text(),
+											laborwerte2:					$('#edit_behandlung_laborwert2').text(),
+											arzneien:							$('#edit_behandlung_arzneien').text(),
+											arzneimittel:					$('#edit_behandlung_arzneimittel').text(),
+											impfungswert_ids:			$('#edit_behandlung_impfungswert_ids').val(),
+											gewicht_kg:						$('#edit_behandlung_gewicht_kg').val()
+									} );
+
+				// var behandlung_alt = $("tr[data-id=" + behandlung_id_alt + "]");
+				// alert( behandlung_alt.html() );
+				//behandlung_alt
+				// $("tr[data-id=" + behandlung_id_alt + "]").get( '/karteikarten/'+ behandlung_id_alt + '/edit_behandlung', null, 'script');
+				}
+				
+				$.get( '/karteikarten/'+ $(this).attr( 'data-id' ) + '/edit_behandlung', null, 'script');
+
+			} );
+>>>>>>> ea47cf6c81d58c89f24f7e3f3c166f8b1af2e266
     
     // $( ".behandlung1 textarea" ).removeAttr( "cols" ).removeAttr( "rows");
 	
@@ -295,5 +332,54 @@
     
 	});
 
+	function clearEditfields(){
+		// var domobj1 = $('div#behandlung_form');
+		var ausgabe1;
+		var ausgabe2;
+		var suche; 		
+		var inputobj = $('input#behandlung_id');
+		if(inputobj.attr("value") != ""){
+			// ausgabe = inputobj.attr("value");
+			ausgabe1 = $('#edit_behandlung_behandlungsdatum_str').val() + 
+								$('#edit_behandlung_laborwerte1').text() + 
+								$('#edit_behandlung_laborwerte2').text() +
+								$('#edit_behandlung_arzneien').text() +
+								$('#edit_behandlung_arzneimittel').text() +
+								$('#edit_behandlung_impfungswert_ids').html() +
+								$('#edit_behandlung_gewicht_kg').val();
 
+			$('#edit_behandlung_behandlungsdatum_str').val("01.01.2012"); 
+			$('#edit_behandlung_laborwerte1').text(""); 
+			$('#edit_behandlung_laborwerte2').text("");
+			$('#edit_behandlung_arzneien').text("");
+			$('#edit_behandlung_arzneimittel').text("");
+			suche = $('#edit_behandlung_impfungswert_ids');
+			$('option', suche).removeAttr("selected");
+			$('#edit_behandlung_gewicht_kg').val("");
+
+			ausgabe2 = $('#edit_behandlung_behandlungsdatum_str').val() + 
+								$('#edit_behandlung_laborwerte1').text() + 
+								$('#edit_behandlung_laborwerte2').text() +
+								$('#edit_behandlung_arzneien').text() +
+								$('#edit_behandlung_arzneimittel').text() +
+								$('#edit_behandlung_impfungswert_ids').html() +
+								$('#edit_behandlung_gewicht_kg').val();
+
+		}
+		else{
+			ausgabe1 = -1;
+			ausgabe2 = -1;
+		}
+		
+		//.attr("value");
+		// var element = $("div#behandlung_form");
+		// element.show();
+		// $.get( '/karteikarten/'+ $(this).attr( 'data-id' ) + '/edit_behandlung', null, 'script');					 
+		alert( ausgabe1 + "***" + ausgabe2 );
+		
+		$(".impf_select").chosen().trigger("liszt:updated");
+		
+		// behandlung_id
+		// + element
+	};	
 </script>

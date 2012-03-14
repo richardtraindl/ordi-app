@@ -172,6 +172,7 @@ class KarteikartenController < ApplicationController
 	    @edit_behandlung.update_attributes( params[:edit_behandlung] )
 	  end
 		
+<<<<<<< HEAD
   	@tier.save
 
 	  @karteikarte.save	
@@ -219,6 +220,40 @@ class KarteikartenController < ApplicationController
     end
     
     redirect_to edit_karteikarte_path(@karteikarte)
+=======
+		@tier.save
+	
+		@karteikarte.save	
+
+		render(:action => :edit)
+  end
+
+  def update_behandlung
+    @behandlung 									= Behandlung.find(params[:id])
+    @behandlung.behandlungsdatum	= DateTime.parse(params[:behandlungsdatum_str])
+		@behandlung.diagnose					= params[:diagnose]
+		@behandlung.laborwerte1				= params[:laborwerte1]
+		@behandlung.laborwerte2				= params[:laborwerte2]
+		@behandlung.arzneien					= params[:arzneien]
+		@behandlung.arzneimittel			= params[:arzneimittel]
+		@behandlung.gewicht_kg				= params[:gewicht_kg]
+		@behandlung.save
+				
+		
+		@impfungen = Impfung.find(:all, :conditions => { :behandlung_id => params[:id] })
+		@impfungen.each do |impfung|
+			Impfung.delete(impfung.id)
+		end
+		
+		@impfungswerte								= (params[:impfungswert_ids]).split(/,/)
+
+		@impfungswerte.each { |wert|
+			@impfung = Impfung.new(:behandlung_id => params[:id], :impfungswert_id => wert)
+			@impfung.save		
+		}
+		
+		redirect_to edit_karteikarte_path(@karteikarte)  
+>>>>>>> ea47cf6c81d58c89f24f7e3f3c166f8b1af2e266
   end
 
   
