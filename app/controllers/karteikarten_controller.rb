@@ -55,6 +55,8 @@ class KarteikartenController < ApplicationController
   
   def edit_behandlung
     @edit_behandlung 	= Behandlung.find(params[:id])
+    
+    puts "FFFFFFFFF" + @edit_behandlung.diagnose + @edit_behandlung.arzneien + @edit_behandlung.gewicht_kg 
 	end
 
   def neues_tier

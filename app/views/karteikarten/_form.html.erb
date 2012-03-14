@@ -111,8 +111,8 @@
 		</table>
    </div>
 	
-	<div id='behandlung_form'>
-	  <%= render :partial => "behandlung_form", :locals => { :edit_behandlung => @edit_behandlung }, :action => 'edit_behandlung_karteikarte'  %>
+	<div id='edit_behandlung'>
+	  <%= render :partial => "edit_behandlung", :locals => { :edit_behandlung => @edit_behandlung }, :action => 'edit_behandlung'  %>
 	</div>
 
   <%= link_to "neue Behandlung", :onclick => "clearEdit()" %>
@@ -148,7 +148,7 @@
 			
 			<% @tier.behandlungen.order( 'behandlungsdatum desc' ).each do |behandlung| %>
 			
-				<tr data-id='<%= behandlung.id %>'>
+				<tr class='karteikarte' data-id='<%= behandlung.id %>'>
 					<td id="behandlungsdatum_str"><%= fmt_date( behandlung.behandlungsdatum ) %><%#= behandlung_form.text_field :behandlungsdatum_str, :size => 8, :maxlength => 10, :class => "datum" %></td>
 					
 					<td id="diagnose"><%= behandlung.diagnose %><%#= behandlung_form.text_area :diagnose, :size => "20x3", :style => "resize: vertical;", :class => "karteikarte" %></td>
@@ -206,7 +206,7 @@
 
 <script>
 	var labor_text_feld;
-	
+  
 	function get_lab_list_text(){
 	    var buf = "";
 		$( '#lab option:selected').each(function () {
@@ -223,17 +223,18 @@
 		$(".impf_select").attr("data-placeholder", "bitte auswählen");
 		$(".impf_select").chosen();
 
-    $( ".karteikarte tr" ).click( function() {
-			  // alert( 'hallo ' + $(this).attr( 'data-id' ));
-				  $( '.karteikarte tr' ).removeClass( 'highlight' );
-					$(this).addClass('highlight');
-				  $.get( '/karteikarten/'+ $(this).attr( 'data-id' ) + '/edit_behandlung', null, 'script');
-					 
+    $("tr.karteikarte").click( function() {
+		  // alert( 'hallo ' + $(this).attr( 'data-id' ));
+      setBehandlung();
+		  $('tr.karteikarte').removeClass( 'highlight' );
+      $('tr.karteikarte').attr('markiert','false');
+		  $(this).addClass('highlight');
+      $(this).attr('markiert','true');
+			$.get( '/karteikarten/'+ $(this).attr( 'data-id' ) + '/edit_behandlung', null, 'script');
 		} );
-    
+
     // $( ".behandlung1 textarea" ).removeAttr( "cols" ).removeAttr( "rows");
-	
-		
+    
     var $dialog_labor = $('<div></div>');
 		$dialog_labor.html( $("#lab") );
 		$dialog_labor.dialog({
@@ -268,13 +269,25 @@
     function clearEdit(){
 	    var buf = "";
 		  $( '#lab option:selected').each(function () {
-			buf += $(this).text() + "\n ";
-		});
-		
-		return buf;
-	}
+			  buf += $(this).text() + "\n ";
+		  });		
+		  return buf;
+	  }    
     
-    
+    function setBehandlung(){
+      var behandlung = $("tr[markiert=true]");
+      if(behandlung != null){
+        $("td#behandlungsdatum_str", behandlung).text($("#edit_behandlung_behandlungsdatum_str").val());
+        $("td#diagnose", behandlung).text($("#edit_behandlung_diagnose").val());
+        $("td#laborwerte1", behandlung).text($("#edit_behandlung_laborwerte1").val());
+        $("td#laborwerte2", behandlung).text($("#edit_behandlung_laborwerte2").val());
+        $("td#arzneien", behandlung).text($("#edit_behandlung_arzneien").val());
+        $("td#arzneimittel", behandlung).text($("#edit_behandlung_arzneimittel").val());
+        // $("td#impfungswert_ids", behandlung).text($("#edit_behandlung_impfungswert_ids").val());
+        $("td#gewicht_kg", behandlung).text($("#edit_behandlung_gewicht_kg").val());
+      }
+    }
+
 	});
 
 
