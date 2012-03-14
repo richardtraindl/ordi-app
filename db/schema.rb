@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(:version => 20120210144514) do
 
   create_table "behandlungen", :force => true do |t|
     t.integer  "tier_id",                                                            :null => false
-    t.datetime "behandlungsdatum",                :default => '2012-03-11 19:13:02', :null => false
+    t.datetime "behandlungsdatum",                :default => '2012-03-14 12:44:16', :null => false
     t.string   "gewicht_kg",       :limit => 20
     t.text     "diagnose"
     t.string   "laborwerte1",      :limit => 200
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(:version => 20120210144514) do
     t.string "wert", :limit => 2, :null => false
   end
 
-  create_table "impfungen", :force => true do |t|
+  create_table "impfungen", :id => false, :force => true do |t|
     t.integer "behandlung_id",   :null => false
     t.integer "impfungswert_id", :null => false
   end
