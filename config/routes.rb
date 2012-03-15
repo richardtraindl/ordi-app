@@ -8,9 +8,8 @@ Ordi::Application.routes.draw do
   resources :karteikarten do
     member do
       get 'neues_tier'
-      get 'edit_behandlung'
+      get 'neue_behandlung'
       delete 'destroy_behandlung'
-      post 'update_behandlung_attr'
     end
   end
   

@@ -67,7 +67,7 @@ class CreateDb < ActiveRecord::Migration
 
     create_table :behandlungen do |t|
 			t.references	:tier, :null => false
-			t.datetime		:behandlungsdatum, :null => false, :default => Time.now
+			t.datetime		:behandlungsdatum, :null => false, :default => DateTime.now
 			t.string		:gewicht_kg, :limit => 20
 			t.text			:diagnose
 			t.string		:laborwerte1, :limit => 200
