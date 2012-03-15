@@ -225,6 +225,7 @@
 
     $("tr.karteikarte").click( function() {
 		  // alert( 'hallo ' + $(this).attr( 'data-id' ));
+      $(".impf_select").trigger("liszt:updated"); 
       setBehandlung();
 		  $('tr.karteikarte').removeClass( 'highlight' );
       $('tr.karteikarte').attr('markiert','false');
@@ -283,7 +284,13 @@
         $("td#laborwerte2", behandlung).text($("#edit_behandlung_laborwerte2").val());
         $("td#arzneien", behandlung).text($("#edit_behandlung_arzneien").val());
         $("td#arzneimittel", behandlung).text($("#edit_behandlung_arzneimittel").val());
-        // $("td#impfungswert_ids", behandlung).text($("#edit_behandlung_impfungswert_ids").val());
+        
+        var impfungen = "";
+        $("#edit_behandlung_impfungswert_ids option[selected=selected]").each(function(){
+          impfungen += $(this).text() + " * ";
+        });
+        $("td#impfungswert_ids", behandlung).text(impfungen);        
+        
         $("td#gewicht_kg", behandlung).text($("#edit_behandlung_gewicht_kg").val());
       }
     }
