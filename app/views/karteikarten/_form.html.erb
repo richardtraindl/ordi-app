@@ -286,8 +286,11 @@
         $("td#arzneimittel", behandlung).text($("#edit_behandlung_arzneimittel").val());
         
         var impfungen = "";
-        $("#edit_behandlung_impfungswert_ids option[selected=selected]").each(function(){
-          impfungen += $(this).text() + " * ";
+				
+				$("li.result-selected").each(function(){				
+				// <li id="edit_behandlung_impfungswert_ids_chzn_o_0" class="result-selected" style="">Borreliose</li>				
+        // $("#edit_behandlung_impfungswert_ids option[selected=selected]").each(function(){
+          impfungen += $(this).text() + " ";
         });
         $("td#impfungswert_ids", behandlung).text(impfungen);        
         
