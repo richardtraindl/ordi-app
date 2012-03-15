@@ -116,16 +116,17 @@ class KarteikartenController < ApplicationController
     @tier     		= Tier.find(@karteikarte.tier_id)
     @tier.update_attributes(params[:karteikarte][:tier])
 	
+		@tier.save
+		
     if params[:behandlung_id].blank?
 			@edit_behandlung = Behandlung.new( params[:edit_behandlung] )
 			@edit_behandlung.tier_id = @tier.id
-			@edit_behandlung.save			
-	  else
+			#	@edit_behandlung.save
+		else
 	    @edit_behandlung = Behandlung.find( params[:behandlung_id])
 	    @edit_behandlung.update_attributes( params[:edit_behandlung] )
-	  end
-		
-  	@tier.save
+	    @edit_behandlung.save
+	  end  	
 
 	  @karteikarte.save	
 
