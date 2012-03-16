@@ -54,7 +54,7 @@ div.karteikarte {
   box-sizing: border-box;  
   width: 100%;
   height: 100%;
-  resize: none;
+  /* resize: none; */
   border: 0;
 }
 

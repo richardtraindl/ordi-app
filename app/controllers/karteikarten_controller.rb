@@ -12,6 +12,7 @@ class KarteikartenController < ApplicationController
   end
 
 
+
 	# GET /owners/new
   # GET /owners/new.json
   def new
@@ -27,6 +28,7 @@ class KarteikartenController < ApplicationController
   end
 
   
+
   # GET /owners/1/edit
   def edit
     @karteikarte  = Karteikarte.find(params[:id])
@@ -35,8 +37,9 @@ class KarteikartenController < ApplicationController
 
     @tier         = Tier.find(@karteikarte.tier_id)
     
-    @tier.behandlungen.order( 'behandlungsdatum desc' )
+    # @tier.behandlungen.order( 'behandlungsdatum desc' )
   end
+
 
 
   def neues_tier
@@ -46,28 +49,17 @@ class KarteikartenController < ApplicationController
     @person.save
 
     @tier               = Tier.new(:geschlechtswert_id => 0)
-    @tier.behandlungen  << Behandlung.new
+    # @tier.behandlungen  << Behandlung.new
     @tier.save
 
     @karteikarte        = Karteikarte.new(:person_id => @person.id, :tier_id => @tier.id)
     @karteikarte.save
 
-    @tier.behandlungen.order( 'behandlungsdatum desc' )
+    # @tier.behandlungen.order( 'behandlungsdatum desc' )
 
     render :action => :edit
   end
 
-
-  def neue_behandlung
-    @karteikarte        = Karteikarte.find(params[:id])
-    @person             = Person.find(@karteikarte.person_id)
-    @tier               = Tier.find(@karteikarte.tier_id)
-    @tier.behandlungen  << Behandlung.new
-    @tier.save
-    @karteikarte.save
-
-    render(:action => :edit)
-  end
 
 
   # POST /owners
@@ -82,7 +74,9 @@ class KarteikartenController < ApplicationController
     @karteikarte      = Karteikarte.new(:person_id => @person.id, :tier_id => @tier.id)
     @karteikarte.save
 
-    @tier.behandlungen.order( 'behandlungsdatum desc' )
+    # @tier.behandlungen    << Behandlung.new
+
+    # @tier.behandlungen.order( 'behandlungsdatum desc' )
 
     render :action => :edit
   end
@@ -102,7 +96,15 @@ class KarteikartenController < ApplicationController
     @tier.update_attributes(params[:karteikarte][:tier])
     @tier.save
 
-     @karteikarte.save
+    @karteikarte.save
+
+		@behandlung = @tier.behandlungen.last # order( 'behandlungsdatum desc' )
+		puts "+++++++++++" + @behandlung.id.to_s + @behandlung.diagnose.to_s + "++++++++++++"
+		unless @behandlung.diagnose.blank? && @behandlung.laborwerte1.blank? && @behandlung.laborwerte2.blank? &&
+					 @behandlung.arzneien.blank? && @behandlung.arzneimittel.blank? && @behandlung.impfungswert_ids.blank? && @behandlung.gewicht_kg.blank?
+			puts "**********************************************************************************"
+			@tier.behandlungen    << Behandlung.new
+		end
 
     render(:action => :edit)
   end
@@ -136,6 +138,7 @@ class KarteikartenController < ApplicationController
 		@behandlung = Behandlung.find(params[:behandlung_id])
 		@behandlung.destroy
 
+		# render(:action => :edit)
     redirect_to edit_karteikarte_path(params[:id])
   end
 

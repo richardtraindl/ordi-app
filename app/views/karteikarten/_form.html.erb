@@ -133,11 +133,12 @@
 				<th>Gewicht (Kg)</th>
 				<th></th>
 			</tr>
+	
      <%= tier_form.fields_for :behandlungen do |behandlung_form| %>
       <tr class='karteikarte'>
         <td class="behandlung"><%= behandlung_form.text_field :behandlungsdatum_str, :size => 8, :maxlength => 10, :class => "datum" %></td>
 
-        <td class="behandlung"><%= behandlung_form.text_area :diagnose, :style => "resize: vertical;", :class => "karteikarte" %></td>
+        <td class="behandlung"><%= behandlung_form.text_area :diagnose, :class => "karteikarte" %></td>
 					
 				<td class="behandlung"><%= behandlung_form.text_area :laborwerte1, :maxlength => 200, :class => "labor karteikarte" %></td>
 
@@ -157,9 +158,8 @@
 			</tr>
     <% end %>
 		</table>
-  
-    <p><%#= link_to "neue Behandlung", '#', :onclick => "clearEdit()", :class => "text_button", :style => "width:100px" %>
-       <%= link_to 'neue Behandlung', neue_behandlung_karteikarte_path, :class => "text_button" %></p>
+
+    <p><%= link_to 'neue Behandlung', '#', :onclick => 'submitForm()', :class => 'text_button' %></p>
   </div>
   <% end %>
 
@@ -182,10 +182,13 @@
 	<%= select_tag "laborwerte", options_from_collection_for_select(Lookup.laborwerte, "id", "wert", selected_value="id"), :id => 'lab', :multiple => true %>
 </p>
 
-
 <script>
 	var labor_text_feld;
-  
+
+	function submitForm() {
+		$('form').first().submit();
+	}
+	
 	function get_lab_list_text(){
 	    var buf = "";
 		$( '#lab option:selected').each(function () {
@@ -194,24 +197,9 @@
 		
 		return buf;
 	}
-  
-	function clearEdit(){
-		var now = new Date();
-		$("#edit_behandlung_behandlungsdatum_str").val( now.getDate() + '.' + now.getMonth() + '.' + now.getFullYear() );
-    $("#edit_behandlung_diagnose").val("");
-    $("#edit_behandlung_laborwerte1").val("");
-    $("#edit_behandlung_laborwerte2").val("");
-    $("#edit_behandlung_arzneien").val("");
-    $("#edit_behandlung_arzneimittel").val("");
 
-    $("#edit_behandlung_impfungswert_ids option[selected=selected]").removeAttr("selected");
-		$(".impf_select").trigger("liszt:updated");
-		
-    $("#edit_behandlung_gewicht_kg").val("");
-		
-		$("#behandlung_id[value]").attr("value","");
-	}	
-	
+	$(".impf_select").trigger("liszt:updated");
+  
 	$.datepicker.setDefaults($.datepicker.regional['']);  
   	
 	$(document).ready(function() {
@@ -256,47 +244,6 @@
 			$( ".datum" ).datepicker({ changeYear: true, dateFormat: 'dd.mm.yy' });
 			$(".datum").datepicker($.datepicker.regional['de']);
 		});
-		
-    
-    function setBehandlung(){
-      var behandlung = $("tr[markiert=true]");
-      if(behandlung != null){
-        $("td#behandlungsdatum_str", behandlung).text($("#edit_behandlung_behandlungsdatum_str").val());
-        $("td#diagnose", behandlung).text($("#edit_behandlung_diagnose").val());
-        $("td#laborwerte1", behandlung).text($("#edit_behandlung_laborwerte1").val());
-        $("td#laborwerte2", behandlung).text($("#edit_behandlung_laborwerte2").val());
-        $("td#arzneien", behandlung).text($("#edit_behandlung_arzneien").val());
-        $("td#arzneimittel", behandlung).text($("#edit_behandlung_arzneimittel").val());
-        
-        var impfungen = "";
-				
-				$("li.result-selected").each(function(){				
-				// <li id="edit_behandlung_impfungswert_ids_chzn_o_0" class="result-selected" style="">Borreliose</li>				
-        // $("#edit_behandlung_impfungswert_ids option[selected=selected]").each(function(){
-          impfungen += $(this).text() + " ";
-        });
-        $("td#impfungswert_ids", behandlung).text(impfungen);        
-        
-        $("td#gewicht_kg", behandlung).text($("#edit_behandlung_gewicht_kg").val());
-      }
-    }
 
-    function setEditBehandlung( $behandlung ){
-      if($behandlung != null){
-        $("#edit_behandlung_behandlungsdatum_str").val( $("td#behandlungsdatum_str", $behandlung).text() );
-        $("#edit_behandlung_diagnose").val( $("td#diagnose", $behandlung).text() );
-				$("#edit_behandlung_laborwerte1").val( $("td#laborwerte1", $behandlung).text() );
-				$("#edit_behandlung_laborwerte2").val($("td#laborwerte2", $behandlung).text());
-				$("#edit_behandlung_arzneien").val($("td#arzneien", $behandlung).text());
-				$("#edit_behandlung_arzneimittel").val($("td#arzneimittel", $behandlung).text());
-				$("#edit_behandlung_impfungswert_ids").val($("td#impfungswert_ids", $behandlung).text());
-				$("#edit_behandlung_gewicht_kg").val($("td#gewicht_kg", $behandlung).text());
-      }
-    }		
-		
-		
-		
-	});
-
-
+	});	
 </script>
