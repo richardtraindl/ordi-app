@@ -1,5 +1,11 @@
 class TiereController < ApplicationController
 
+  def index
+  end
+
+  def show
+  end	
+	
   def new
     karteikarte  = Karteikarte.find(params[:karteikarte_id])
     
@@ -16,5 +22,17 @@ class TiereController < ApplicationController
 
     redirect_to edit_karteikarte_path( karteikarte2.id )
   end
+
+  def create
+  end
   
+  def edit
+  end
+
+  def update
+  end
+	
+  def destroy
+  end
+
 end
