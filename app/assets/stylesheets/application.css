@@ -22,9 +22,11 @@ body {
 }
 
 
-h1 {
+h1.header {
+  margin: 4px;
   font-size:  14pt;
 }
+
 
 .width100 {
   width: 100%;
@@ -143,7 +145,7 @@ a, a:hover, a:active, a:visited {
   margin-right: auto; 
   /*  display: block; */
   /* text-align: center; */
-  padding: 4px;
+  padding: 2px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;

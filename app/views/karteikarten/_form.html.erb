@@ -138,23 +138,23 @@
       <tr class='karteikarte'>
         <td class="behandlung"><%= behandlung_form.text_field :behandlungsdatum_str, :size => 8, :maxlength => 10, :class => "datum" %></td>
 
-        <td class="behandlung"><%= behandlung_form.text_area :diagnose, :class => "karteikarte" %></td>
+        <td class="behandlung"><%= behandlung_form.text_area :diagnose, :size => "1x1", :class => "karteikarte" %></td>
 					
-				<td class="behandlung"><%= behandlung_form.text_area :laborwerte1, :class => "labor karteikarte" %></td>
+				<td class="behandlung"><%= behandlung_form.text_area :laborwerte1, :size => "1x1", :class => "labor karteikarte" %></td>
 
-				<td class="behandlung"><%= behandlung_form.text_area :laborwerte2, :class => "labor karteikarte" %></td>
+				<td class="behandlung"><%= behandlung_form.text_area :laborwerte2, :size => "1x1", :class => "labor karteikarte" %></td>
 
-				<td class="behandlung"><%= behandlung_form.text_area :arzneien, :class => "karteikarte" %></td>
+				<td class="behandlung"><%= behandlung_form.text_area :arzneien, :size => "1x1", :class => "karteikarte" %></td>
 					
-				<td class="behandlung"><%= behandlung_form.text_area :arzneimittel, :class => "karteikarte" %></td>
+				<td class="behandlung"><%= behandlung_form.text_area :arzneimittel, :size => "1x1", :class => "karteikarte" %></td>
 
 				<td class="behandlung choice">
 					<%= behandlung_form.select "impfungswert_ids", options_for_select(Lookup.impfungswerte, Impfung.impfungswerte_for_behandlung(behandlung_form.object.id)  ), { },  { :multiple => "true", :style => "width:150px;", :class => "impf_select" } %>
         </td>
 
 				<td class="behandlung"><%= behandlung_form.text_field :gewicht_kg, :size => 6, :maxlength => 8 %></td>
-				<td></td>
-				<!-- td class="behandlung"><%#= link_to "löschen",  karteikarte_behandlung_path( @karteikarte.id, behandlung_form.object.id ), :confirm => "Behandlung löschen?", :method => :delete, :class => "text_button" %></td-->
+
+        <td class="behandlung"><%= link_to "löschen",  karteikarte_behandlung_path( @karteikarte.id, behandlung_form.object.id ), :confirm => "Behandlung löschen?", :method => :delete, :class => "text_button" %></td>
 			</tr>
     <% end %>
 		</table>
