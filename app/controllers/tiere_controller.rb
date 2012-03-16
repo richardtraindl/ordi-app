@@ -1,3 +1,5 @@
+require 'lookups.rb'
+
 class TiereController < ApplicationController
 
   def new

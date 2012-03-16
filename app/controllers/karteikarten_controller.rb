@@ -78,10 +78,8 @@ class KarteikartenController < ApplicationController
     @karteikarte.save
 
 		@behandlung = @tier.behandlungen.last # order( 'behandlungsdatum desc' )
-		puts "+++++++++++" + @behandlung.id.to_s + @behandlung.diagnose.to_s + "++++++++++++"
-		unless @behandlung.diagnose.blank? && @behandlung.laborwerte1.blank? && @behandlung.laborwerte2.blank? &&
+		unless !@behandlung.nil? && @behandlung.diagnose.blank? && @behandlung.laborwerte1.blank? && @behandlung.laborwerte2.blank? &&
 					 @behandlung.arzneien.blank? && @behandlung.arzneimittel.blank? && @behandlung.impfungswert_ids.blank? && @behandlung.gewicht_kg.blank?
-			puts "**********************************************************************************"
 			@tier.behandlungen    << Behandlung.new
 		end
 

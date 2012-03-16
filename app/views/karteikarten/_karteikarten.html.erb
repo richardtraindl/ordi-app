@@ -62,7 +62,7 @@
 				<% end %>
 				
 				<td><%= link_to "neues Tier", new_karteikarte_tier_path(karteikarte.id), :class => "text_button" %></td>
-				<td><%= link_to "lösch.", { :action => "destroy", :id => karteikarte.id }, :confirm => "Löschen?", :method => :delete, :class => "text_button" %></td>
-			</tr>
+  			<td><%= link_to "lösch.", karteikarte_path(karteikarte.id), :confirm => "Löschen?", :method => :delete, :class => "text_button" %></td>
+			</tr> 
 		<% end %>
 	</table>
