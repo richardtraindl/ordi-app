@@ -47,41 +47,48 @@ div.karteikarte {
 }
 
 
-.karteikarte textarea,
-.behandlung1 textarea {  
+.karteikarte textarea {  
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;  
   width: 100%;
   height: 100%;
-  /* resize: none; */
+  resize: vertical;
   border: 0;
 }
 
+
+table.karteikarte,
+table.karteikarte th,
+table.karteikarte td {
+  border-style: solid; 
+}
+
+
 table.karteikarte { 
   border-collapse:collapse;
-  border-style:solid; 
-  border-width:thin; 
+  border-width:thin;
+  border-color:grey;
   empty-cells:show;
   white-space:nowrap;
 }
 
 table.karteikarte th { 
-  border-style:solid; 
-  border-width:1px 1px 1px 1px; 
-  border-color:grey;
+  /* border-style:solid; */
+  border-width:1px 1px 1px 1px;
+  /* border-color:grey; */
   background-color: #FFFFFF; 
   /* overflow:hidden; */
 }
 
 table.karteikarte td { 
-  border-style:solid; 
-  border-width:1px 1px 1px 1px; 
+  /* border-style:solid; */
+  border-width:1px 1px 1px 1px;
   border-color:grey;
   background-color: white;
   vertical-align: top;
-  empty-cells:show;
-  white-space:nowrap;
+  /* empty-cells:show; */
+  /* white-space:nowrap; */
   /* overflow:hidden; */
 }
 

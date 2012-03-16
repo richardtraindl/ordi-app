@@ -140,16 +140,16 @@
 
         <td class="behandlung"><%= behandlung_form.text_area :diagnose, :class => "karteikarte" %></td>
 					
-				<td class="behandlung"><%= behandlung_form.text_area :laborwerte1, :maxlength => 200, :class => "labor karteikarte" %></td>
+				<td class="behandlung"><%= behandlung_form.text_area :laborwerte1, :class => "labor karteikarte" %></td>
 
-				<td class="behandlung"><%= behandlung_form.text_area :laborwerte2, :maxlength => 200, :class => "labor karteikarte" %></td>
+				<td class="behandlung"><%= behandlung_form.text_area :laborwerte2, :class => "labor karteikarte" %></td>
 
-				<td class="behandlung"><%= behandlung_form.text_area :arzneien, :maxlength => 200, :class => "karteikarte" %></td>
+				<td class="behandlung"><%= behandlung_form.text_area :arzneien, :class => "karteikarte" %></td>
 					
-				<td class="behandlung"><%= behandlung_form.text_area :arzneimittel, :maxlength => 200, :class => "karteikarte" %></td>
+				<td class="behandlung"><%= behandlung_form.text_area :arzneimittel, :class => "karteikarte" %></td>
 
-				<td class="behandlung">
-					<%= behandlung_form.select "impfungswert_ids", options_for_select(Lookup.impfungswerte, Impfung.impfungswerte_for_behandlung(behandlung_form.object.id)  ), { },  { :multiple => "true", :style => "width:100%", :class => "impf_select" } %>
+				<td class="behandlung choice">
+					<%= behandlung_form.select "impfungswert_ids", options_for_select(Lookup.impfungswerte, Impfung.impfungswerte_for_behandlung(behandlung_form.object.id)  ), { },  { :multiple => "true", :style => "width:150px;", :class => "impf_select" } %>
         </td>
 
 				<td class="behandlung"><%= behandlung_form.text_field :gewicht_kg, :size => 6, :maxlength => 8 %></td>
