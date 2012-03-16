@@ -6,10 +6,8 @@ Ordi::Application.routes.draw do
   match '/signout', :to => 'sessions#destroy'
 
   resources :karteikarten do
-    member do
-      get 'neues_tier'
-      delete 'destroy_behandlung'
-    end
+    resources :tiere
+    resources :behandlungen 
   end
   
   resources :abfragen  

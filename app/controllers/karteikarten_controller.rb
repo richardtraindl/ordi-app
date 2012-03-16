@@ -41,27 +41,6 @@ class KarteikartenController < ApplicationController
   end
 
 
-
-  def neues_tier
-    @karteikarte        = Karteikarte.find(params[:id])
-    
-    @person             = Person.find(@karteikarte.person_id)
-    @person.save
-
-    @tier               = Tier.new(:geschlechtswert_id => 0)
-    # @tier.behandlungen  << Behandlung.new
-    @tier.save
-
-    @karteikarte        = Karteikarte.new(:person_id => @person.id, :tier_id => @tier.id)
-    @karteikarte.save
-
-    # @tier.behandlungen.order( 'behandlungsdatum desc' )
-
-    render :action => :edit
-  end
-
-
-
   # POST /owners
   # POST /owners.json
   def create
@@ -133,15 +112,6 @@ class KarteikartenController < ApplicationController
     redirect_to(karteikarten_path)
   end
   
-
-  def destroy_behandlung
-		@behandlung = Behandlung.find(params[:behandlung_id])
-		@behandlung.destroy
-
-		# render(:action => :edit)
-    redirect_to edit_karteikarte_path(params[:id])
-  end
-
 
 end
 
