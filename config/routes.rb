@@ -10,7 +10,7 @@ Ordi::Application.routes.draw do
     resources :behandlungen, :only => [:destroy]
   end
   
-  resources :abfragen  
+  resources :abfragen, :only => :index
   
   root :to => 'karteikarten#index'
 end
