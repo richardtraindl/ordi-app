@@ -153,8 +153,8 @@
         </td>
 
 				<td class="behandlung"><%= behandlung_form.text_field :gewicht_kg, :size => 6, :maxlength => 8 %></td>
-
-				<td class="behandlung"><%= link_to "löschen",  karteikarte_behandlung_path( @karteikarte.id, behandlung_form.object.id ), :confirm => "Behandlung löschen?", :method => :delete, :class => "text_button" %></td>
+				<td></td>
+				<!-- td class="behandlung"><%#= link_to "löschen",  karteikarte_behandlung_path( @karteikarte.id, behandlung_form.object.id ), :confirm => "Behandlung löschen?", :method => :delete, :class => "text_button" %></td-->
 			</tr>
     <% end %>
 		</table>
