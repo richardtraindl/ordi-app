@@ -8,7 +8,7 @@ class TiereController < ApplicationController
     person       = Person.find(karteikarte.person_id)
 
     tier  = Tier.new
-    tier.geschlechtswert_id = 0
+    #tier.geschlechtswert_id = 0
     tier.behandlungen << Behandlung.new
     tier.save!
 

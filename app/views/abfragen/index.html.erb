@@ -1,16 +1,24 @@
 
-<%= form_tag abfragen_path, :method => :get do %>
+<%= form_tag abfragen_path(), :method => :get do %>
   <p>
   	<table style="height: 100%">
-      <tr style="height: 30px">		
+      <tr style="height: 30px">
         <td>Abfrage:</td>
         <td><%= select_tag "abfrage", options_for_select( Lookup.abfragen.map {|u| [u.bezeichnung, u.id]}, @abfrage.id ) %></td>
         <td><%= text_field_tag "param1", @param1 %></td>
         <td><%= "Personen" %><%= select_tag "persopt", options_for_select( Lookup.abfrage_personen ) %></td>
         <td><%= "Tiere" %><%= select_tag "tieropt", options_for_select( Lookup.abfrage_tiere ) %></td>
-        <td><%= submit_tag "suchen" %></td>
+        <td>
+            <%#= submit_tag "suchen" %>
+            &nbsp;
+            <%= link_to "Suchen", '#', :onclick => 'submitHtml()', :class => 'text_button' %>
+            &nbsp;
+            <%= link_to "Excel", '#', :onclick => 'submitExcel()', :class => 'text_button' %>
+			      &nbsp;
+            <%= link_to "Drucken", '#', :onclick => 'submitPdf()', :class => 'text_button' %>
+        </td>
       </tr>
-      <tr style="height: 30px">		
+      <tr style="height: 30px">
         <td>&nbsp;</td>
         <td>&nbsp;</td>
         <% if @abfrage.id == 4 || @abfrage.id == 9 || @abfrage.id == 10 %>
@@ -32,8 +40,6 @@
 	<table>
 		<tr>
 			<td><%= link_to "Neue Karteikarte", new_karteikarte_path(), :class => "text_button" %></td>
-			<td><%= link_to "Drucken", karteikarten_path(), :class => 'text_button' %></td> <%#={ :action => 'print'} %>
-			<td><%= link_to "Excel", karteikarten_path(), :class => 'text_button' %></td> <%#={ :action => 'excel'} %>
 		</tr>
 	</table>
 </p>
@@ -42,6 +48,20 @@
 <script>
   $.datepicker.setDefaults($.datepicker.regional['']);  
   
+  function submitHtml() {
+    $("form").first().attr("action", "/abfragen");
+  	$('form').first().submit();
+  }
+  
+  function submitExcel() {
+    $("form").first().attr("action", "/abfragen.csv");
+  	$('form').first().submit();
+  }
+
+  function submitPdf() {
+    alert("Not implemented yet");
+  }
+
   
 	$(document).ready(function() {
 	  
