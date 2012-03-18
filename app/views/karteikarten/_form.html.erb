@@ -164,12 +164,16 @@
 		</table>
 
     <p>
-      <% unless @karteikarte.id.nil? %>
-        <%= link_to 'neue Behandlung', new_karteikarte_behandlung_path(@karteikarte.id), :class => 'text_button' %>
-      <% end %>      
+      <%= link_to 'neue Behandlung', '#', :onclick => 'submitNeueBehandlung()', :class => 'text_button' %>
+      <%# unless @karteikarte.id.nil? %>
+        <%#= link_to 'neue Behandlung', new_karteikarte_behandlung_path(@karteikarte.id), :class => 'text_button' %>
+      <%# end %>
     </p>
   </div>
   <% end %>
+
+
+  <%= hidden_field_tag 'neue_behandlung', 'false' %>
 
 	<p>
 	<table>
@@ -193,6 +197,10 @@
 <script>
 	var labor_text_feld;
 
+  function submitNeueBehandlung() {
+    $("input#neue_behandlung").attr("value", "true");
+  	$('form').first().submit();
+  }
 
 	function get_lab_list_text(){
 	    var buf = "";

@@ -22,12 +22,6 @@ body {
 }
 
 
-h1.header {
-  margin: 4px;
-  font-size:  14pt;
-}
-
-
 .width100 {
   width: 100%;
 }
@@ -99,6 +93,14 @@ a, a:hover, a:active, a:visited {
   text-decoration:none;
 }
 
+h1.header {
+  margin: 4px;
+  font-size:  14pt;
+}
+
+a.header:hover {
+  color: #DEDDDD !important;
+}
 
 .current{
   color: #DEDDDD !important;

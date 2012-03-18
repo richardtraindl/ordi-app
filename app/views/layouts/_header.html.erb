@@ -7,16 +7,16 @@
 	<tr style="background-color: RoyalBlue;">
 		<td>
       <h1 class="header">
-        <%= link_to "Patientenübersicht", karteikarten_path(), :class => current_page?(karteikarten_path()) ? "current" : "" %> &nbsp;&nbsp;  
-		    <%= link_to "Abfragen", abfragen_path(), :class => current_page?(abfragen_path()) ? "current" : "" %>
+        <%= link_to "Patientenübersicht", karteikarten_path(), :class => current_page?(karteikarten_path()) ? "current" : "header" %> &nbsp;&nbsp;  
+		    <%= link_to "Abfragen", abfragen_path(), :class => current_page?(abfragen_path()) ? "current" : "header" %>
       </h1>
     </td>
     
 		<td style="text-align: right">
       <% if signed_in? %>
-        <h1 class="header"><%= link_to "abmelden", signout_path(), :method => :delete %></h1>
+        <h1 class="header"><%= link_to "abmelden", signout_path(), :method => :delete, :class => current_page?(signout_path()) ? "current" : "header" %></h1>
       <% else %>
-        <h1 class="header"><%= link_to "anmelden", signin_path() %></h1>
+        <h1 class="header"><%= link_to "anmelden", signin_path(), :class => "current" %></h1>
       <% end %>
     </td>
 	</tr>

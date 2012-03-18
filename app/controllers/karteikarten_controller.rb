@@ -36,6 +36,7 @@ class KarteikartenController < ApplicationController
     @person       = Person.find(@karteikarte.person_id)
 
     @tier         = Tier.find(@karteikarte.tier_id) 
+    
   end
   
 
@@ -46,6 +47,9 @@ class KarteikartenController < ApplicationController
     @person.save
 
     @tier             = Tier.new(params[:karteikarte][:tier])
+    if params[:neue_behandlung] == "true"
+      @tier.behandlungen    << Behandlung.new
+    end
     @tier.save
 
     @karteikarte      = Karteikarte.new(:person_id => @person.id, :tier_id => @tier.id)
@@ -67,9 +71,14 @@ class KarteikartenController < ApplicationController
 
     @tier     		= Tier.find(@karteikarte.tier_id)
     @tier.update_attributes(params[:karteikarte][:tier])
+    if params[:neue_behandlung] == "true"
+      @tier.behandlungen    << Behandlung.new
+    end
     @tier.save
 
     @karteikarte.save
+
+
 
 =begin
 		@behandlung = @tier.behandlungen.last # order( 'behandlungsdatum desc' )

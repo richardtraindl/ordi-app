@@ -7,7 +7,7 @@ Ordi::Application.routes.draw do
 
   resources :karteikarten, :only => [:index, :new, :edit, :create, :update, :destroy] do
     resources :tiere,    :only => :new
-    resources :behandlungen, :only => [:new, :destroy]
+    resources :behandlungen, :only => :destroy
   end
   
   resources :abfragen, :only => :index
