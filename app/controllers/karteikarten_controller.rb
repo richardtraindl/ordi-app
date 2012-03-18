@@ -4,11 +4,11 @@ class KarteikartenController < ApplicationController
   # GET /owners
   # GET /owners.json
   def index
-	params[:familienname].nil? ? @familienname = "" : @familienname = "" + params[:familienname]
+    params[:familienname].nil? ? @familienname = "" : @familienname = "" + params[:familienname]
 
-	params[:tiername].nil? ? @tiername = "" : @tiername = "" + params[:tiername]
+    params[:tiername].nil? ? @tiername = "" : @tiername = "" + params[:tiername]
 
-	@karteikarten = Karteikarte.find(:all, :include => [:person, :tier], :conditions => ['personen.familienname LIKE ? AND tiere.tiername LIKE ?', @familienname + '%', @tiername + '%'])
+    @karteikarten = Karteikarte.find(:all, :include => [:person, :tier], :conditions => ['personen.familienname LIKE ? AND tiere.tiername LIKE ?', @familienname + '%', @tiername + '%'])
   end
 
 
@@ -35,11 +35,9 @@ class KarteikartenController < ApplicationController
 
     @person       = Person.find(@karteikarte.person_id)
 
-    @tier         = Tier.find(@karteikarte.tier_id)
-    
-    # @tier.behandlungen.order( 'behandlungsdatum desc' )
+    @tier         = Tier.find(@karteikarte.tier_id) 
   end
-
+  
 
   # POST /owners
   # POST /owners.json
@@ -52,10 +50,6 @@ class KarteikartenController < ApplicationController
 
     @karteikarte      = Karteikarte.new(:person_id => @person.id, :tier_id => @tier.id)
     @karteikarte.save
-
-    # @tier.behandlungen    << Behandlung.new
-
-    # @tier.behandlungen.order( 'behandlungsdatum desc' )
 
     render :action => :edit
   end
@@ -77,12 +71,13 @@ class KarteikartenController < ApplicationController
 
     @karteikarte.save
 
+=begin
 		@behandlung = @tier.behandlungen.last # order( 'behandlungsdatum desc' )
 		unless !@behandlung.nil? && @behandlung.diagnose.blank? && @behandlung.laborwerte1.blank? && @behandlung.laborwerte2.blank? &&
 					 @behandlung.arzneien.blank? && @behandlung.arzneimittel.blank? && @behandlung.impfungswert_ids.blank? && @behandlung.gewicht_kg.blank?
 			@tier.behandlungen    << Behandlung.new
 		end
-
+=end
     render(:action => :edit)
   end
 
@@ -90,27 +85,26 @@ class KarteikartenController < ApplicationController
   # DELETE /owners/1
   # DELETE /owners/1.json
   def destroy
-	@karteikarte = Karteikarte.find(params[:id])
+    @karteikarte = Karteikarte.find(params[:id])
 
-	@karteikarten = Karteikarte.find(:all, :conditions => { :person_id => @karteikarte.person_id })
-	if @karteikarten.length == 1
-		@person = Person.find(:first, :conditions => { :id => @karteikarte.person_id })
-		@person.destroy
-	end
+    @karteikarten = Karteikarte.find(:all, :conditions => { :person_id => @karteikarte.person_id })
+    if @karteikarten.length == 1
+      @person = Person.find(:first, :conditions => { :id => @karteikarte.person_id })
+      @person.destroy
+    end
 
-	@karteikarten.clear
-  	@karteikarten = Karteikarte.find(:all, :conditions => { :tier_id => @karteikarte.tier_id })
-	if @karteikarten.length == 1
-		@tier = Tier.find(:first, :conditions => { :id => @karteikarte.tier_id })
-		@tier.destroy
-	end
+    @karteikarten.clear
+    @karteikarten = Karteikarte.find(:all, :conditions => { :tier_id => @karteikarte.tier_id })
+    if @karteikarten.length == 1
+      @tier = Tier.find(:first, :conditions => { :id => @karteikarte.tier_id })
+      @tier.destroy
+    end
 
-	@karteikarte.destroy	
+    @karteikarte.destroy
 
     redirect_to(karteikarten_path)
   end
   
-
 end
 
 

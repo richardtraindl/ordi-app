@@ -133,8 +133,8 @@
 				<th>Gewicht (Kg)</th>
 				<th></th>
 			</tr>
-	
-     <%= tier_form.fields_for :behandlungen, @tier.behandlungen.order( 'behandlungsdatum desc' ) do |behandlung_form| %>
+  
+     <%= tier_form.fields_for :behandlungen, @tier.behandlungen.sort! { |a, b| a.behandlungsdatum <=> b.behandlungsdatum } do |behandlung_form| %>
       <tr class='karteikarte'>
         <td class="behandlung"><%= behandlung_form.text_field :behandlungsdatum_str, :size => 8, :maxlength => 10, :class => "datum" %></td>
 
@@ -163,7 +163,11 @@
     <% end %>
 		</table>
 
-    <p><%= link_to 'neue Behandlung', '#', :onclick => 'submitForm()', :class => 'text_button' %></p>
+    <p>
+      <% unless @karteikarte.id.nil? %>
+        <%= link_to 'neue Behandlung', new_karteikarte_behandlung_path(@karteikarte.id), :class => 'text_button' %>
+      <% end %>      
+    </p>
   </div>
   <% end %>
 
@@ -189,10 +193,7 @@
 <script>
 	var labor_text_feld;
 
-	function submitForm() {
-		$('form').first().submit();
-	}
-	
+
 	function get_lab_list_text(){
 	    var buf = "";
 		$( '#lab option:selected').each(function () {

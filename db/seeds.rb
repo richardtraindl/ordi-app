@@ -7,10 +7,10 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 	Anredewert.create! :id => 0, :wert => ""
-    Anredewert.create! :id => 1, :wert => "Herr"
-    Anredewert.create! :id => 2, :wert => "Frau"
-    Anredewert.create! :id => 3, :wert => "Familie"
-    Anredewert.create! :id => 4, :wert => "Firma"
+  Anredewert.create! :id => 1, :wert => "Herr"
+  Anredewert.create! :id => 2, :wert => "Frau"
+  Anredewert.create! :id => 3, :wert => "Familie"
+  Anredewert.create! :id => 4, :wert => "Firma"
 
 	Geschlechtswert.create! :id => 0, :wert => ""
 	Geschlechtswert.create! :id => 1, :wert => "m"
@@ -128,3 +128,252 @@
   User.create! :username => "Gerold", :password => "liebe"
   User.create! :username => "Gast", :password => "liebe"
   User.create! :username => "Administrator", :password => "dasisteingeheimnis"
+
+
+#1. Karteikarte*************************************************************
+person = Person.create!({:anredewert_id => 1, 
+                    :titel => "", 
+                    :familienname => "Mayer",
+                    :vorname => "Kurt",
+                    :notiz => ""})
+
+Postadresse.create!(:person_id => person.id,
+                    :strasse => "Dr. Karl Renner Ring 2/7",
+                    :plz => "1010",
+                    :ort => "Wien")
+
+Kontakt.create!(:kontaktwert_id => 1,
+                :person_id => person.id,
+                :kontakt => "000111",
+                :kontakt_intern  => "")
+
+Kontakt.create!(:kontaktwert_id => 1,
+                :person_id => person.id,
+                :kontakt => "222444",
+                :kontakt_intern  => "")
+
+tier = Tier.create!(:tiername => "Flocki",
+                    :tierart => "Hund",
+                    :rasse => "Terrier",
+                    :farbe => "",
+                    :viren => "",
+                    :merkmal => "",
+                    :geburtsdatum => nil,
+                    :geschlechtswert_id => 2,
+                    :chipnr => "",
+                    :eu_passnr => "")
+
+behandlung = Behandlung.create!(:tier_id => tier.id,
+                                :behandlungsdatum => "14.02.2009",
+                                :gewicht_kg => "4",
+                                :diagnose => "Vorsorge",
+                                :laborwerte1 => "XXX",
+                                :laborwerte2 => "xxx",
+                                :arzneien => "Cortison",
+                                :arzneimittel => "Arnica",
+                                :impfungen_extern => "")
+
+Impfung.create!(:behandlung_id => tier.behandlungen[0].id, :impfungswert_id => 3)
+Impfung.create!(:behandlung_id => tier.behandlungen[0].id, :impfungswert_id => 7)
+
+behandlung = Behandlung.create!(:tier_id => tier.id,
+                                :behandlungsdatum => "02.06.2011",
+                                :gewicht_kg => "5",
+                                :diagnose => "2. Vorsorge",
+                                :laborwerte1 => "yyy",
+                                :laborwerte2 => "yy",
+                                :arzneien => "",
+                                :arzneimittel => "Arnica D3",
+                                :impfungen_extern => "")
+
+
+Karteikarte.create!(:person_id => person.id, :tier_id => tier.id)
+
+#2. Karteikarte*************************************************************
+person = Person.create!({:anredewert_id => 2, 
+                    :titel => "Mag.", 
+                    :familienname => "Fehringer",
+                    :vorname => "Annemarie",
+                    :notiz => ""})
+
+Postadresse.create!(:person_id => person.id,
+                    :strasse => "Linzerstr. 345/3/4/22",
+                    :plz => "1140",
+                    :ort => "Wien")
+
+Kontakt.create!(:kontaktwert_id => 1,
+                :person_id => person.id,
+                :kontakt => "0664/777444",
+                :kontakt_intern  => "")
+
+Kontakt.create!(:kontaktwert_id => 1,
+                :person_id => person.id,
+                :kontakt => "",
+                :kontakt_intern  => "")
+
+tier = Tier.create!(:tiername => "Jeremi",
+                    :tierart => "Katze",
+                    :rasse => "",
+                    :farbe => "Schwarz",
+                    :viren => "",
+                    :merkmal => "",
+                    :geburtsdatum => "01.02.2008",
+                    :geschlechtswert_id => 2,
+                    :chipnr => "",
+                    :eu_passnr => "")
+
+behandlung = Behandlung.create!(:tier_id => tier.id,
+                                :behandlungsdatum => "14.07.2010",
+                                :gewicht_kg => "6",
+                                :diagnose => "Vorsorge",
+                                :laborwerte1 => "",
+                                :laborwerte2 => "",
+                                :arzneien => "",
+                                :arzneimittel => "Sepia D00",
+                                :impfungen_extern => "")
+
+behandlung = Behandlung.create!(:tier_id => tier.id,
+                                :behandlungsdatum => "12.12.2012",
+                                :gewicht_kg => "",
+                                :diagnose => "Durchfall",
+                                :laborwerte1 => "",
+                                :laborwerte2 => "",
+                                :arzneien => "",
+                                :arzneimittel => "",
+                                :impfungen_extern => "")
+
+Impfung.create!(:behandlung_id => tier.behandlungen[0].id, :impfungswert_id => 4)
+
+Karteikarte.create!(:person_id => person.id, :tier_id => tier.id)
+
+#3. Karteikarte*************************************************************
+person = Person.create!({:anredewert_id => 2, 
+                    :titel => "", 
+                    :familienname => "Breuer",
+                    :vorname => "Susanna",
+                    :notiz => ""})
+
+Postadresse.create!(:person_id => person.id,
+                    :strasse => "Mahlerstr. 21/3/23",
+                    :plz => "1010",
+                    :ort => "Wien")
+
+Kontakt.create!(:kontaktwert_id => 1,
+                :person_id => person.id,
+                :kontakt => "0650/159951",
+                :kontakt_intern  => "")
+
+Kontakt.create!(:kontaktwert_id => 1,
+                :person_id => person.id,
+                :kontakt => "01/522-12-13",
+                :kontakt_intern  => "")
+
+tier = Tier.create!(:tiername => "Hansi",
+                    :tierart => "Wellensittich",
+                    :rasse => "",
+                    :farbe => "",
+                    :viren => "",
+                    :merkmal => "",
+                    :geburtsdatum => nil,
+                    :geschlechtswert_id => 3,
+                    :chipnr => "",
+                    :eu_passnr => "")
+
+behandlung = Behandlung.create!(:tier_id => tier.id,
+                                :behandlungsdatum => "30.03.2011",
+                                :gewicht_kg => "0,16",
+                                :diagnose => "Vorsorge",
+                                :laborwerte1 => "",
+                                :laborwerte2 => "",
+                                :arzneien => "",
+                                :arzneimittel => "Belladonna C100",
+                                :impfungen_extern => "")
+
+behandlung = Behandlung.create!(:tier_id => tier.id,
+                                :behandlungsdatum => "15.05.2011",
+                                :gewicht_kg => "",
+                                :diagnose => "",
+                                :laborwerte1 => "yyy",
+                                :laborwerte2 => "yy",
+                                :arzneien => "",
+                                :arzneimittel => "",
+                                :impfungen_extern => "")
+
+
+Karteikarte.create!(:person_id => person.id, :tier_id => tier.id)
+
+
+#4. Karteikarte*************************************************************
+tier = Tier.create!(:tiername => "Susi",
+                    :tierart => "Hund",
+                    :rasse => "Pudel",
+                    :farbe => "",
+                    :viren => "",
+                    :merkmal => "",
+                    :geburtsdatum => nil,
+                    :geschlechtswert_id => 3,
+                    :chipnr => "",
+                    :eu_passnr => "")
+
+behandlung = Behandlung.create!(:tier_id => tier.id,
+                                :behandlungsdatum => "01.04.2011",
+                                :gewicht_kg => "7",
+                                :diagnose => "Vorsorge",
+                                :laborwerte1 => "",
+                                :laborwerte2 => "",
+                                :arzneien => "",
+                                :arzneimittel => "",
+                                :impfungen_extern => "")
+
+Impfung.create!(:behandlung_id => tier.behandlungen[0].id, :impfungswert_id => 8)
+Impfung.create!(:behandlung_id => tier.behandlungen[0].id, :impfungswert_id => 9)
+
+Karteikarte.create!(:person_id => person.id, :tier_id => tier.id)
+
+#*********************************************************************
+person = Person.create!({:anredewert_id => 0, 
+                    :titel => "", 
+                    :familienname => "Mauracher",
+                    :vorname => "Anton",
+                    :notiz => ""})
+
+Postadresse.create!(:person_id => person.id,
+                    :strasse => "Hauptstr. 47",
+                    :plz => "2020",
+                    :ort => "Stockerau")
+
+Kontakt.create!(:kontaktwert_id => 1,
+                :person_id => person.id,
+                :kontakt => "0664/774411",
+                :kontakt_intern  => "")
+
+Kontakt.create!(:kontaktwert_id => 1,
+                :person_id => person.id,
+                :kontakt => "",
+                :kontakt_intern  => "")
+
+tier = Tier.create!(:tiername => "Romeo",
+                    :tierart => "Pferd",
+                    :rasse => "",
+                    :farbe => "",
+                    :viren => "",
+                    :merkmal => "",
+                    :geburtsdatum => nil,
+                    :geschlechtswert_id => 2,
+                    :chipnr => "",
+                    :eu_passnr => "")
+
+behandlung = Behandlung.create!(:tier_id => tier.id,
+                                :behandlungsdatum => "17.08.2011",
+                                :gewicht_kg => "",
+                                :diagnose => "Vorsorge",
+                                :laborwerte1 => "ZZZ",
+                                :laborwerte2 => "zz",
+                                :arzneien => "",
+                                :arzneimittel => "",
+                                :impfungen_extern => "")
+
+
+Karteikarte.create!(:person_id => person.id, :tier_id => tier.id)
+
+

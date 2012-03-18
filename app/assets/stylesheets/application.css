@@ -32,20 +32,15 @@ h1.header {
   width: 100%;
 }
 
+
 .height100 {
   height:100%;
 }
 
-div.karteikarte {
-  /* max-height:100px; */
-  height:110px; 
-  /* overflow-y: scroll; */
-}
 
-.karteikarte tr.highlight td
-{
-	font-weight: bold;
-	background-color: #C7C7C7;
+.karteikarte tr.highlight td {
+  font-weight: bold;
+  background-color: #C7C7C7;
 }
 
 
@@ -59,49 +54,30 @@ div.karteikarte {
   border: 0;
 }
 
+table {
+  border-collapse:collapse;
+  /* table-layout:fixed; */
+}
 
 table.karteikarte,
 table.karteikarte th,
 table.karteikarte td {
+  border-color:grey;  
   border-style: solid; 
-}
-
-
-table.karteikarte { 
-  border-collapse:collapse;
   border-width:thin;
-  border-color:grey;
+  background-color: white;
+  vertical-align: top;
   empty-cells:show;
   white-space:nowrap;
 }
 
-table.karteikarte th { 
-  /* border-style:solid; */
-  border-width:1px 1px 1px 1px;
-  /* border-color:grey; */
-  background-color: #FFFFFF; 
-  /* overflow:hidden; */
-}
-
-table.karteikarte td { 
-  /* border-style:solid; */
-  border-width:1px 1px 1px 1px;
+table.liste, 
+table.liste th,
+table.liste td { 
+  padding: 2px;
   border-color:grey;
-  background-color: white;
-  vertical-align: top;
-  /* empty-cells:show; */
-  /* white-space:nowrap; */
-  /* overflow:hidden; */
-}
-
-
-table.liste { 
-  /*table-layout:fixed;  */
-  border-collapse:collapse;
-  border-spacing:0pt;
   border-style:solid; 
   border-width:thin; 
-  border-color:grey;
   text-align:left;
   empty-cells:show;
   white-space:nowrap;
@@ -110,28 +86,11 @@ table.liste {
 table.liste tr:nth-child(even) { 
   background-color: #EEEEEE;
 }
-			
+
 table.liste tr:nth-child(odd) { 
   background-color: #FFFFFF; 
 }
 
-table.liste th { 
-  padding:2px;
-  border-style:solid; 
-  border-width:1px 1px 1px 1px; 
-  border-color:grey;
-  /* overflow:hidden; */
-}
-
-table.liste td { 
-  padding:2px; 
-  border-style:solid; 
-  border-width:1px 1px 1px 1px; 
-  border-color:grey;
-  empty-cells:show;
-  white-space:nowrap;
-  /* overflow:hidden; */
-}
 
 a, a:hover, a:active, a:visited {
   color:black;
@@ -139,6 +98,12 @@ a, a:hover, a:active, a:visited {
   font-weight:normal;
   text-decoration:none;
 }
+
+
+.current{
+  color: #DEDDDD !important;
+}
+
 
 .text_button {
   margin-left: auto;

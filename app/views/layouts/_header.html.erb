@@ -1,14 +1,14 @@
-<table style="border-collapse: collapse; width: 100%">
+<table style="width: 100%">
 	<colgroup>
-		<col width="66%">
+		<col width="67%">
 		<col width="33%">
 	<colgroup>
 			
 	<tr style="background-color: RoyalBlue;">
 		<td>
       <h1 class="header">
-        <%= link_to "Patientenübersicht", karteikarten_path() %> &nbsp;&nbsp;  
-		    <%= link_to "Abfragen", abfragen_path() %>
+        <%= link_to "Patientenübersicht", karteikarten_path(), :class => current_page?(karteikarten_path()) ? "current" : "" %> &nbsp;&nbsp;  
+		    <%= link_to "Abfragen", abfragen_path(), :class => current_page?(abfragen_path()) ? "current" : "" %>
       </h1>
     </td>
     
