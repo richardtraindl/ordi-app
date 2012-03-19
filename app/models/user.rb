@@ -32,6 +32,13 @@ class User < ActiveRecord::Base
     (@user && @user.salt == cookie_salt) ? @user : nil
   end 
   
+  def self.current
+    Thread.current[:user]
+  end
+
+  def self.current=(user)
+    Thread.current[:user] = user
+  end
   
   private
     def encrypt_password

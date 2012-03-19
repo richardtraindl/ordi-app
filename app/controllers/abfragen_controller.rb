@@ -13,7 +13,7 @@ class AbfragenController < ApplicationController
 
       if @abfrage.id == 4 || @abfrage.id == 9 || @abfrage.id == 10
         params[:param1].nil? ? @param1 = "" : @param1 = params[:param1]
-        params[:param2].nil? ? @param2 = "" : @param2 = params[:param2]				
+        params[:param2].nil? ? @param2 = "" : @param2 = params[:param2]
       else
         params[:param1].nil? ? @param1 = "" : @param1 = params[:param1]
         @param2 = ""
@@ -26,7 +26,7 @@ class AbfragenController < ApplicationController
       puts ( "###############" + @param1 + @param2 + "###########" )
       
       if @abfrage.id == 1 || @abfrage.id == 13 # postadresse
-        @karteikarten = Karteikarte.find(:all, :conditions => [@abfrage.bedingung, @param1 + "%"], :joins => [:tier, :person, :person => :postadressen])			
+        @karteikarten = Karteikarte.find(:all, :conditions => [@abfrage.bedingung, @param1 + "%"], :joins => [:tier, :person, :person => :postadressen])
       
       elsif @abfrage.id == 15 # kontakt
         @karteikarten = Karteikarte.find(:all, :conditions => [@abfrage.bedingung, @param1 + "%"], :joins => [:tier, :person, :person => :kontakte])

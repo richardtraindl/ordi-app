@@ -1,7 +1,8 @@
 <table style="width: 100%">
 	<colgroup>
-		<col width="67%">
-		<col width="33%">
+		<col width="70%">
+		<col width="20%">
+    <col width="10%">
 	<colgroup>
 			
 	<tr style="background-color: RoyalBlue;">
@@ -11,7 +12,11 @@
 		    <%= link_to "Abfragen", abfragen_path(), :class => current_page?(abfragen_path()) ? "current" : "header" %>
       </h1>
     </td>
-    
+    <td>
+      <% if signed_in? %>
+        <h1 style="color: #FBFBB1; font-weight: normal" class="header">Willkommen <%= User.current.username %></h1>
+      <% end %>
+    </td>
 		<td style="text-align: right">
       <% if signed_in? %>
         <h1 class="header"><%= link_to "abmelden", signout_path(), :method => :delete, :class => current_page?(signout_path()) ? "current" : "header" %></h1>
