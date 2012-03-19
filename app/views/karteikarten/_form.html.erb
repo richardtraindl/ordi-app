@@ -164,7 +164,9 @@
 		</table>
 
     <p>
-      <%= link_to 'neue Behandlung', '#', :onclick => 'submitNeueBehandlung()', :class => 'text_button' %>
+      <%= link_to 'sichern', '#', :onclick => 'submit()', :class => 'text_button' %> &nbsp;
+      <%= link_to 'neue Behandlung', '#', :onclick => 'submitNeueBehandlung()', :class => 'text_button' %> &nbsp;
+      <%= link_to 'zurück', karteikarten_path, :class => "text_button" %>
       <%# unless @karteikarte.id.nil? %>
         <%#= link_to 'neue Behandlung', new_karteikarte_behandlung_path(@karteikarte.id), :class => 'text_button' %>
       <%# end %>
@@ -175,18 +177,21 @@
 
   <%= hidden_field_tag 'neue_behandlung', 'false' %>
 
-	<p>
+  <% content_for :header do %>
+    <%= link_to 'sichern', '#', :onclick => 'submit()' %>
+  <% end %>
+	<!-- p>
 	<table>
 		<tr>
 			<td>
-				<%= karteikarte_form.submit "sichern",	:class => "text_button" %>
+				<%#= karteikarte_form.submit "sichern", :class => "text_button" %>
 			</td>
 			<!-- td -->
 				<%#= link_to 'zurück', karteikarten_path, :class => "text_button" %>
 			<!-- /td -->
 		</tr>
 	</table>
-</p>
+</p -->
 <% end %>
 
 
@@ -196,6 +201,11 @@
 
 <script>
 	var labor_text_feld;
+
+  function submit() {
+    $("input#neue_behandlung").attr("value", "false");
+  	$('form').first().submit();
+  }
 
   function submitNeueBehandlung() {
     $("input#neue_behandlung").attr("value", "true");

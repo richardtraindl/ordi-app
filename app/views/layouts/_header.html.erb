@@ -1,7 +1,8 @@
 <table style="width: 100%">
 	<colgroup>
-		<col width="70%">
+		<col width="50%">
 		<col width="20%">
+    <col width="20%">
     <col width="10%">
 	<colgroup>
 			
@@ -11,6 +12,9 @@
         <%= link_to "Patientenübersicht", karteikarten_path(), :class => current_page?(karteikarten_path()) ? "current" : "header" %> &nbsp;&nbsp;  
 		    <%= link_to "Abfragen", abfragen_path(), :class => current_page?(abfragen_path()) ? "current" : "header" %>
       </h1>
+    </td>
+    <td>
+      <%#= yield :header %>
     </td>
     <td>
       <% if signed_in? %>

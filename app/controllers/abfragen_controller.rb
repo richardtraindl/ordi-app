@@ -60,7 +60,7 @@ class AbfragenController < ApplicationController
 
     def csv_for(karteikarten)
       (output = "").tap do
-        CSV.generate(output, :col_sep => ";") do |csv|
+        CSV.generate(output, :col_sep => ",", :row_sep => "\n") do |csv|
           csv << ["Anredewert", "Titel", "Familienname", "Vorname", "Tiername", "Tierart", "Rasse", "Geschl.", "Geb.Datum"]
           karteikarten.each do |karteikarte|
             csv << [karteikarte.person.anredewert.wert, 
@@ -71,7 +71,7 @@ class AbfragenController < ApplicationController
                     karteikarte.tier.tierart,
                     karteikarte.tier.rasse,
                     karteikarte.tier.geschlechtswert.wert,
-                    karteikarte.tier.geburtsdatum]
+                    karteikarte.tier.geburtsdatum ? karteikarte.tier.geburtsdatum : ""]
           end
         end
       end
