@@ -8,7 +8,7 @@
 	        <%= karteikarte_form.fields_for @person do |person_form| %>
 							<tr>
 								<td>Anrede</td>
-                <td><%= person_form.select :anredewert_id, Lookup.anredewerte %></td>
+                <td><%= person_form.select :anredewert_key, Lookup.anredewerte %></td>
 							</tr>
 							<tr>
 								<td>Titel</td>
@@ -80,7 +80,7 @@
 							</tr>
 							<tr>
 								<td>Geschlecht</td>
-                <td><%= tier_form.select :geschlechtswert_id, Lookup.geschlechtswerte %></td>
+                <td><%= tier_form.select :geschlechtswert_key, Lookup.geschlechtswerte %></td>
 							</tr>
 							<tr>
 								<td>Chipnr.</td>
@@ -167,7 +167,7 @@
       <%= link_to 'sichern', '#', :onclick => 'submit()', :class => 'text_button' %> &nbsp;
       <%= link_to 'neue Behandlung', '#', :onclick => 'submitNeueBehandlung()', :class => 'text_button' %> &nbsp;
       <%= link_to 'drucken', print_karteikarte_path( @karteikarte.id ), :target => '_blank', :class => 'text_button' %>&nbsp;&nbsp;&nbsp;&nbsp;
-      <%= link_to 'zurück', karteikarten_path, :class => "text_button" %>
+      <%#= link_to 'zurück', karteikarten_path, :class => "text_button" %>
       <%# unless @karteikarte.id.nil? %>
         <%#= link_to 'neue Behandlung', new_karteikarte_behandlung_path(@karteikarte.id), :class => 'text_button' %>
       <%# end %>
