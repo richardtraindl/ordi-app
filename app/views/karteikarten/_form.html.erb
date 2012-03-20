@@ -166,6 +166,7 @@
     <p>
       <%= link_to 'sichern', '#', :onclick => 'submit()', :class => 'text_button' %> &nbsp;
       <%= link_to 'neue Behandlung', '#', :onclick => 'submitNeueBehandlung()', :class => 'text_button' %> &nbsp;
+      <%= link_to 'drucken', '#', :onclick => 'print()', :class => 'text_button' %>&nbsp;&nbsp;&nbsp;&nbsp;
       <%= link_to 'zurück', karteikarten_path, :class => "text_button" %>
       <%# unless @karteikarte.id.nil? %>
         <%#= link_to 'neue Behandlung', new_karteikarte_behandlung_path(@karteikarte.id), :class => 'text_button' %>
@@ -210,6 +211,10 @@
   function submitNeueBehandlung() {
     $("input#neue_behandlung").attr("value", "true");
   	$('form').first().submit();
+  }
+
+  function print() {
+    alert("not implemented yet");
   }
 
 	function get_lab_list_text(){

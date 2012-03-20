@@ -3,29 +3,34 @@
   <p>
   	<table style="height: 100%">
       <tr style="height: 30px">
-        <td>Abfrage:</td>
+        <td>Abfrage</td>
         <td><%= select_tag "abfrage", options_for_select( Lookup.abfragen.map {|u| [u.bezeichnung, u.id]}, @abfrage.id ) %></td>
         <td><%= text_field_tag "param1", @param1 %></td>
-        <td><%= "Personen" %><%= select_tag "persopt", options_for_select( Lookup.abfrage_personen ) %></td>
-        <td><%= "Tiere" %><%= select_tag "tieropt", options_for_select( Lookup.abfrage_tiere ) %></td>
+        <td><%= "Personen" %> <%= select_tag "persopt", options_for_select( Lookup.abfrage_personen ) %></td>
+        <td><%= "Tiere" %> <%= select_tag "tieropt", options_for_select( Lookup.abfrage_tiere ) %></td>
         <td>
-            <%#= submit_tag "suchen" %>
             &nbsp;
-            <%= link_to "Suchen", '#', :onclick => 'submitHtml()', :class => 'text_button' %>
+            <%= submit_tag "suchen" %>
             &nbsp;
-            <%= link_to "Excel", '#', :onclick => 'submitExcel()', :class => 'text_button' %>
-			      &nbsp;
-            <%= link_to "Drucken", '#', :onclick => 'submitPdf()', :class => 'text_button' %>
-        </td>
+            <%#= link_to "Suchen", '#', :onclick => 'submitHtml()', :class => 'text_button' %>
+         </td>
+         <td>            
+            <% if @abfrage.id == 9 %>
+              <%= button_to "FA", "", :onclick => 'submitFA()', :disabled => false, :class => 'text_button', :id => "finanzamt" %>
+            <% else %>
+              <%= button_to "FA", "", :onclick => 'submitFA()', :disabled => true, :class => 'text_button', :id => "finanzamt" %>
+            <% end %>
+         </td>
       </tr>
       <tr style="height: 30px">
         <td>&nbsp;</td>
         <td>&nbsp;</td>
         <% if @abfrage.id == 4 || @abfrage.id == 9 || @abfrage.id == 10 %>
           <td><%= text_field_tag "param2", @param2, :disabled => false %></td>
-        <%else %>
+        <% else %>
           <td><%= text_field_tag "param2", @param2, :disabled => true %></td>
         <% end %>  
+        <td>&nbsp;</td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
@@ -48,21 +53,11 @@
 <script>
   $.datepicker.setDefaults($.datepicker.regional['']);  
   
-  function submitHtml() {
-    $("form").first().attr("action", "/abfragen");
-  	$('form').first().submit();
-  }
-  
-  function submitExcel() {
+  function submitFA() {
     $("form").first().attr("action", "/abfragen.csv");
   	$('form').first().submit();
   }
 
-  function submitPdf() {
-    alert("Not implemented yet");
-  }
-
-  
 	$(document).ready(function() {
 	  
     $(function() {
@@ -83,12 +78,19 @@
         $("#param1").datepicker($.datepicker.regional['de']);        
         $( "#param2" ).datepicker({ changeYear: true, dateFormat: 'dd.mm.yy' });
         $("#param2").datepicker($.datepicker.regional['de']);
-			}
+        if( wert == '9' ){
+          $('#finanzamt').removeAttr('disabled');
+        }
+        else{
+          $('#finanzamt').attr('disabled', 'disabled');
+        }
+			}      
 			else{
         $( "#param1" ).datepicker("destroy");
         $( "#param2" ).datepicker("destroy");
         $('#param2').attr('disabled', true);
-			}			
+        $('#finanzamt').attr('disabled', 'disabled');
+			}
 		} );    
 	});
 
