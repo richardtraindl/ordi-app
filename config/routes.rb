@@ -6,6 +6,7 @@ Ordi::Application.routes.draw do
   match '/signout', :to => 'sessions#destroy'
 
   resources :karteikarten, :only => [:index, :new, :edit, :create, :update, :destroy] do
+    get 'print', :on => :member    
     resources :tiere,    :only => :new
     resources :behandlungen, :only => :destroy
   end
