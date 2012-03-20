@@ -1,6 +1,7 @@
 
 <%= form_tag abfragen_path(), :method => :get do %>
-  <p>
+  <%= hidden_field_tag :csv, ''  %> 
+	<p>
   	<table style="height: 100%">
       <tr style="height: 30px">
         <td>Abfrage</td>
@@ -54,10 +55,10 @@
   $.datepicker.setDefaults($.datepicker.regional['']);  
   
   function submitFA() {
-    $("form").first().attr("action", "/abfragen.csv");
-  	$('form').first().submit();
-  }
-
+    $('#csv').attr( 'value', 't' );  	
+		$('form').first().submit();
+  }   
+	
 	$(document).ready(function() {
 	  
     $(function() {
@@ -83,6 +84,7 @@
         }
         else{
           $('#finanzamt').attr('disabled', 'disabled');
+					$('#csv').attr( 'value', '' );
         }
 			}      
 			else{
@@ -90,6 +92,7 @@
         $( "#param2" ).datepicker("destroy");
         $('#param2').attr('disabled', true);
         $('#finanzamt').attr('disabled', 'disabled');
+				$('#csv').attr( 'value', '' );
 			}
 		} );    
 	});
