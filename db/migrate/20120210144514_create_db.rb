@@ -8,7 +8,8 @@ class CreateDb < ActiveRecord::Migration
     end
 
   	create_table :personen do |t|
-    	t.references		:anredewert, :null => false, :default => 0
+    	t.references	:anredewert, :null => false, :default => 0
+      t.integer     :anredewert_key, :references => :anredewert, :null => false, :default => 0
     	t.string			:titel, :limit => 30
     	t.string			:familienname, :limit => 40
     	t.string			:vorname, :limit => 40
@@ -19,11 +20,12 @@ class CreateDb < ActiveRecord::Migration
     end
 
     create_table :anredewerte do |t|
+      t.integer	:key,  :null => false, :uniqueness => true
 			t.string	:wert, :limit => 10, :null => false
     end
 
     create_table :postadressen do |t|
-    	t.references		:person, :null => false
+    	t.references	:person, :null => false
     	t.string			:strasse, :limit =>40
     	t.string			:plz, :limit => 10
     	t.string			:ort, :limit => 40
@@ -32,14 +34,16 @@ class CreateDb < ActiveRecord::Migration
     end	
 	
 		create_table :kontaktwerte do |t|
+      t.integer	:key,  :null => false, :uniqueness => true
 			t.string	:wert, :limit => 10, :null => false
     end
 
 		create_table :kontakte do |t|
 			t.references	:kontaktwert, :null => false, :default => 1
+      t.integer     :kontaktwert_key, :references => :kontaktwert, :null => false, :default => 1
 			t.references	:person, :null => false
-			t.string		:kontakt, :limit => 50
-			t.string		:kontakt_intern, :limit => 50
+			t.string		  :kontakt, :limit => 50
+			t.string		  :kontakt_intern, :limit => 50
 		
 			t.timestamps
     end
@@ -52,7 +56,7 @@ class CreateDb < ActiveRecord::Migration
 	    t.string			:viren, :limit => 50
 	    t.string			:merkmal, :limit => 50
 	    t.date				:geburtsdatum
-	    t.references		:geschlechtswert, :null => false, :default => 0
+      t.integer     :geschlechtswert_key, :references => :geschlechtswert, :null => false, :default => 0
 	    t.string			:chipnr, :limit => 30
 	    t.string			:eu_passnr, :limit => 30
 	    t.boolean			:patienten_kz, :default => true
@@ -61,13 +65,14 @@ class CreateDb < ActiveRecord::Migration
     end
 
 		create_table :geschlechtswerte do |t|
+      t.integer	:key, :null => false, :uniqueness => true
 			t.string	:wert, :limit => 2, :null => false
     end
 
 
     create_table :behandlungen do |t|
 			t.references	:tier, :null => false
-			t.datetime		:behandlungsdatum, :null => false, :default => DateTime.now
+			t.datetime	:behandlungsdatum, :null => false, :default => DateTime.now
 			t.string		:gewicht_kg, :limit => 20
 			t.text			:diagnose
 			t.string		:laborwerte1, :limit => 200
@@ -80,6 +85,7 @@ class CreateDb < ActiveRecord::Migration
     end		
 
 		create_table :impfungswerte do |t|
+      t.integer	:key, :null => false, :uniqueness => true
 			t.string	:wert, :limit => 20, :null => false		
 		end	
 
@@ -90,11 +96,12 @@ class CreateDb < ActiveRecord::Migration
 
 		create_table :laborwerte do |t|
 			t.integer	:tierart, :null => false # 1 = Katze, 2 = Hund, 3 = Kaninchen
-			t.integer	:sortkey, :uniqueness => true
+      t.integer	:sort,  :null => false, :uniqueness => true
 			t.string	:wert, :limit => 20, :null => false
 		end
 
 	  create_table :abfragen do |t|
+      t.integer	:key, :null => false, :uniqueness => true
 			t.string	:bezeichnung, :null => false
 			t.string	:bedingung, :null => false
     end

@@ -14,17 +14,19 @@
 ActiveRecord::Schema.define(:version => 20120210144514) do
 
   create_table "abfragen", :force => true do |t|
-    t.string "bezeichnung", :null => false
-    t.string "bedingung",   :null => false
+    t.integer "key",         :null => false
+    t.string  "bezeichnung", :null => false
+    t.string  "bedingung",   :null => false
   end
 
   create_table "anredewerte", :force => true do |t|
-    t.string "wert", :limit => 10, :null => false
+    t.integer "key",                :null => false
+    t.string  "wert", :limit => 10, :null => false
   end
 
   create_table "behandlungen", :force => true do |t|
     t.integer  "tier_id",                                                            :null => false
-    t.datetime "behandlungsdatum",                :default => '2012-03-18 17:40:43', :null => false
+    t.datetime "behandlungsdatum",                :default => '2012-03-20 20:58:04', :null => false
     t.string   "gewicht_kg",       :limit => 20
     t.text     "diagnose"
     t.string   "laborwerte1",      :limit => 200
@@ -37,7 +39,8 @@ ActiveRecord::Schema.define(:version => 20120210144514) do
   end
 
   create_table "geschlechtswerte", :force => true do |t|
-    t.string "wert", :limit => 2, :null => false
+    t.integer "key",               :null => false
+    t.string  "wert", :limit => 2, :null => false
   end
 
   create_table "impfungen", :id => false, :force => true do |t|
@@ -46,7 +49,8 @@ ActiveRecord::Schema.define(:version => 20120210144514) do
   end
 
   create_table "impfungswerte", :force => true do |t|
-    t.string "wert", :limit => 20, :null => false
+    t.integer "key",                :null => false
+    t.string  "wert", :limit => 20, :null => false
   end
 
   create_table "karteikarten", :force => true do |t|
@@ -57,33 +61,36 @@ ActiveRecord::Schema.define(:version => 20120210144514) do
   end
 
   create_table "kontakte", :force => true do |t|
-    t.integer  "kontaktwert_id",               :default => 1, :null => false
-    t.integer  "person_id",                                   :null => false
-    t.string   "kontakt",        :limit => 50
-    t.string   "kontakt_intern", :limit => 50
-    t.datetime "created_at",                                  :null => false
-    t.datetime "updated_at",                                  :null => false
+    t.integer  "kontaktwert_id",                :default => 1, :null => false
+    t.integer  "kontaktwert_key",               :default => 1, :null => false
+    t.integer  "person_id",                                    :null => false
+    t.string   "kontakt",         :limit => 50
+    t.string   "kontakt_intern",  :limit => 50
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
   end
 
   create_table "kontaktwerte", :force => true do |t|
-    t.string "wert", :limit => 10, :null => false
+    t.integer "key",                :null => false
+    t.string  "wert", :limit => 10, :null => false
   end
 
   create_table "laborwerte", :force => true do |t|
     t.integer "tierart",               :null => false
-    t.integer "sortkey"
+    t.integer "sort",                  :null => false
     t.string  "wert",    :limit => 20, :null => false
   end
 
   create_table "personen", :force => true do |t|
-    t.integer  "anredewert_id",                :default => 0,    :null => false
-    t.string   "titel",         :limit => 30
-    t.string   "familienname",  :limit => 40
-    t.string   "vorname",       :limit => 40
-    t.string   "notiz",         :limit => 200
-    t.boolean  "kunden_kz",                    :default => true
-    t.datetime "created_at",                                     :null => false
-    t.datetime "updated_at",                                     :null => false
+    t.integer  "anredewert_id",                 :default => 0,    :null => false
+    t.integer  "anredewert_key",                :default => 0,    :null => false
+    t.string   "titel",          :limit => 30
+    t.string   "familienname",   :limit => 40
+    t.string   "vorname",        :limit => 40
+    t.string   "notiz",          :limit => 200
+    t.boolean  "kunden_kz",                     :default => true
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
   end
 
   create_table "postadressen", :force => true do |t|
@@ -96,19 +103,19 @@ ActiveRecord::Schema.define(:version => 20120210144514) do
   end
 
   create_table "tiere", :force => true do |t|
-    t.string   "tiername",           :limit => 30
-    t.string   "tierart",            :limit => 30
-    t.string   "rasse",              :limit => 30
-    t.string   "farbe",              :limit => 50
-    t.string   "viren",              :limit => 50
-    t.string   "merkmal",            :limit => 50
+    t.string   "tiername",            :limit => 30
+    t.string   "tierart",             :limit => 30
+    t.string   "rasse",               :limit => 30
+    t.string   "farbe",               :limit => 50
+    t.string   "viren",               :limit => 50
+    t.string   "merkmal",             :limit => 50
     t.date     "geburtsdatum"
-    t.integer  "geschlechtswert_id",               :default => 0,    :null => false
-    t.string   "chipnr",             :limit => 30
-    t.string   "eu_passnr",          :limit => 30
-    t.boolean  "patienten_kz",                     :default => true
-    t.datetime "created_at",                                         :null => false
-    t.datetime "updated_at",                                         :null => false
+    t.integer  "geschlechtswert_key",               :default => 0,    :null => false
+    t.string   "chipnr",              :limit => 30
+    t.string   "eu_passnr",           :limit => 30
+    t.boolean  "patienten_kz",                      :default => true
+    t.datetime "created_at",                                          :null => false
+    t.datetime "updated_at",                                          :null => false
   end
 
   create_table "users", :force => true do |t|

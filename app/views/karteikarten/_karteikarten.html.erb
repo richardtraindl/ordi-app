@@ -36,7 +36,7 @@
 			<%#= radio_button_tag "karteikarte", value="#{karteikarte.id}" %>
 			<td><%= link_to "bearb.", edit_karteikarte_path(karteikarte), :class => "text_button" %></td>
 				<% if karteikarte.person %>
-					<td><%= karteikarte.person.anredewert ? link_to(karteikarte.person.anredewert.wert, edit_karteikarte_path(karteikarte)) : "" %></td>
+					<td><%= karteikarte.person.anredewert_key ? link_to(Anredewert.anrede(karteikarte.person.anredewert_key), edit_karteikarte_path(karteikarte)) : "" %></td>
 					<td><%= karteikarte.person.titel ? link_to(karteikarte.person.titel, edit_karteikarte_path(karteikarte)) : "" %></td>
 					<td><%= karteikarte.person.familienname ? link_to(karteikarte.person.familienname, edit_karteikarte_path(karteikarte)) : "" %></td>
 					<td><%= karteikarte.person.vorname ? link_to(karteikarte.person.vorname, edit_karteikarte_path(karteikarte)) : "" %></td>
@@ -51,7 +51,7 @@
 					<td><%= karteikarte.tier.tiername ? link_to(karteikarte.tier.tiername, edit_karteikarte_path(karteikarte)) : "" %></td>
 					<td><%= karteikarte.tier.tierart ? link_to(karteikarte.tier.tierart, edit_karteikarte_path(karteikarte)) : "" %>
 					<td><%= karteikarte.tier.rasse ? link_to(karteikarte.tier.rasse, edit_karteikarte_path(karteikarte)) : "" %></td>
-					<td><%= karteikarte.tier.geschlechtswert ? link_to(karteikarte.tier.geschlechtswert.wert, edit_karteikarte_path(karteikarte)) : "" %></td>
+					<td><%= karteikarte.tier.geschlechtswert_key ? link_to(Geschlechtswert.geschlecht(karteikarte.tier.geschlechtswert_key), edit_karteikarte_path(karteikarte)) : "" %></td>
 					<td><%= karteikarte.tier.geburtsdatum ? link_to(karteikarte.tier.geburtsdatum, edit_karteikarte_path(karteikarte)) : "" %></td>
 				<% else %>
 					<td><%= "" %></td>

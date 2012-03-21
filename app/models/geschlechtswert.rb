@@ -10,4 +10,8 @@ class Geschlechtswert < ActiveRecord::Base
 	self.table_name = "geschlechtswerte"
 
 	has_many	:tiere
+
+  def self.geschlecht(key)
+  	self.find(:first, :conditions => ["key = ?", key]).wert
+  end
 end

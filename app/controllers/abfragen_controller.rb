@@ -56,10 +56,8 @@ class AbfragenController < ApplicationController
 		
 				elsif @abfrage.id == 11 #impfung
 						params[:param1].blank? ? flash.now[:error] = "Eingabe fehlt!" : @karteikarten = Karteikarte.find(:all, :conditions => [@abfrage.bedingung, @param1 + "%"], :joins => [:tier, :person, :tier => {:behandlungen => :impfungswerte}])
-				
 				end
 		end
-		
 
     if params[:csv] == 't'
 					send_data(csv_for(@karteikarten),
@@ -87,14 +85,14 @@ private
 				CSV.generate(output, :col_sep => ",", :row_sep => "\n") do |csv|
 					csv << ["Anredewert", "Titel", "Familienname", "Vorname", "Tiername", "Tierart", "Rasse", "Geschl.", "Geb.Datum"]
 					karteikarten.each do |karteikarte|
-						csv << [karteikarte.person.anredewert.wert, 
+						csv << [Anredewert.anrede(karteikarte.person.anredewert_key), 
 										karteikarte.person.titel, 
 										karteikarte.person.familienname,
 										karteikarte.person.vorname,
 										karteikarte.tier.tiername,
 										karteikarte.tier.tierart,
 										karteikarte.tier.rasse,
-										karteikarte.tier.geschlechtswert.wert,
+										Geschlechtswert.geschlecht(karteikarte.tier.geschlechtswert_key),
 										karteikarte.tier.geburtsdatum ? karteikarte.tier.geburtsdatum : ""]
 					end
 				end

@@ -3,11 +3,11 @@ puts "loading lookups.rb (in lib/)"   # helper to check/debug loading order
 module Lookup
 
   def self.anredewerte
-  	@@anredewerte				||= Anredewert.find(:all).map {|u| [u.wert, u.id] }
+  	@@anredewerte				||= Anredewert.find(:all).map {|u| [u.wert, u.key] }
   end
 
   def self.geschlechtswerte
-  	@@geschlechtswerte			||= Geschlechtswert.find(:all).map {|u| [u.wert, u.id] }
+  	@@geschlechtswerte			||= Geschlechtswert.find(:all).map {|u| [u.wert, u.key] }
   end
 	
   def self.impfungswerte
@@ -15,7 +15,7 @@ module Lookup
   end	
 
   def self.laborwerte
-  	@@laborwerte				||= Laborwert.find(:all, :order => ("sortkey ASC"))
+  	@@laborwerte				||= Laborwert.find(:all, :order => ("sort ASC"))
 	# .map {|u| [u.id, u.wert, u.tierart, u.sortkey] }
   end
 

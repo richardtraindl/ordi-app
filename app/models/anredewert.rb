@@ -8,6 +8,12 @@
 
 class Anredewert < ActiveRecord::Base
 	self.table_name = "anredewerte"
-	
+  
 	has_many :personen
+  
+  
+  def self.anrede(key)
+  	self.find(:first, :conditions => ["key = ?", key]).wert
+  end
+  
 end
