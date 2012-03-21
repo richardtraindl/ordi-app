@@ -12,6 +12,7 @@ class Geschlechtswert < ActiveRecord::Base
 	has_many	:tiere
 
   def self.geschlecht(key)
-  	self.find(:first, :conditions => ["key = ?", key]).wert
+  	# self.find(:first, :conditions => ["key = ?", key]).wert
+  	self.find_by_key!( key ).wert
   end
 end

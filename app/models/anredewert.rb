@@ -13,7 +13,9 @@ class Anredewert < ActiveRecord::Base
   
   
   def self.anrede(key)
-  	self.find(:first, :conditions => ["key = ?", key]).wert
+  	## self.find(:first, :conditions => ["key = ?", key]).wert
+  	
+  	self.find_by_key!( key ).wert
   end
   
 end
