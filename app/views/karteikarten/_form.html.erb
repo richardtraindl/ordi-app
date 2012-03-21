@@ -167,11 +167,6 @@
       <%= link_to 'sichern', '#', :onclick => 'submit()', :class => 'text_button' %> &nbsp;
       <%= link_to 'neue Behandlung', '#', :onclick => 'submitNeueBehandlung()', :class => 'text_button' %> &nbsp;
       <%= link_to 'drucken', print_karteikarte_path(karteikarte.id), :target => '_blank', :class => 'text_button' unless karteikarte.new_record? %>
-				<%#= link_to( 'drucken', "/karteikarten/#{karteikarte.id}/print", :target => '_blank', :class => 'text_button' ) unless karteikarte.new_record?  %>
-      <%#= link_to 'zurück', karteikarten_path, :class => "text_button" %>
-      <%# unless @karteikarte.id.nil? %>
-        <%#= link_to 'neue Behandlung', new_karteikarte_behandlung_path(@karteikarte.id), :class => 'text_button' %>
-      <%# end %>
     </p>
   </div>
   <% end %>

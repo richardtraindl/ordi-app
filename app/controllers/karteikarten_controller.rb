@@ -12,6 +12,14 @@ class KarteikartenController < ApplicationController
   end
 
 
+  # GET /karteikarte/:id/print
+  def print
+    @karteikarte  = Karteikarte.find(params[:id])
+
+    render :action => 'print', :layout => 'print'
+  end
+
+
 	# GET /owners/new
   # GET /owners/new.json
   def new
@@ -111,13 +119,6 @@ class KarteikartenController < ApplicationController
     @karteikarte.destroy
 
     redirect_to(karteikarten_path)
-  end
-
-  # GET /karteikarte/:id/print
-  def print
-    @karteikarte  = Karteikarte.find(params[:id])
-
-    render :action => 'print', :layout => 'print'
   end
   
 end

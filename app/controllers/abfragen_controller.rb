@@ -38,14 +38,22 @@ class AbfragenController < ApplicationController
 				elsif @abfrage.id == 2 || @abfrage.id == 3 || @abfrage.id == 6 #arznei, arzneimittel, diagnose
 						params[:param1].blank? ? flash.now[:error] = "Eingabe fehlt!" : @karteikarten = Karteikarte.find(:all, :select => "DISTINCT karteikarten.*", :conditions => [@abfrage.bedingung, @param1 + "%"], :joins => [:tier, :person, :tier => :behandlungen])
 				
-				elsif @abfrage.id == 4  || @abfrage.id == 9 #behandlung, finanzamt -> datum
+				elsif @abfrage.id == 4 #behandlung -> behandlungsdatum
 						if check_date(params[:param1]) && check_date(params[:param2])
 								@karteikarten = Karteikarte.find(:all, :select => "DISTINCT karteikarten.*", :conditions => [@abfrage.bedingung, DateTime.parse( @param1 ), DateTime.parse( @param2 )], :joins => [:tier, :person, :tier => :behandlungen])
 						else
 								flash[:error] = "Falsches oder unvollständiges Datum"
 								# redirect_to abfragen_path() and return
 						end
-		
+				elsif @abfrage.id == 9 # finanzamt -> behandlungsdatum
+						if check_date(params[:param1]) && check_date(params[:param2])
+								@karteikarten = Karteikarte.find(:all, :select => "karteikarten.*, behandlungen.behandlungsdatum", :conditions => [@abfrage.bedingung, DateTime.parse( @param1 ), DateTime.parse( @param2 )], :joins => [:tier, :person, :tier => :behandlungen])
+						else
+								flash[:error] = "Falsches oder unvollständiges Datum"
+								# redirect_to abfragen_path() and return
+						end
+
+
 				elsif @abfrage.id == 10 #impfung -> datum
 						if check_date(params[:param1]) && check_date(params[:param2])
 								@karteikarten = Karteikarte.find(:all, :select => "DISTINCT karteikarten.*", :conditions => [@abfrage.bedingung, DateTime.parse( @param1 ), DateTime.parse( @param2) ], :joins => [:tier, :person, :tier => {:behandlungen => :impfungswerte}])
@@ -82,18 +90,14 @@ private
 
 		def csv_for(karteikarten)
 			(output = "").tap do
-				CSV.generate(output, :col_sep => ",", :row_sep => "\n") do |csv|
-					csv << ["Anredewert", "Titel", "Familienname", "Vorname", "Tiername", "Tierart", "Rasse", "Geschl.", "Geb.Datum"]
+				CSV.generate(output, :col_sep => ";", :row_sep => "\n") do |csv|
+					csv << ["Familienname", "Tiername", "Beh.Datum"]
 					karteikarten.each do |karteikarte|
-						csv << [Anredewert.anrede(karteikarte.person.anredewert_key), 
-										karteikarte.person.titel, 
-										karteikarte.person.familienname,
-										karteikarte.person.vorname,
+            karteikarte.tier.behandlungen.each do |behandlung|
+						csv << [karteikarte.person.familienname,
 										karteikarte.tier.tiername,
-										karteikarte.tier.tierart,
-										karteikarte.tier.rasse,
-										Geschlechtswert.geschlecht(karteikarte.tier.geschlechtswert_key),
-										karteikarte.tier.geburtsdatum ? karteikarte.tier.geburtsdatum : ""]
+										behandlung.behandlungsdatum.strftime( '%d.%m.%Y' )]
+            end
 					end
 				end
 			end
