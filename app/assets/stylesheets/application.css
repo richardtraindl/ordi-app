@@ -1,27 +1,18 @@
-
- 
-@import "jquery-ui-1.8.18.custom.css";
-@import "chosen.css";
-
- 
-/////////////////////////////////////////
-// global color settings
-
-$background: #FBFBB1;
-$karteikarteHighlightBackground: #C7C7C7;
-
-
-
-///////////////////////////////
-// los geht's
+/*
+*= require_self
+*= require jquery-ui-1.8.18.custom
+*= require chosen
+*/
  
 body.application {
   font-family: "Arial";
   font-size:  10pt;
   color: black;
-  background-color: $background;
+  background-color: #FBFBB1;
 	margin: 0;
 	padding: 0px 2px 0px 2px;
+}
+
 
 .width100 {
   width: 100%;
@@ -35,7 +26,7 @@ body.application {
 
 .karteikarte tr.highlight td {
   font-weight: bold;
-  background-color: $karteikarteHighlightBackground;
+  background-color: #C7C7C7;
 }
 
 
@@ -49,10 +40,12 @@ body.application {
   border: 0;
 }
 
+
 table {
   border-collapse:collapse;
   /* table-layout:fixed; */
 }
+
 
 table.karteikarte,
 table.karteikarte th,
@@ -66,6 +59,7 @@ table.karteikarte td {
   white-space:nowrap;
 }
 
+
 table.liste, 
 table.liste th,
 table.liste td { 
@@ -78,9 +72,11 @@ table.liste td {
   white-space:nowrap;
 }
 
+
 table.liste tr:nth-child(even) { 
   background-color: #EEEEEE;
 }
+
 
 table.liste tr:nth-child(odd) { 
   background-color: #FFFFFF; 
@@ -122,91 +118,3 @@ a.header:hover {
   border: 1px solid rgb(153, 153, 153);
 }
 
-} // body.application
-
-body.print {
-	
-body {
-  font-family: "Arial";
-  font-size:  10pt;
-  color:black;
-	margin: 0;
-	padding: 0px 2px 0px 2px;
-}
-
-
-.width100 {
-  width: 100%;
-}
-
-
-.height100 {
-  height:100%;
-}
-
-
-.karteikarte tr.highlight td {
-  font-weight: bold;
-  background-color: #C7C7C7;
-}
-
-
-.karteikarte textarea {  
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;  
-  width: 100%;
-  height: 100%;
-  resize: vertical;
-  border: 0;
-}
-
-table {
-  border-collapse:collapse;
-  /* table-layout:fixed; */
-}
-
-table.karteikarte,
-table.karteikarte th,
-table.karteikarte td {
-  border-color:grey;  
-  border-style: solid; 
-  border-width:thin;
-  background-color: white;
-  vertical-align: top;
-  empty-cells:show;
-  white-space:nowrap;
-}
-
-table.liste, 
-table.liste th,
-table.liste td { 
-  padding: 2px;
-  border-color:grey;
-  border-style:solid; 
-  border-width:thin; 
-  text-align:left;
-  empty-cells:show;
-  white-space:nowrap;
-}
-
-table.liste tr:nth-child(even) { 
-  background-color: #EEEEEE;
-}
-
-table.liste tr:nth-child(odd) { 
-  background-color: #FFFFFF; 
-}
-
-
-h1.header {
-  margin: 4px;
-  font-size:  14pt;
-}
-
-
-.current{
-  color: #DEDDDD !important;
-}
-	
-} // body.print
