@@ -7,8 +7,12 @@ Ordi::Application.routes.draw do
 
   #, :only => [:index, :new, :edit, :create, :update, :destroy]
   resources :karteikarten do
-    get 'print', :on => :member    
+    member do
+      get 'print'
+    end
+    
     resources :tiere,    :only => :new
+    
     resources :behandlungen, :only => :destroy
   end
   

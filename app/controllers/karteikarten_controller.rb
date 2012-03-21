@@ -16,8 +16,7 @@ class KarteikartenController < ApplicationController
   def print
     @karteikarte  = Karteikarte.find(params[:id])
 
-		
-    render :action => 'print', :layout => 'print'  
+    render :action => 'print', :layout => 'print'
   end
 
 
