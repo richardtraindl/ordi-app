@@ -18,9 +18,14 @@
   
   <br>
   
+  <% flag = 0 %>
   <% @karteikarte.person.kontakte.each do |kontakt| %>
     <% unless kontakt.kontakt.blank? %>
-      Telefonnr. <%= kontakt.kontakt %>
+      <% if flag == 0 %>
+        Telefonnr.:
+      <% end %>
+      <%= kontakt.kontakt %>
+      <% flag = 1 %>
     <% end %>
   <% end %>
 </p>
