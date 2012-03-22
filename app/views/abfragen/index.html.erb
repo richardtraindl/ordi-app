@@ -11,9 +11,9 @@
         <td><%= "Tiere" %> <%= select_tag "tieropt", options_for_select( Lookup.abfrage_tiere ) %></td>
         <td>
             &nbsp;
-            <%= submit_tag "suchen" %>
+            <%#= submit_tag "suchen", :id => "suchen" %>
             &nbsp;
-            <%#= link_to "Suchen", '#', :onclick => 'submitHtml()', :class => 'text_button' %>
+            <%= link_to "Suchen", '#', :onclick => 'submitHtml()', :class => 'text_button' %>
          </td>
          <td>            
             <% if @abfrage.id == 9 %>
@@ -53,12 +53,17 @@
 
 <script>
   $.datepicker.setDefaults($.datepicker.regional['']);  
+
+  function submitHtml() {
+    $('#csv').attr( 'value', '' );
+		$('form').first().submit();
+  } 
   
   function submitFA() {
     $('#csv').attr( 'value', 't' );  	
 		$('form').first().submit();
   }   
-	
+  
 	$(document).ready(function() {
 	  
     $(function() {
@@ -94,7 +99,20 @@
         $('#finanzamt').attr('disabled', 'disabled');
 				$('#csv').attr( 'value', '' );
 			}
-		} );    
+		} );
+
+    $('form#suchen').click(function(){
+      $('#csv').attr( 'value', '' );
+  		$(this).submit();
+    });
+    
+    $('form').keypress(function(e){
+      if(e.which == 13){
+        $('form').first().submit();
+        e.preventDefault();
+      }
+    });    
+    
 	});
 
 </script>

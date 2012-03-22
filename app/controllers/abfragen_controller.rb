@@ -1,8 +1,5 @@
 # encoding: utf-8
 
-require 'csv'
-    
-
 class AbfragenController < ApplicationController
 
   include ApplicationHelper
@@ -45,6 +42,7 @@ class AbfragenController < ApplicationController
 								flash[:error] = "Falsches oder unvollständiges Datum"
 								# redirect_to abfragen_path() and return
 						end
+            
 				elsif @abfrage.id == 9 # finanzamt -> behandlungsdatum
 						if check_date(params[:param1]) && check_date(params[:param2])
 								@karteikarten = Karteikarte.find(:all, :select => "karteikarten.*, behandlungen.behandlungsdatum", :conditions => [@abfrage.bedingung, DateTime.parse( @param1 ), DateTime.parse( @param2 )], :joins => [:tier, :person, :tier => :behandlungen])
@@ -67,10 +65,10 @@ class AbfragenController < ApplicationController
 				end
 		end
 
-    if params[:csv] == 't'
+    if params[:csv] == 't' && !@karteikarten.empty?
 					send_data(csv_for(@karteikarten),
 						:type => csv_content_type,
-						:filename => @abfrage.bezeichnung) and return
+						:filename => "finanzamt.csv") and return
     end
     
     ## render :index
@@ -78,30 +76,27 @@ class AbfragenController < ApplicationController
   end # method index
   
 private
+    def csv_content_type
+      case request.user_agent
+        when /windows/i
+          'application/vnd.ms-excel'
+        else
+          'text/csv'
+      end
+    end
 
-  	def csv_content_type
-			case request.user_agent
-				when /windows/i
-					'application/vnd.ms-excel'
-				else
-					'text/csv'
-			end
-		end
+   def csv_for(karteikarten)
+      buf = "Familienname,Tiername,Beh.Datum\n"
+      
+      karteikarten.each do |karteikarte|
+        karteikarte.tier.behandlungen.each do |behandlung|
+          buf << karteikarte.person.familienname + "," + 
+                 karteikarte.tier.tiername + "," + 
+                 behandlung.behandlungsdatum.strftime( '%d.%m.%Y' ) + "\n"
+        end
+      end
 
-		def csv_for(karteikarten)
-			(output = "").tap do
-				CSV.generate(output, :col_sep => ";", :row_sep => "\n") do |csv|
-					csv << ["Familienname", "Tiername", "Beh.Datum"]
-					karteikarten.each do |karteikarte|
-            karteikarte.tier.behandlungen.each do |behandlung|
-						csv << [karteikarte.person.familienname,
-										karteikarte.tier.tiername,
-										behandlung.behandlungsdatum.strftime( '%d.%m.%Y' )]
-            end
-					end
-				end
-			end
-		end
-
+      return buf
+   end
 
 end
