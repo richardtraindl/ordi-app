@@ -3,10 +3,10 @@
 <p>
   <%= Anredewert.anrede(@karteikarte.person.anredewert_key) %>
   <%= @karteikarte.person.titel %>
-  <%= @karteikarte.person.familienname %>
+  <%= @karteikarte.person.familienname.blank? ? "familienname?" : @karteikarte.person.familienname %>
   <%= @karteikarte.person.vorname %>
-  <%= @karteikarte.person.notiz %>
-  Kunde:  <%= @karteikarte.person.kunden_kz == true ? "ja" : "nein" %>
+  <%= @karteikarte.person.notiz.blank? ? "" : "Notiz:" + @karteikarte.person.notiz %>
+  Kunde:<%= @karteikarte.person.kunden_kz == true ? "ja" : "nein" %>
   
   <br>  
   
@@ -26,17 +26,17 @@
 </p>
 
 <p>
-  <%= @karteikarte.tier.tiername %>
+  <%= @karteikarte.tier.tiername.blank? ? "tiername?" : @karteikarte.tier.tiername %>
   <%= @karteikarte.tier.tierart %>
   <%= @karteikarte.tier.rasse %>
   <%= @karteikarte.tier.farbe %>
-  <%= @karteikarte.tier.geburtsdatum_str %>
-  Geschlecht: <%= Geschlechtswert.geschlecht(@karteikarte.tier.geschlechtswert_key) %>
-  <%= @karteikarte.tier.chipnr %>
-  <%= @karteikarte.tier.eu_passnr %>
-  Patient:  <%= @karteikarte.tier.patienten_kz == true ? "ja" : "nein" %>
-  <%= @karteikarte.tier.viren %>
-  <%= @karteikarte.tier.merkmal %>
+  <%= @karteikarte.tier.geburtsdatum_str.blank? ? "" : "Geburtsdatum:" + @karteikarte.tier.geburtsdatum_str %>
+  <%= @karteikarte.tier.geschlechtswert_key > 0 ? "Geschlecht:" + Geschlechtswert.geschlecht(@karteikarte.tier.geschlechtswert_key) : "" %>
+  <%= @karteikarte.tier.chipnr.blank? ? "" : "Chipnr.:" + @karteikarte.tier.chipnr %>
+  <%= @karteikarte.tier.eu_passnr.blank? ? "" : "EU-Passnr.:" + @karteikarte.tier.eu_passnr %>
+  Patient:<%= @karteikarte.tier.patienten_kz == true ? "ja" : "nein" %>
+  <%= @karteikarte.tier.viren.blank? ? "" : "Viren:" + @karteikarte.tier.viren %>
+  <%= @karteikarte.tier.merkmal.blank? ? "" : "Merkmal:" + @karteikarte.tier.merkmal %>
 
   <table class="liste">
     <colgroup>
