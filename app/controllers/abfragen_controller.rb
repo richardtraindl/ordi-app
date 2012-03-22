@@ -89,6 +89,7 @@ private
       buf = "Familienname,Tiername,Beh.Datum\n"
       
       karteikarten.each do |karteikarte|
+        karteikarte.tier.behandlungen.sort! { |a, b| a.behandlungsdatum <=> b.behandlungsdatum }
         karteikarte.tier.behandlungen.each do |behandlung|
           buf << karteikarte.person.familienname + "," + 
                  karteikarte.tier.tiername + "," + 
