@@ -45,7 +45,7 @@ class AbfragenController < ApplicationController
             
 				elsif @abfrage.id == 9 # finanzamt -> behandlungsdatum
 						if check_date(params[:param1]) && check_date(params[:param2])
-								@karteikarten = Karteikarte.find(:all, :select => "karteikarten.*, behandlungen.behandlungsdatum", :conditions => [@abfrage.bedingung, DateTime.parse( @param1 ), DateTime.parse( @param2 )], :joins => [:tier, :person, :tier => :behandlungen])
+								@karteikarten = Karteikarte.find(:all, :select => "DISTINCT karteikarten.*, behandlungen.behandlungsdatum", :conditions => [@abfrage.bedingung, DateTime.parse( @param1 ), DateTime.parse( @param2 )], :joins => [:tier, :person, :tier => :behandlungen])
 						else
 								flash[:error] = "Falsches oder unvollständiges Datum"
 								# redirect_to abfragen_path() and return
