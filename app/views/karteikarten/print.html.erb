@@ -1,17 +1,81 @@
-
-
 <h1>Karteikarte</h1>
 
-<p>Under construction!<p>
+<p>
+  <%= Anredewert.anrede(@karteikarte.person.anredewert_key) %>
+  <%= @karteikarte.person.titel %>
+  <%= @karteikarte.person.familienname %>
+  <%= @karteikarte.person.vorname %>
+  <%= @karteikarte.person.notiz %>
+  Kunde:  <%= @karteikarte.person.kunden_kz == true ? "ja" : "nein" %>
+  
+  <br>  
+  
+  <% @karteikarte.person.postadressen.each do |postadresse| %>
+    <%= postadresse.plz %>
+    <%= postadresse.ort %>
+    <%= postadresse.strasse %>
+  <% end %>
+  
+  <br>
+  
+  <% @karteikarte.person.kontakte.each do |kontakt| %>
+    <% unless kontakt.kontakt.blank? %>
+      Telefonnr. <%= kontakt.kontakt %>
+    <% end %>
+  <% end %>
+</p>
 
-<pre>
-  1111    222    333
-  1111    111    444
-</pre>
+<p>
+  <%= @karteikarte.tier.tiername %>
+  <%= @karteikarte.tier.tierart %>
+  <%= @karteikarte.tier.rasse %>
+  <%= @karteikarte.tier.farbe %>
+  <%= @karteikarte.tier.geburtsdatum_str %>
+  Geschlecht: <%= Geschlechtswert.geschlecht(@karteikarte.tier.geschlechtswert_key) %>
+  <%= @karteikarte.tier.chipnr %>
+  <%= @karteikarte.tier.eu_passnr %>
+  Patient:  <%= @karteikarte.tier.patienten_kz == true ? "ja" : "nein" %>
+  <%= @karteikarte.tier.viren %>
+  <%= @karteikarte.tier.merkmal %>
 
-<table>
-  <tr>
-     <td>Testdaten</td>
-     <td>...</td>
-  </tr>
-</table>
+  <table class="liste">
+    <colgroup>
+      <col width="4%">
+      <col width="36%">
+      <col width="10%">
+      <col width="10%">
+      <col width="10%">
+      <col width="10%">
+      <col width="16%">
+      <col width="4%">
+    <colgroup>
+    <tr>
+      <th>Datum</th>
+      <th>Diagnose</th>
+      <th>Laborwerte</th>
+      <th>Laborwerte *</th>
+      <th>Arzneien</th>
+      <th>AM</th>
+      <th>Impfungen</th>
+      <th>Gewicht (Kg)</th>
+    </tr>
+  
+    <% @karteikarte.tier.behandlungen.sort! { |a, b| a.behandlungsdatum <=> b.behandlungsdatum } %>
+    <% @karteikarte.tier.behandlungen.each do |behandlung| %>
+     <tr>
+        <td><%= behandlung.behandlungsdatum_str %></td>
+        <td><%= behandlung.diagnose %></td>
+        <td><%= behandlung.laborwerte1 %></td>
+        <td><%= behandlung.laborwerte2 %></td>
+        <td><%= behandlung.arzneien %></td>
+        <td><%= behandlung.arzneimittel %></td>
+        <td>
+          <% behandlung.impfungswerte.each do |impfung| %>
+            <%= impfung.wert %>
+          <% end %>
+        </td>
+        <td><%= behandlung.gewicht_kg %></td>
+      </tr>
+    <% end %>
+  </table>
+</p>
