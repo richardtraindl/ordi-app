@@ -63,7 +63,7 @@ table.karteikarte td {
   background-color: white;
   vertical-align: top;
   empty-cells:show;
-  white-space:nowrap;
+  /* white-space:nowrap; */
 }
 
 
@@ -76,7 +76,7 @@ table.liste td {
   border-width:thin; 
   text-align:left;
   empty-cells:show;
-  white-space:nowrap;
+  /* white-space:nowrap; */
 }
 
 
