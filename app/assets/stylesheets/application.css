@@ -15,7 +15,7 @@ body.application {
 
 body.print {
   font-family: "Arial";
-  font-size:  10pt;
+  font-size: 10pt;
   color:black;
 	margin: 0;
 	padding: 0px 2px 0px 2px;
@@ -27,7 +27,7 @@ body.print {
 
 
 .height100 {
-  height:100%;
+  height: 100%;
 }
 
 
@@ -49,7 +49,7 @@ body.print {
 
 
 table {
-  border-collapse:collapse;
+  border-collapse: collapse;
   /* table-layout:fixed; */
 }
 
@@ -57,12 +57,12 @@ table {
 table.karteikarte,
 table.karteikarte th,
 table.karteikarte td {
-  border-color:grey;  
+  border-color: grey;  
   border-style: solid; 
-  border-width:thin;
+  border-width: thin;
   background-color: white;
   vertical-align: top;
-  empty-cells:show;
+  empty-cells: show;
 }
 
 
@@ -70,11 +70,12 @@ table.liste,
 table.liste th,
 table.liste td { 
   padding: 2px;
-  border-color:grey;
-  border-style:solid; 
-  border-width:thin; 
-  text-align:left;
-  empty-cells:show;
+  border-color: grey;
+  border-style: solid; 
+  border-width: thin; 
+  text-align: left;
+  empty-cells: show;
+  white-space: nowrap;
 }
 
 
@@ -89,23 +90,23 @@ table.liste tr:nth-child(odd) {
 
 
 a, a:hover, a:active, a:visited {
-  color:black;
-  font-style:normal;
-  font-weight:normal;
-  text-decoration:none;
+  color: black;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: none;
 }
 
 h1 {
-  font-size:  14pt;
+  font-size: 14pt;
 }
 
 h1.header {
   margin: 4px;
-  font-size:  14pt;
+  font-size: 14pt;
 }
 
 h1.print {
-  font-size:  14pt;
+  font-size: 14pt;
 }
 
 
