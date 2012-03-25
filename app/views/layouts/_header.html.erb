@@ -18,14 +18,14 @@
     </td>
     <td>
       <% if signed_in? %>
-        <h1 style="color: #FBFBB1; font-weight: normal" class="header">Willkommen <%= User.current.username %></h1>
+        <h1 style="color: #FBFBB1; font-weight: normal" class="header">Willkommen <%= current_user.username %></h1>
       <% end %>
     </td>
 		<td style="text-align: right">
       <% if signed_in? %>
-        <h1 class="header"><%= link_to "abmelden", signout_path(), :method => :delete, :class => current_page?(signout_path()) ? "current" : "header" %></h1>
+        <h1 class="header"><%= link_to "abmelden", logout_path(), :method => :delete, :class => current_page?(logout_path()) ? "current" : "header" %></h1>
       <% else %>
-        <h1 class="header"><%= link_to "anmelden", signin_path(), :class => "current" %></h1>
+        <h1 class="header"><%= link_to "anmelden", login_path(), :class => "current" %></h1>
       <% end %>
     </td>
 	</tr>

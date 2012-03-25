@@ -1,5 +1,6 @@
 require 'lookups.rb'
-
+include ApplicationHelper
+ 
 class KarteikartenController < ApplicationController
   # GET /owners
   # GET /owners.json

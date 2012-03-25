@@ -1,10 +1,12 @@
 Ordi::Application.routes.draw do
-    
-  resources :sessions, :only => [:new, :create, :destroy]
   
-  match '/signin', :to => 'sessions#new'
-  match '/signout', :to => 'sessions#destroy'
-
+  resources :user_sessions
+  
+  resources :users
+  
+  match 'login' => 'user_sessions#new', :as => :login
+  match 'logout' => 'user_sessions#destroy', :as => :logout  
+    
   resources :karteikarten do
     get 'print', :on => :member
     

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120210144514) do
+ActiveRecord::Schema.define(:version => 20120325073922) do
 
   create_table "abfragen", :force => true do |t|
     t.integer "key",         :null => false
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(:version => 20120210144514) do
 
   create_table "behandlungen", :force => true do |t|
     t.integer  "tier_id",                                                            :null => false
-    t.datetime "behandlungsdatum",                :default => '2012-03-21 14:21:35', :null => false
+    t.datetime "behandlungsdatum",                :default => '2012-03-25 17:10:39', :null => false
     t.string   "gewicht_kg",       :limit => 20
     t.text     "diagnose"
     t.string   "laborwerte1",      :limit => 200
@@ -119,11 +119,11 @@ ActiveRecord::Schema.define(:version => 20120210144514) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "username",           :null => false
-    t.string   "encrypted_password"
+    t.string   "username",         :null => false
+    t.string   "crypted_password"
     t.string   "salt"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
 end

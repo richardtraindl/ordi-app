@@ -29,6 +29,8 @@ end
 
 gem 'jquery-rails'
 
+gem 'sorcery'
+
 gem 'chosen-rails'
 
 # To use ActiveModel has_secure_password

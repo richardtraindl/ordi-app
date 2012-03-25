@@ -106,16 +106,6 @@ class CreateDb < ActiveRecord::Migration
 			t.string	:bedingung, :null => false
     end
 
-	  create_table :users do |t|
-			t.string	:username, :null => false, :uniqueness => true
-      t.string	:encrypted_password
-      t.string  :salt
-      
-      t.timestamps
-    end
-
   end
 
-  def down
-  end
 end

@@ -124,9 +124,6 @@
   Abfrage.create! :key => 16, :bezeichnung => "Tierart", :bedingung => "tiere.tierart LIKE ?"
   Abfrage.create! :key => 17, :bezeichnung => "Tiername", :bedingung => "tiere.tiername LIKE ?"
 
-  User.create! :username => "Elfi", :password => ""
-  User.create! :username => "Gerold", :password => "dummy"
-  User.create! :username => "Gast", :password => "dummy"
   User.create! :username => "Administrator", :password => "dummy"
 
 
