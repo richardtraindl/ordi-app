@@ -1,13 +1,15 @@
 <%= form_tag user_sessions_path, :method => :post do %>
-  <div class="field">
-    <%= label_tag :Benutzername %><br />
-    <%= text_field_tag :username %>
-  </div>
-  <div class="field">
-    <%= label_tag :Passwort %><br />
-    <%= password_field_tag :password %>
-  </div>
-  <div class="actions">
-    <%= submit_tag "anmelden" %>
-  </div>
+  <table>
+    <tr>
+      <td><%= label_tag :Benutzername %></td>
+      <td><%= text_field_tag :username %></td>
+    </tr>
+    <tr>
+      <td><%= label_tag :Passwort %></td>
+      <td><%= password_field_tag :password %></td>
+    </tr>
+  </table>
+  
+  <br>
+  <%= submit_tag "anmelden" %>
 <% end %>
